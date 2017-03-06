@@ -1,1 +1,0 @@
-alert('Terms&Conditions-Page');
