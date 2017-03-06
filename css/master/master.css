@@ -1,3 +1,6 @@
+body{
+	background: #F0F1F3 !important;
+}
 .banner{
 	background-color: #0091d4;
 	width: 100%;
@@ -106,8 +109,8 @@
 	padding: 0px 30px;
 	padding-top: 75px;
 	padding-bottom: 20px;
-	/*background-color: white;*/
-	background-color: #eae5e5;
+	background-color: white;
+	/*background-color: #eae5e5;*/
 }
 /*content*/
 /*footer*/
