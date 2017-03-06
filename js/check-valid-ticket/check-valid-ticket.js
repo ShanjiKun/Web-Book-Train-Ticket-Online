@@ -1,0 +1,1 @@
+alert('Check-valid-ticket-Page');
