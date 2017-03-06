@@ -1,0 +1,1 @@
+alert('Terms&Conditions-Page');

@@ -1,0 +1,1 @@
+alert('How-To-Buy-Page');
