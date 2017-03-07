@@ -39,13 +39,20 @@
 }
 .form-group{
 	width: 80%;
-	font-size: 12px;
 }
-.form-group label{
+.form-group p{
 	color: #317eac;
+	font-size: 12px;
 }
 .form-group input{
 	color: #317eac;
 	font-size: 12px;
 	height: 32px;
+}
+.is-khuhoi-group{
+	margin-bottom: 15px;
+}
+.is-khuhoi-group span{
+	font-size: 12px;
+	padding-right: 16px;
 }
