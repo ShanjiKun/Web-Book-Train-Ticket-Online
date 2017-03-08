@@ -41,21 +41,31 @@
 							  	</div>
 							  	<div class="form-group">
 							    	<p>Ngày đi</p>
-							    	<input type="text" class="form-control" id="NgayDi" placeholder="Ngày đi">
-							    	<img src="http://dsvn.vn/images/widgetIcon.png" id="btn-ngay-di-DP">
+							    	<input type="text" class="form-control input-datepicker" id="NgayDiDP" placeholder="Ngày đi">
+							    	<img class="image-calendar" src="https://us.123rf.com/450wm/mamanamsai/mamanamsai1412/mamanamsai141200858/35039467-calendar-icon-on-blue-button.jpg" id="btn-ngay-di-dp">
+							    	<div class="input-timepicker">
+							    		<input type="text" name="" class="form-control" id="NgayDiTP" placeholder="Giờ đi">
+							    	</div>
 							 	</div>
 							 	<div class="form-group">
 							    	<p>Ngày về</p>
-							    	<input type="text" class="form-control datepicker" id="NgayVe" placeholder="Ngày về">
+							    	<input type="text" class="form-control input-datepicker" id="NgayVeDP" placeholder="Ngày về">
+							    	<img class="image-calendar" src="https://us.123rf.com/450wm/mamanamsai/mamanamsai1412/mamanamsai141200858/35039467-calendar-icon-on-blue-button.jpg" id="btn-ngay-ve-dp">
+							    	<div class="input-timepicker">
+							    		<input type="text" name="" class="form-control" id="NgayVeTP" placeholder="Giờ về">
+							    	</div>
 							 	</div>
-							  <button type="submit" class="btn btn-default">Submit</button>
+							  	<div class="form-group">
+							  		<a href="" class="btn-1">Tìm kiếm</a>
+							  	</div>
 							</form>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div id="center-area">
-						
+						<a href="http://www.vr.com.vn/cam-nang-di-tau.html" target="_blank"><img style="width: 100%;" src="http://dsvn.vn/images/banner-tet-2016.jpg">
+						</a>
 					</div>
 				</div>
 				<div class="col-md-3">
@@ -64,24 +74,57 @@
 							<img src="http://dsvn.vn/images/widgetIcon.png">
 							<p>Giỏ vé</p>
 						</div>
+						<div class="ticket-manager">
+							<div id="num-ticket">
+								<p id="no-ticket">Chưa có vé</p>
+							</div>
+							<div class="buy-ticket">
+								<a href="" class="btn-1">Mua vé</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script>
-	    // initialize input widgets first
 	    
-	    $('#NgayDi').datepicker({
-	        'format': 'yyyy-m-d',
+	    //Add datepicker
+	    $('#NgayDiDP').datepicker({
+	        'format': 'd-m-yyyy',
 	        'autoclose': true
 	    });
-	    $('#NgayVe').datepicker({
-	        'format': 'yyyy-m-d',
+
+	    $('#NgayVeDP').datepicker({
+	        'format': 'd-m-yyyy',
 	        'autoclose': true
 	    });
-	    $('#btn-ngay-di-DP').click(function(){
-	    	$('#NgayDi').show();
+
+	    $('#btn-ngay-di-dp').datepicker({
+	    	'format': 'd-m-yyyy',
+	        'autoclose': true
+	    }).on("changeDate", function(e){
+	    	var dateDMY = e.date.getDate() + '-' + (e.date.getMonth() + 1) + '-' +  e.date.getFullYear();
+	    	$('#NgayDiDP').val(dateDMY);
+	    });
+
+	    $('#btn-ngay-ve-dp').datepicker({
+	    	'format': 'd-m-yyyy',
+	        'autoclose': true
+	    }).on("changeDate", function(e){
+	    	var dateDMY = e.date.getDate() + '-' + (e.date.getMonth() + 1) + '-' +  e.date.getFullYear();
+	    	$('#NgayVeDP').val(dateDMY);
+	    });
+
+	    //Add time picker
+	    $('#NgayDiTP').timepicker({
+	    	'step': 30,
+	    	 'timeFormat': 'H:i'
+	    });
+
+	    $('#NgayVeTP').timepicker({
+	    	'step': 30,
+	    	 'timeFormat': 'H:i'
 	    });
 	</script>
 @stop
