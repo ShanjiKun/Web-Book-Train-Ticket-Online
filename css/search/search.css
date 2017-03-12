@@ -28,16 +28,16 @@
 	cursor: pointer;
 }
 .train-normal{
-	background-image: url('/Web-Book-Train-Ticket-Online/images/train.png');
+	background-image: url('./images/train.png');
 }
 .train-picked{
-	background-image: url('/Web-Book-Train-Ticket-Online/images/train-picked.png');
+	background-image: url('./images/train-picked.png');
 }
 .train-normal-hover{
-	background-image: url('/Web-Book-Train-Ticket-Online/images/train-hover.png');
+	background-image: url('./images/train-hover.png');
 }
 .train-picked-hover{
-	background-image: url('/Web-Book-Train-Ticket-Online/images/train-picked-hover.png');
+	background-image: url('./images/train-picked-hover.png');
 }
 .train-name{
 	height: 15px;
@@ -229,16 +229,16 @@
 	text-align: center;
 }
 .car-disable-ticket{
-	background-image: url('/Web-Book-Train-Ticket-Online/images/tc-gray.png');
+	background-image: url('./images/tc-gray.png');
 }
 .car-enable-ticket{
-	background-image: url('/Web-Book-Train-Ticket-Online/images/tc-blue.png');
+	background-image: url('./images/tc-blue.png');
 }
 .car-current-ticket{
-	background-image: url('/Web-Book-Train-Ticket-Online/images/tc-green.png');
+	background-image: url('./images/tc-green.png');
 }
 .car-full-ticket{
-	background-image: url('/Web-Book-Train-Ticket-Online/images/tc-orange.png');
+	background-image: url('./images/tc-orange.png');
 }
 .note-seat-container{
 	padding: 5px;
