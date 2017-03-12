@@ -1,0 +1,132 @@
+body{
+	background: #F0F1F3 !important;
+}
+*{
+	font-family: Verdana !important;
+}
+.banner{
+	background-color: #0091d4;
+	width: 100%;
+	height: 84px;
+}
+.banner-container{
+	width: 80%;
+	height: 100%;
+	margin: 0px 10%;
+}
+.banner-left{
+	width: 394px;
+	height: 100%;
+}
+.banner-left-logo{
+	float: left;
+	width: 236px;
+	height: 100%;
+	background-image: url('http://dsvn.vn/images/LOGO_n.png');
+}
+.banner-left-time p{
+	padding-top: 62px;
+	padding-bottom: 0px;
+	color: white;
+	font-family: Verdana;
+}
+/*navigation*/
+#custom-bootstrap-menu{
+	z-index: 999;
+	position: absolute;
+	padding: 0px 10%;
+	top: 94px;
+	left: 0;
+	width: 100%;
+	height: 25px;
+	display: block;
+	box-shadow: 0 3px 3px #cccccc;
+}
+#custom-bootstrap-menu.navbar-default .navbar-brand {
+    color: rgba(255, 255, 255, 1);
+}
+#custom-bootstrap-menu.navbar-default {
+    font-size: 12px;
+    background-color: rgba(153, 153, 153, 1);
+    border-width: 0px;
+    border-radius: 0px;
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a {
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(153, 153, 153, 1);
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a:focus {
+    color: rgba(0, 131, 193, 1);
+    background-color: rgba(250, 250, 250, 1);
+    background: -webkit-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(250, 250, 250, 1) 100%);
+    background: linear-gradient(to bottom, rgba(245, 245, 245, 1) 0%, rgba(250, 250, 250, 1) 100%);
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a,
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:focus {
+    color: rgba(0, 131, 193, 1);
+    background-color: rgba(255, 255, 255, 1);
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle {
+    border-color: #ffffff;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus {
+    background-color: #ffffff;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle .icon-bar {
+    background-color: #ffffff;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover .icon-bar,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus .icon-bar {
+    background-color: #999999;
+}
+/*navigation*/
+/*content*/
+.custom-container{
+	margin: 0px 10%;
+	background-color: #F0F1F3;
+}
+.adv-left{
+	z-index: 1;
+	float: left;
+}
+.adv-left img{
+	top: 25%;
+	left: 1%;
+	width: 9%;
+	position: fixed;
+}
+.adv-right{
+	z-index: 1;
+	float: right;
+}
+.adv-right img{
+	top: 25%;
+	width: 9%;
+	position: fixed;
+}
+.content-container{
+	width: 100%;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 75px;
+	padding-bottom: 20px;
+	background-color: white;
+	/*background-color: #eae5e5;*/
+}
+/*content*/
+/*footer*/
+.footer {
+    font-size: 14px;
+    margin-top: 20px;
+    border-bottom: 1px solid #ccc;
+    background-color: #ccc;
+    color: #fff;
+    height: 25px;
+}
+.text-center{
+	text-align: center;
+}
+/*footer*/
