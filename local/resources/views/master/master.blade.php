@@ -36,7 +36,7 @@
 		<div id="custom-bootstrap-menu" class="navbar navbar-default" role="navigation">
 		    <div class="container-fluid">
 		        <div class="navbar-header">
-		        	<a class="navbar-brand" href="/Web-Book-Train-Ticket-Online/">Home</a>
+		        	<a class="navbar-brand" href="/">Home</a>
 		            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder">
 			            <span class="sr-only">Toggle navigation</span>
 			            <span class="icon-bar"></span>
@@ -46,21 +46,21 @@
 		        </div>
 		        <div class="collapse navbar-collapse navbar-menubuilder">
 		            <ul class="nav navbar-nav navbar-left">
-		                <li><a href="/Web-Book-Train-Ticket-Online/timve">TÌM VÉ</a>
+		                <li><a href="/timve">TÌM VÉ</a>
 		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/thongtindatcho">THÔNG TIN ĐẶT CHỖ</a>
+		                <li><a href="/thongtindatcho">THÔNG TIN ĐẶT CHỖ</a>
 		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/kiemtrave">KIỂM TRA VÉ</a>
+		                <li><a href="/kiemtrave">KIỂM TRA VÉ</a>
 		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/giotau">GIỜ TÀU</a>
+		                <li><a href="/giotau">GIỜ TÀU</a>
 		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/khuyenmai">KHUYẾN MÃI</a>
+		                <li><a href="/khuyenmai">KHUYẾN MÃI</a>
 		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/quydinh">CÁC QUY ĐỊNH</a>
+		                <li><a href="/quydinh">CÁC QUY ĐỊNH</a>
 		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/huongdan">HƯỚNG DẪN</a>
+		                <li><a href="/huongdan">HƯỚNG DẪN</a>
 		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/lienhe">LIỆN HỆ</a>
+		                <li><a href="/lienhe">LIỆN HỆ</a>
 		                </li>
 		            </ul>
 		        </div>
@@ -80,11 +80,11 @@
 				<img src="http://dsvn.vn/images/dsvn2.jpg">
 			</div>
 			<div class="footer text-center">
-                <a href="/Web-Book-Train-Ticket-Online/timve" ng-bind-html="'Menu_search'|translate" class="ng-binding">Tìm vé</a>&nbsp;|&nbsp;
-                <a href="/Web-Book-Train-Ticket-Online/thongtindatcho" ng-bind-html="'Menu_searchBookingInfo'|translate" class="ng-binding">Thông tin đặt chỗ</a>&nbsp;|&nbsp;
-                <a href="/Web-Book-Train-Ticket-Online/giotau" ng-bind-html="'Menu_trainTimeTable'|translate" class="ng-binding">Giờ tàu</a>&nbsp;|&nbsp;
-                <a href="/Web-Book-Train-Ticket-Online/huongdan" ng-bind-html="'Menu_guide'|translate" class="ng-binding">Hướng dẫn</a>&nbsp;|&nbsp;
-                <a href="/Web-Book-Train-Ticket-Online/lienhe" ng-bind-html="'Menu_contact'|translate" class="ng-binding">Liên hệ</a>
+                <a href="/timve" ng-bind-html="'Menu_search'|translate" class="ng-binding">Tìm vé</a>&nbsp;|&nbsp;
+                <a href="/thongtindatcho" ng-bind-html="'Menu_searchBookingInfo'|translate" class="ng-binding">Thông tin đặt chỗ</a>&nbsp;|&nbsp;
+                <a href="/giotau" ng-bind-html="'Menu_trainTimeTable'|translate" class="ng-binding">Giờ tàu</a>&nbsp;|&nbsp;
+                <a href="/huongdan" ng-bind-html="'Menu_guide'|translate" class="ng-binding">Hướng dẫn</a>&nbsp;|&nbsp;
+                <a href="/lienhe" ng-bind-html="'Menu_contact'|translate" class="ng-binding">Liên hệ</a>
             </div>
             <div class="row et-footer-logo-group">
 
