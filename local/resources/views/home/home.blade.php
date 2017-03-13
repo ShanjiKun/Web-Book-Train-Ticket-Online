@@ -18,7 +18,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-3">
-					<div id="left-area">
+					<div id="ticket-info-area">
 						<div class="widget-header">
 							<img src="http://dsvn.vn/images/widgetIcon.png">
 							<p>Thông tin hành trình</p>
@@ -63,13 +63,13 @@
 					</div>
 				</div>
 				<div class="col-md-6">
-					<div id="center-area">
+					<div id="poster-area">
 						<a href="http://www.vr.com.vn/cam-nang-di-tau.html" target="_blank"><img style="width: 100%;" src="http://dsvn.vn/images/banner-tet-2016.jpg">
 						</a>
 					</div>
 				</div>
 				<div class="col-md-3">
-					<div id="right-area">
+					<div id="num-ticket-area">
 						<div class="widget-header">
 							<img src="http://dsvn.vn/images/widgetIcon.png">
 							<p>Giỏ vé</p>

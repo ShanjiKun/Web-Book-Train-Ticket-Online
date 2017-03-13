@@ -15,20 +15,20 @@ body{
 	margin: 0px 10%;
 }
 .banner-left{
-	width: 394px;
+	width: 500px;
 	height: 100%;
 }
 .banner-left-logo{
 	float: left;
-	width: 236px;
+	width: 240px;
 	height: 100%;
 	background-image: url('http://dsvn.vn/images/LOGO_n.png');
 }
-.banner-left-time p{
-	padding-top: 62px;
-	padding-bottom: 0px;
+.banner-left-time{
+	float: left;
 	color: white;
-	font-family: Verdana;
+	width: 260px;
+	padding-top: 60px;
 }
 /*navigation*/
 #custom-bootstrap-menu{

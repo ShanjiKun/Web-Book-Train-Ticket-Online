@@ -1,14 +1,15 @@
 #home-page{
 	width: 100%;
 }
-#left-area{
+#ticket-info-area{
 	border: 1px solid #ccc;
 }
-#center-area{
+#poster-area{
 	border: 1px solid black;
 }
-#right-area{
+#num-ticket-area{
 	border: 1px solid #ccc;
+	margin-bottom: 10px;
 }
 
 

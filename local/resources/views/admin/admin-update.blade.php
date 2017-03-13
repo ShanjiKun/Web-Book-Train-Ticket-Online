@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
 	<head>
@@ -17,7 +18,9 @@
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
-		<script type="text/javascript" src="{{ asset('/js/master/master.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('/js/admin/admin-update.js') }}"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</head>
 	<body>
 		<div class="banner">
@@ -27,7 +30,7 @@
 						
 					</div> <!-- banner-left-logo -->
 					<div class="banner-left-time">
-						Chủ nhật, 05/03/2017
+						<p>Chủ nhật, 05/03/2017</p>
 					</div> <!-- banner-left-time -->
 				</div> <!-- banner-left -->
 			</div> <!-- banner-container -->
@@ -46,38 +49,98 @@
 		        </div>
 		        <div class="collapse navbar-collapse navbar-menubuilder">
 		            <ul class="nav navbar-nav navbar-left">
-		                <li><a href="/Web-Book-Train-Ticket-Online/timve">TÌM VÉ</a>
-		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/thongtindatcho">THÔNG TIN ĐẶT CHỖ</a>
-		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/kiemtrave">KIỂM TRA VÉ</a>
-		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/giotau">GIỜ TÀU</a>
-		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/khuyenmai">KHUYẾN MÃI</a>
-		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/quydinh">CÁC QUY ĐỊNH</a>
-		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/huongdan">HƯỚNG DẪN</a>
-		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/lienhe">LIỆN HỆ</a>
-		                </li>
+		                <!-- <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Page 1-1</a></li>
+            <li><a href="#">Page 1-2</a></li>
+            <li><a href="#">Page 1-3</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Page 1-1</a></li>
+            <li><a href="#">Page 1-2</a></li>
+            <li><a href="#">Page 1-3</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Page 1-1</a></li>
+            <li><a href="#">Page 1-2</a></li>
+            <li><a href="#">Page 1-3</a></li>
+          </ul>
+        </li> -->
+
+        <li><a href="#">Report</a></li>
+      	<li><a href="#">Data</a></li>
+      	<li><a href="#">Chart</a></li>
+      	<li><a href="#">Notice</a></li>
+      	<li><a href="#">Plan</a></li>
+      	
 		            </ul>
+		            <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
 		        </div>
 		    </div>
-		</div> <!-- custom-bootstrap-menu -->
-
+		</div> <!-- custom-bootstrap-menu-->
+ 
+ <!-- <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Page 1-1</a></li>
+            <li><a href="#">Page 1-2</a></li>
+            <li><a href="#">Page 1-3</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Page 1-1</a></li>
+            <li><a href="#">Page 1-2</a></li>
+            <li><a href="#">Page 1-3</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Page 1-1</a></li>
+            <li><a href="#">Page 1-2</a></li>
+            <li><a href="#">Page 1-3</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav> -->
 		<div class="custom-container">
-			<div class="adv-left">
-				<img src="http://dsvn.vn/images/dsvn1.jpg">
-			</div>
+			
 			<div class="content-container">
 				<!-- MAIN -->
-				@yield('content')
+				<!-- @yield('content') -->
+				
 
-			</div>
-			<div class="adv-right">
-				<img src="http://dsvn.vn/images/dsvn2.jpg">
 			</div>
 			<div class="footer text-center">
                 <a href="/Web-Book-Train-Ticket-Online/timve" ng-bind-html="'Menu_search'|translate" class="ng-binding">Tìm vé</a>&nbsp;|&nbsp;
