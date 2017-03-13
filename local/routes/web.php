@@ -38,6 +38,15 @@ Route::get('/huongdan', function(){
 Route::get('/lienhe', function(){
 	return view('contact/contact');
 });
-Route::get('/admin', function(){
-	return view('admin/admin');
+Route::get('/admin/admin-sign-up', function(){
+	return view('admin/admin-sign-up');
+});
+Route::get('/admin/admin-sign-in', function(){
+	return view('admin/admin-sign-in');
+});
+Route::get('/admin/admin-update', function(){
+	return view('admin/admin-update');
+});
+Route::get('/admin/test', function(){
+	return view('admin/test');
 });
