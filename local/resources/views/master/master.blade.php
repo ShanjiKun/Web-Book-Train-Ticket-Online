@@ -27,7 +27,7 @@
 						
 					</div> <!-- banner-left-logo -->
 					<div class="banner-left-time">
-						<p>Chủ nhật, 05/03/2017</p>
+						Chủ nhật, 05/03/2017
 					</div> <!-- banner-left-time -->
 				</div> <!-- banner-left -->
 			</div> <!-- banner-container -->
