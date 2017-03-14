@@ -1379,23 +1379,6 @@
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<script type="text/javascript">
 
-
-		$('.seat').hover(function(){
-			var x = $(this).offset().left - ($('#medium-pop-up').width() - $(this).width())/2;
-		  	var y = $(this).offset().top -  $('#medium-pop-up').outerHeight();
-		    $('#medium-pop-up').show()
-		    .css('top',  y)
-		    .css('left', x)
-		    .appendTo('body');
-
-		    var marginOfTriangle = ($('#medium-pop-up').width() - $('#medium-pop-up-triangle').width())/2;
-		    $('#medium-pop-up-triangle').css('margin-left', marginOfTriangle);
-		},function(){
-			$('#medium-pop-up').hide();
-		});
-
-
-
 		$( "div.train-normal" ).hover(
 		  function() {
 		    $( this ).css('background-image','url('+ './images/train-hover.png' +')');
@@ -1413,42 +1396,103 @@
 		);
 
 		//Pop-up handle
+		//small popup
 		$('.B80').hover( function(){
 			$('#small-pop-up-body').html("Ngồi cứng (B80)");
-			showSmallPopup($(this));
-		}, hideSmallPopup);
+			showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
+		}, function(){
+			hideSmallPopup($('#small-pop-up'));
+		});
 		$('.B80L').hover( function(){
 			$('#small-pop-up-body').html("Ngồi cứng điều hòa (B80L)");
-			showSmallPopup($(this));
-		}, hideSmallPopup);
+			showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
+		}, function(){
+			hideSmallPopup($('#small-pop-up'));
+		});
 		$('.A64L').hover( function(){
 			$('#small-pop-up-body').html("Ngồi mềm điều hòa (A64L)");
-			showSmallPopup($(this));
-		}, hideSmallPopup);
+			showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
+		}, function(){
+			hideSmallPopup($('#small-pop-up'));
+		});
 		$('.Bn42L').hover( function(){
 			$('#small-pop-up-body').html("Nằm cứng điều hòa (Bn42L)");
-			showSmallPopup($(this));
-		}, hideSmallPopup);
+			showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
+		}, function(){
+			hideSmallPopup($('#small-pop-up'));
+		});
 		$('.An28L').hover( function(){
 			$('#small-pop-up-body').html("Nằm mềm điều hòa (An28L)");
-			showSmallPopup($(this));
-		}, hideSmallPopup);
+			showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
+		}, function(){
+			hideSmallPopup($('#small-pop-up'));
+		});
 
-		function showSmallPopup(e) {
-		  	var x = e.offset().left - ($('#small-pop-up').width() - e.width())/2;
-		  	var y = e.offset().top -  $('#small-pop-up').outerHeight();
-		    $('#small-pop-up').show()
+		//Medium popup
+		$('.sit-color-white').hover(function(){
+			$('#medium-pop-up-header').html("Chỗ trống(Mã số vé: 12345)");
+			$('#medium-pop-up-header').css('color', '#3d86b1');
+			$('#medium-pop-up-content').html("Giá: 123,000 VNĐ");
+			showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
+		},function(){
+			hideSmallPopup($('#medium-pop-up'));
+		});
+		$('.sit-color-green').hover(function(){
+			$('#medium-pop-up-header').html("Trong giỏ vé(Thời gian giữ vé: 10 phút)(Mã số vé: 12345)");
+			$('#medium-pop-up-header').css('color', '#3d86b1');
+			$('#medium-pop-up-content').html("Giá: 123,000 VNĐ");
+			showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
+		},function(){
+			hideSmallPopup($('#medium-pop-up'));
+		});
+		$('.sit-color-yellow').hover(function(){
+			$('#medium-pop-up-header').html("Đang GD(Thời gian giữ vé: 4 phút)(Mã số vé: 12345)");
+			$('#medium-pop-up-header').css('color', '#fec306');
+			$('#medium-pop-up-content').html("Giá: 123,000 VNĐ");
+			showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
+		},function(){
+			hideSmallPopup($('#medium-pop-up'));
+		});
+		$('.sit-color-orange').hover(function(){
+			$('#medium-pop-up-header').html("Chưa khả dụng");
+			$('#medium-pop-up-header').css('color', '#df5327');
+			$('#medium-pop-up-content').html("Chỗ chưa khả dụng");
+			showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
+		},function(){
+			hideSmallPopup($('#medium-pop-up'));
+		});
+		$('.sit-color-gray').hover(function(){
+			$('#medium-pop-up-header').html("Không bán(Mã số vé: 12345)");
+			$('#medium-pop-up-header').css('color', '#3d86b1');
+			$('#medium-pop-up-content').html("Bán vé viết tay");
+			showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
+		},function(){
+			hideSmallPopup($('#medium-pop-up'));
+		});
+		$('.sit-color-violet').hover(function(){
+			$('#medium-pop-up-header').html("Chỗ chặn dài hơn là sao nhỉ ???");
+			$('#medium-pop-up-header').css('color', '#3d86b1');
+			$('#medium-pop-up-content').html("Làm sao??? AAAAAA");
+			showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
+		},function(){
+			hideSmallPopup($('#medium-pop-up'));
+		});
+		//Handle popup
+		function showSmallPopup(e, popup, popup_triangle) {
+		  	var x = e.offset().left - (popup.width() - e.width())/2;
+		  	var y = e.offset().top -  popup.outerHeight();
+		    popup.show()
 		    .css('top',  y)
 		    .css('left', x)
 		    .appendTo('body');
 
 		    //Update triangle position
-		    var marginOfTriangle = ($('#small-pop-up').width() - $('#small-pop-up-triangle').width())/2;
-		    $('#small-pop-up-triangle').css('margin-left', marginOfTriangle);
+		    var marginOfTriangle = (popup.width() - popup_triangle.width())/2;
+		    popup_triangle.css('margin-left', marginOfTriangle);
 		}
 
-		function hideSmallPopup(){
-	  		$('#small-pop-up').hide();
+		function hideSmallPopup(popup){
+	  		popup.hide();
 		}
 	</script>
 @stop

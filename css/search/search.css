@@ -314,11 +314,8 @@
 #medium-pop-up {
 	display: none;
 	position: absolute;
-	height: 100px;
 }
 #medium-pop-up-body{
-	width: 100%;
-	height: 90px;
 	padding-top: 2px;
 	padding: 0 3px;
 	text-align: left;
@@ -327,10 +324,9 @@
 	background-color: rgb(255, 255, 255);
 }
 #medium-pop-up-header{
-	width: 100%;
-	height: 30px;
+	max-width: 200px;
 	padding: 5px 5px;
-	color: #3d86b1;
+	color: #3d86b1; /*yellow: #fec306, red: #df5327*/
 	font-family: Verdana;
 	font-weight: 500;
 	font-size: 13px;
@@ -338,9 +334,7 @@
 	border-bottom: 0.5px solid #a6a7a8;
 }
 #medium-pop-up-content{
-	width: 100%;
-	height: 40px;
-	padding: 15px 15px;
+	padding: 10px 5px;
 	color: #555555;
 	font-family: Verdana;
 	font-weight: bold;
@@ -349,7 +343,7 @@
 #medium-pop-up-triangle{
 	width: 0;
 	height: 0;
-	border-top: 10px solid #a6a7a8;
+	border-top: 10px solid #e6e6e6;
 	border-right: 10px solid transparent;
 	border-left: 10px solid transparent;
 	margin-left: 77.5px; /*=pop-up.width()/2-5/2 (5 la border-top)*/
