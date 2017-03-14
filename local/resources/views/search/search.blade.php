@@ -206,39 +206,39 @@
 							</div>
 					  	</div> <!-- pick-train -->
 					  	<div class="pick-car">
-					  		<div class="train-car">
+					  		<div class="train-car An28L">
 								<img src="./images/tc-gray.png">
 								<div class="car-label">1</div>
 							</div>
-							<div class="train-car">
+							<div class="train-car An28L">
 								<img src="./images/tc-green.png">
 								<div class="car-label">10</div>
 							</div>
-							<div class="train-car">
+							<div class="train-car An28L">
 								<img src="./images/tc-blue.png">
 								<div class="car-label">30</div>
 							</div>
-							<div class="train-car">
+							<div class="train-car Bn42L">
 								<img src="./images/tc-blue.png">
 								<div class="car-label">30</div>
 							</div>
-							<div class="train-car">
+							<div class="train-car Bn42L">
 								<img src="./images/tc-orange.png">
 								<div class="car-label">20</div>
 							</div>
-							<div class="train-car">
+							<div class="train-car A64L">
 								<img src="./images/tc-blue.png">
 								<div class="car-label">30</div>
 							</div>
-							<div class="train-car">
+							<div class="train-car A64L">
 								<img src="./images/tc-blue.png">
 								<div class="car-label">30</div>
 							</div>
-							<div class="train-car">
+							<div class="train-car B80L">
 								<img src="./images/tc-blue.png">
 								<div class="car-label">30</div>
 							</div>
-							<div class="train-car">
+							<div class="train-car B80">
 								<img src="./images/tc-blue.png">
 								<div class="car-label">30</div>
 							</div>
@@ -1351,8 +1351,51 @@
 			</div> <!-- row -->
 		</div> <!-- container-fluid -->
 	</div>
+
+	<!-- small-pop-up -->
+	<div id="small-pop-up">
+	    <div id="small-pop-up-body">
+	    	Ngồi mềm điều hòa (A64L)
+	    </div>
+	    <div id="small-pop-up-triangle">
+	    	
+	    </div>
+    </div>
+    <!-- medium-pop-up -->
+	<div id="medium-pop-up">
+		<div id="medium-pop-up-body">
+			<div id="medium-pop-up-header">
+    			Chỗ trống(Mã số vé: 12345)
+	    	</div>
+	    	<div id="medium-pop-up-content">
+	    		Giá: 123,000 VNĐ
+	    	</div>
+		</div>
+	    <div id="medium-pop-up-triangle">
+	    	
+	    </div>
+    </div>
+
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<script type="text/javascript">
+
+
+		$('.seat').hover(function(){
+			var x = $(this).offset().left - ($('#medium-pop-up').width() - $(this).width())/2;
+		  	var y = $(this).offset().top -  $('#medium-pop-up').outerHeight();
+		    $('#medium-pop-up').show()
+		    .css('top',  y)
+		    .css('left', x)
+		    .appendTo('body');
+
+		    var marginOfTriangle = ($('#medium-pop-up').width() - $('#medium-pop-up-triangle').width())/2;
+		    $('#medium-pop-up-triangle').css('margin-left', marginOfTriangle);
+		},function(){
+			$('#medium-pop-up').hide();
+		});
+
+
+
 		$( "div.train-normal" ).hover(
 		  function() {
 		    $( this ).css('background-image','url('+ './images/train-hover.png' +')');
@@ -1368,5 +1411,44 @@
 		    $( this ).css('background-image','url('+ './images/train-picked.png' +')');
 		  }
 		);
+
+		//Pop-up handle
+		$('.B80').hover( function(){
+			$('#small-pop-up-body').html("Ngồi cứng (B80)");
+			showSmallPopup($(this));
+		}, hideSmallPopup);
+		$('.B80L').hover( function(){
+			$('#small-pop-up-body').html("Ngồi cứng điều hòa (B80L)");
+			showSmallPopup($(this));
+		}, hideSmallPopup);
+		$('.A64L').hover( function(){
+			$('#small-pop-up-body').html("Ngồi mềm điều hòa (A64L)");
+			showSmallPopup($(this));
+		}, hideSmallPopup);
+		$('.Bn42L').hover( function(){
+			$('#small-pop-up-body').html("Nằm cứng điều hòa (Bn42L)");
+			showSmallPopup($(this));
+		}, hideSmallPopup);
+		$('.An28L').hover( function(){
+			$('#small-pop-up-body').html("Nằm mềm điều hòa (An28L)");
+			showSmallPopup($(this));
+		}, hideSmallPopup);
+
+		function showSmallPopup(e) {
+		  	var x = e.offset().left - ($('#small-pop-up').width() - e.width())/2;
+		  	var y = e.offset().top -  $('#small-pop-up').outerHeight();
+		    $('#small-pop-up').show()
+		    .css('top',  y)
+		    .css('left', x)
+		    .appendTo('body');
+
+		    //Update triangle position
+		    var marginOfTriangle = ($('#small-pop-up').width() - $('#small-pop-up-triangle').width())/2;
+		    $('#small-pop-up-triangle').css('margin-left', marginOfTriangle);
+		}
+
+		function hideSmallPopup(){
+	  		$('#small-pop-up').hide();
+		}
 	</script>
 @stop
