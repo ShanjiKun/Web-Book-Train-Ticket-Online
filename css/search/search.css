@@ -65,6 +65,15 @@
 .text-center{
 	text-align: center;
 }
+.full-width{
+	width: 100%;
+}
+.font-small{
+	font-size: 12px;
+}
+.font-8{
+	font-size: 8px;
+}
 .ele-inline-block{
 	display: inline-block;
 }
@@ -124,16 +133,54 @@
 	width: 100%;
 	height: 100%;
 }
+
+
+
+
+
+
+
+
+/*SEAT CSS*/
 .seat{
-	width: 5%;
 	height: 35px;
 	float: left;
 	padding-left: 2px;
 	padding-right: 2px;
 	cursor: pointer;
 }
+.seat-80{
+	width: 5%;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+.seat-64{
+	width: 11%;
+	margin-left: 2px;
+	margin-right: 2px;
+}
 .seat-right{
 	margin-right: 2px;
+}
+.seat-64-seperator{
+	width: 4%;
+    float: left;
+    height: 158px;
+    padding: 0 5px;
+}
+.seat-64-seperator div{
+	height: 68px;
+    background-color: #888;
+    border-radius: 5px;
+}
+.seat-64-seperator div:first-child{
+    margin-top: -5px;
+    margin-bottom: 32px;
+}
+.seat-64-hafl-block{
+	float: left;
+	width: 48%;
+	min-height: 1px;
 }
 .sit-side{
 	width: 16%;
@@ -161,6 +208,7 @@
 }
 .sit-color-orange{
 	background-color: #df5327;
+	color: white;
 }
 .sit-color-white{
 	background-color: #fff;
@@ -176,9 +224,11 @@
 }
 .sit-color-violet{
 	background-color: #8971e1;
+	color: white;
 }
 .sit-color-green{
 	background-color: #a6b727;
+	color: white;
 }
 .sit-num{
 	padding-top: 5px;
@@ -189,7 +239,84 @@
 	height: 20px;
 	float: left;
 }
+/*END SEAT CSS*/
 
+
+
+
+
+
+
+/*BED CSS*/
+.car-floor-full-height{
+	width: 5.55555556%;
+    float: left;
+    height: 158px;
+}
+.bed-way{
+	height: 40px;
+    line-height: 40px;
+}
+.container-bed{
+	width: 89%;
+	float: left;
+	min-height: 1px;
+}
+.col-1-8{
+	width: 12.5%;
+    float: left;
+    min-height: 1px;
+}
+.bed{
+	width: 6.25%;
+    float: left;
+	height: 35px;
+    line-height: 30px;
+}
+.bed-left{
+	border-left: 3px solid #385d8a;
+    height: 40px;
+}
+.bed-right{
+	border-right: 3px solid #385d8a;
+    height: 40px;
+}
+.bed-left.bed-outer{
+	padding-right: 2px;
+    padding-top: 3px;
+    padding-bottom: 10px;
+    height: 100%;
+}
+.bed-right.bed-outer{
+	padding-left: 2px;
+    padding-top: 3px;
+    padding-bottom: 10px;
+    height: 100%;
+}
+.main-bed{
+	height: 100%;
+    margin: 0 4px -8px;
+    border-radius: 5px;
+    border: 1px solid #888;
+    line-height: 25px;
+}
+.bed-illu{
+	border-bottom: 3px solid #385d8a;
+    border-left: 3px solid #385d8a;
+    border-right: 3px solid #385d8a;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    height: 10px;
+    line-height: 30px;
+}
+/*END BED CSS*/
+
+
+
+
+
+
+/*NOTE CSS*/
 .note{
 	width: 100%;
 	margin-top: 40px;
@@ -283,7 +410,17 @@
 .note-seat-explain-main{
 	padding: 0 15px;
 }
+/*END NOTE CSS*/
 
+
+
+
+
+
+
+
+
+/*POP UP CSS*/
 /*small-pop-up*/
 #small-pop-up {
 	display: none;
@@ -348,3 +485,4 @@
 	border-left: 10px solid transparent;
 	margin-left: 77.5px; /*=pop-up.width()/2-5/2 (5 la border-top)*/
 }
+/*END POP UP CSS*/
