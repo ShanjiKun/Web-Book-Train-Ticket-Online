@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/home', function () {
     return view('home/home');
 });
 Route::get('/timve', function(){
@@ -38,15 +38,21 @@ Route::get('/huongdan', function(){
 Route::get('/lienhe', function(){
 	return view('contact/contact');
 });
-Route::get('/admin/admin-sign-up', function(){
-	return view('admin/admin-sign-up');
-});
-Route::get('/admin/admin-sign-in', function(){
-	return view('admin/admin-sign-in');
-});
-Route::get('/admin/admin-update', function(){
-	return view('admin/admin-update');
-});
-Route::get('/admin/test', function(){
-	return view('admin/test');
+
+Route::group(['prefix'=>'admin'],function(){
+	Route::get('admin-sign-in',function(){
+		return view('admin/admin-sign-in');
+	});
+	Route::get('admin-sign-up',function(){
+		return view('admin/admin-sign-up');
+	});
+	Route::get('admin-update', function(){
+		return view('admin/admin-update');
+	});
+	Route::get('test', function(){
+		return view('admin/test');
+	});
+	Route::get('admin-main', function(){
+		return view('admin/admin-main');
+	});
 });

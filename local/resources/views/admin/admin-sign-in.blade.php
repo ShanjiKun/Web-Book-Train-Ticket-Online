@@ -1,6 +1,3 @@
-@extends('../master/master')
-@section('title','Admin')
-@section('content')
 
 	<link rel="stylesheet" type="text/css" href="{{ asset('/css/admin/admin-sign-in.css') }}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -23,5 +20,3 @@
 	 	</div>
 		
 	</div>
-
-@stop
