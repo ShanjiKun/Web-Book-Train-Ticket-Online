@@ -55,4 +55,7 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('admin-main', function(){
 		return view('admin/admin-main');
 	});
+	Route::get('ke1', function(){
+		return view('admin/ke1');
+	});
 });
