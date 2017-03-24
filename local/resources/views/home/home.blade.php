@@ -13,7 +13,6 @@
 	
 	<link rel="stylesheet" type="text/css" href="{{ asset('/css/lib/bootstrap-datepicker.css') }}" />
 	<script type="text/javascript" src="{{ asset('/js/lib/bootstrap-datepicker.js') }}"></script>
-	
 	<div id="home-page">
 		<div class="container-fluid">
 			<div class="row">
@@ -27,36 +26,36 @@
 							<form>
 								<div class="form-group">
 								    <p>Ga đi</p>
-								    <input type="text" class="form-control" id="GaDi" placeholder="Ga đi">
+								    <input type="text" class="form-control station-dropdown" id="station-leave" placeholder="Ga đi">
 								</div>
 							  	<div class="form-group">
 							    	<p>Ga đến</p>
-							    	<input type="text" class="form-control" id="GaDen" placeholder="Ga đến">
+							    	<input type="text" class="form-control station-dropdown" id="station-arrive" placeholder="Ga đến">
 							 	</div>
-							  	<div class="is-khuhoi-group">
-							  		<input type="radio" name="MotChieu">
+							  	<div class="round-trip">
+							  		<input type="radio" name="isRoundTrip" value="1">
 							  		<span>Một chiều</span>
-							  		<input type="radio" name="KhuHoi">
+							  		<input type="radio" name="isRoundTrip" value="2">
 							  		<span>Khứ hồi</span>
 							  	</div>
 							  	<div class="form-group">
 							    	<p>Ngày đi</p>
-							    	<input type="text" class="form-control input-datepicker" id="NgayDiDP" placeholder="Ngày đi">
-							    	<img class="image-calendar" src="https://us.123rf.com/450wm/mamanamsai/mamanamsai1412/mamanamsai141200858/35039467-calendar-icon-on-blue-button.jpg" id="btn-ngay-di-dp">
+							    	<input type="text" class="form-control input-datepicker" id="date-leave" placeholder="Ngày đi">
+							    	<img class="image-calendar" src="https://us.123rf.com/450wm/mamanamsai/mamanamsai1412/mamanamsai141200858/35039467-calendar-icon-on-blue-button.jpg" id="btn-date-leave">
 							    	<div class="input-timepicker">
-							    		<input type="text" name="" class="form-control" id="NgayDiTP" placeholder="Giờ đi">
+							    		<input type="text" class="form-control" id="time-leave" placeholder="Giờ đi">
 							    	</div>
 							 	</div>
 							 	<div class="form-group">
 							    	<p>Ngày về</p>
-							    	<input type="text" class="form-control input-datepicker" id="NgayVeDP" placeholder="Ngày về">
-							    	<img class="image-calendar" src="https://us.123rf.com/450wm/mamanamsai/mamanamsai1412/mamanamsai141200858/35039467-calendar-icon-on-blue-button.jpg" id="btn-ngay-ve-dp">
+							    	<input type="text" class="form-control input-datepicker" id="date-round" placeholder="Ngày về">
+							    	<img class="image-calendar" src="https://us.123rf.com/450wm/mamanamsai/mamanamsai1412/mamanamsai141200858/35039467-calendar-icon-on-blue-button.jpg" id="btn-date-round">
 							    	<div class="input-timepicker">
-							    		<input type="text" name="" class="form-control" id="NgayVeTP" placeholder="Giờ về">
+							    		<input type="text" class="form-control" id="time-round" placeholder="Giờ về">
 							    	</div>
 							 	</div>
 							  	<div class="form-group">
-							  		<a href="" class="btn-1">Tìm kiếm</a>
+							  		<div id="search-btn" class="btn-1">Tìm kiếm</div>
 							  	</div>
 							</form>
 						</div>
@@ -79,7 +78,7 @@
 								<p id="no-ticket">Chưa có vé</p>
 							</div>
 							<div class="buy-ticket">
-								<a href="" class="btn-1">Mua vé</a>
+								<div class="btn-1">Mua vé</div>
 							</div>
 						</div>
 					</div>
@@ -87,42 +86,85 @@
 			</div>
 		</div>
 	</div>
+
+	<ul id="station-dropdown-content" class="dropdown-menu" style="display:none;" >
+  		<?php 
+			$stations = $jsonStations;
+			foreach ($stations as $key => $value) {
+				echo "<li><a id='".$key."' class='station-pick'>".$value."</a></li>";
+			}
+		?>
+	</ul>
 	<script>
 	    
+	    $('#search-btn').click(function(){
+	    	$.post("search-trip",{
+	    		stationLeave: $('#station-leave').val(),
+	    		stationArrive: $('#station-arrive').val(),
+	    		isRoundTrip: $('input[name=isRoundTrip]').val(),
+	    		dateLeave: $('#date-leave').val(),
+	    		dateRound: $('#date-round').val(),
+	    		timeLeave: $('#time-leave').val(),
+	    		timeRound: $('#time-round').val()
+	    	},function(data, status){
+	    		alert('Data:' + data +'  status: '+status);
+	    	});
+	    });
+
+		//Handle station dropdown
+		var currentTypeStation; //leave, arrive or ''
+		$('.station-dropdown').keyup(function(){
+			var x = $(this).offset().left;
+		  	var y = $(this).offset().top + $(this).outerHeight();
+			$('#station-dropdown-content')
+			.css('left', x)
+			.css('top', y)
+			.css('display', 'block');
+			currentTypeStation = $(this).attr('id');
+		});
+
+		$(document).click(function(){
+			$('#station-dropdown-content').css('display', 'none');
+		});
+
+		$('.station-pick').click(function(){
+			$('#'+currentTypeStation).val($(this).attr('id')+' '+$(this).html());
+		});
+
 	    //Add datepicker
-	    $('#NgayDiDP').datepicker({
+	    $('#date-leave').datepicker({
 	        'format': 'd-m-yyyy',
 	        'autoclose': true
 	    });
 
-	    $('#NgayVeDP').datepicker({
+	    $('#date-round').datepicker({
 	        'format': 'd-m-yyyy',
 	        'autoclose': true
 	    });
 
-	    $('#btn-ngay-di-dp').datepicker({
+	    $('#btn-date-leave').datepicker({
 	    	'format': 'd-m-yyyy',
 	        'autoclose': true
 	    }).on("changeDate", function(e){
 	    	var dateDMY = e.date.getDate() + '-' + (e.date.getMonth() + 1) + '-' +  e.date.getFullYear();
-	    	$('#NgayDiDP').val(dateDMY);
+	    	$('#date-leave').val(dateDMY);
 	    });
 
-	    $('#btn-ngay-ve-dp').datepicker({
+	    $('#btn-date-round').datepicker({
 	    	'format': 'd-m-yyyy',
 	        'autoclose': true
 	    }).on("changeDate", function(e){
 	    	var dateDMY = e.date.getDate() + '-' + (e.date.getMonth() + 1) + '-' +  e.date.getFullYear();
-	    	$('#NgayVeDP').val(dateDMY);
+	    	$('#date-round').val(dateDMY);
 	    });
 
 	    //Add time picker
-	    $('#NgayDiTP').timepicker({
+	    $('#time-leave').timepicker({
 	    	'step': 30,
 	    	 'timeFormat': 'H:i'
 	    });
 
-	    $('#NgayVeTP').timepicker({
+	    $('#time-round').timepicker({
 	    	'step': 30,
 	    	 'timeFormat': 'H:i'
 	    });

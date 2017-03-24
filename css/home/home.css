@@ -51,10 +51,10 @@
 	font-size: 12px;
 	height: 32px;
 }
-.is-khuhoi-group{
+.round-trip{
 	margin-bottom: 15px;
 }
-.is-khuhoi-group span{
+.round-trip span{
 	font-size: 12px;
 	padding-right: 16px;
 }
@@ -99,4 +99,7 @@
 #no-ticket{
 	color: red; 
 	font-size: 14px;
+}
+#station-dropdown-content>li>a:hover{
+	background-color: #2fa4e7;
 }

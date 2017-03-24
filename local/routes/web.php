@@ -11,11 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home/home');
-});
+Route::get('/', 'home\HomeController@getHomeView');
 Route::get('/timve', function(){
-	return view('search/search');
+	return view('search\search');
 });
 Route::get('/thongtindatcho', function(){
 	return view('booking-information/booking-information');
@@ -56,3 +54,6 @@ Route::group(['prefix'=>'admin'],function(){
 		return view('admin/admin-main');
 	});
 });
+
+//
+Route::post('search-trip', 'home\HomeController@searchTrip');
