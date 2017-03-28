@@ -12,9 +12,7 @@
 */
 
 Route::get('/', 'home\HomeController@getHomeView');
-Route::get('/timve', function(){
-	return view('search\search');
-});
+Route::get('/search', 'search\SearchController@getSearchView');
 Route::get('/thongtindatcho', function(){
 	return view('booking-information/booking-information');
 });
@@ -56,4 +54,7 @@ Route::group(['prefix'=>'admin'],function(){
 });
 
 //
-Route::post('search-trip', 'home\HomeController@searchTrip');
+Route::post('search-trip', 'database\DatabaseController@searchTrip');
+Route::post('get-train-name-via-trip', 'database\DatabaseController@getTrainNameViaTrip');
+Route::post('get-train-time-via-station', 'database\DatabaseController@getTrainTimeViaStation');
+Route::post('get-number-seat', 'database\DatabaseController@getNumberSeat');

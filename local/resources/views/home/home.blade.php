@@ -33,14 +33,14 @@
 							    	<input type="text" class="form-control station-dropdown" id="station-arrive" placeholder="Ga đến">
 							 	</div>
 							  	<div class="round-trip">
-							  		<input type="radio" name="isRoundTrip" value="1">
+							  		<input type="radio" name="isRoundTrip" value="1" checked="checked">
 							  		<span>Một chiều</span>
 							  		<input type="radio" name="isRoundTrip" value="2">
 							  		<span>Khứ hồi</span>
 							  	</div>
 							  	<div class="form-group">
 							    	<p>Ngày đi</p>
-							    	<input type="text" class="form-control input-datepicker" id="date-leave" placeholder="Ngày đi">
+							    	<input type="text" class="form-control input-datepicker" id="date-leave" readonly="readonly" placeholder="Ngày đi">
 							    	<img class="image-calendar" src="https://us.123rf.com/450wm/mamanamsai/mamanamsai1412/mamanamsai141200858/35039467-calendar-icon-on-blue-button.jpg" id="btn-date-leave">
 							    	<div class="input-timepicker">
 							    		<input type="text" class="form-control" id="time-leave" placeholder="Giờ đi">
@@ -48,10 +48,10 @@
 							 	</div>
 							 	<div class="form-group">
 							    	<p>Ngày về</p>
-							    	<input type="text" class="form-control input-datepicker" id="date-round" placeholder="Ngày về">
-							    	<img class="image-calendar" src="https://us.123rf.com/450wm/mamanamsai/mamanamsai1412/mamanamsai141200858/35039467-calendar-icon-on-blue-button.jpg" id="btn-date-round">
+							    	<input type="text" class="form-control input-datepicker control-disable"  id="date-round" placeholder="Ngày về">
+							    	<img class="image-calendar control-disable" src="https://us.123rf.com/450wm/mamanamsai/mamanamsai1412/mamanamsai141200858/35039467-calendar-icon-on-blue-button.jpg" id="btn-date-round">
 							    	<div class="input-timepicker">
-							    		<input type="text" class="form-control" id="time-round" placeholder="Giờ về">
+							    		<input type="text" class="form-control control-disable" id="time-round" placeholder="Giờ về">
 							    	</div>
 							 	</div>
 							  	<div class="form-group">
@@ -59,7 +59,7 @@
 							  	</div>
 							</form>
 						</div>
-					</div>
+					</div> <!-- ticket-info-area -->
 				</div>
 				<div class="col-md-6">
 					<div id="poster-area">
@@ -86,87 +86,15 @@
 			</div>
 		</div>
 	</div>
-
+	<!-- Station Dropdown -->
 	<ul id="station-dropdown-content" class="dropdown-menu" style="display:none;" >
-  		<?php 
-			$stations = $jsonStations;
-			foreach ($stations as $key => $value) {
-				echo "<li><a id='".$key."' class='station-pick'>".$value."</a></li>";
-			}
-		?>
+		<!-- Station Dropdown Content -->
 	</ul>
 	<script>
-	    
-	    $('#search-btn').click(function(){
-	    	$.post("search-trip",{
-	    		stationLeave: $('#station-leave').val(),
-	    		stationArrive: $('#station-arrive').val(),
-	    		isRoundTrip: $('input[name=isRoundTrip]').val(),
-	    		dateLeave: $('#date-leave').val(),
-	    		dateRound: $('#date-round').val(),
-	    		timeLeave: $('#time-leave').val(),
-	    		timeRound: $('#time-round').val()
-	    	},function(data, status){
-	    		alert('Data:' + data +'  status: '+status);
-	    	});
-	    });
-
-		//Handle station dropdown
-		var currentTypeStation; //leave, arrive or ''
-		$('.station-dropdown').keyup(function(){
-			var x = $(this).offset().left;
-		  	var y = $(this).offset().top + $(this).outerHeight();
-			$('#station-dropdown-content')
-			.css('left', x)
-			.css('top', y)
-			.css('display', 'block');
-			currentTypeStation = $(this).attr('id');
-		});
-
-		$(document).click(function(){
-			$('#station-dropdown-content').css('display', 'none');
-		});
-
-		$('.station-pick').click(function(){
-			$('#'+currentTypeStation).val($(this).attr('id')+' '+$(this).html());
-		});
-
-	    //Add datepicker
-	    $('#date-leave').datepicker({
-	        'format': 'd-m-yyyy',
-	        'autoclose': true
-	    });
-
-	    $('#date-round').datepicker({
-	        'format': 'd-m-yyyy',
-	        'autoclose': true
-	    });
-
-	    $('#btn-date-leave').datepicker({
-	    	'format': 'd-m-yyyy',
-	        'autoclose': true
-	    }).on("changeDate", function(e){
-	    	var dateDMY = e.date.getDate() + '-' + (e.date.getMonth() + 1) + '-' +  e.date.getFullYear();
-	    	$('#date-leave').val(dateDMY);
-	    });
-
-	    $('#btn-date-round').datepicker({
-	    	'format': 'd-m-yyyy',
-	        'autoclose': true
-	    }).on("changeDate", function(e){
-	    	var dateDMY = e.date.getDate() + '-' + (e.date.getMonth() + 1) + '-' +  e.date.getFullYear();
-	    	$('#date-round').val(dateDMY);
-	    });
-
-	    //Add time picker
-	    $('#time-leave').timepicker({
-	    	'step': 30,
-	    	 'timeFormat': 'H:i'
-	    });
-
-	    $('#time-round').timepicker({
-	    	'step': 30,
-	    	 'timeFormat': 'H:i'
-	    });
+		sessionStorage.removeItem('tripsLeave');
+		sessionStorage.removeItem('tripsArrive');
+		sessionStorage.removeItem('tripInformation');
+		var stations = JSON.parse('{{ $jsonStations }}'.replace(/&quot;/g,'"')); //key: station_id, value: station_name
 	</script>
+	<script type="text/javascript" src="{{ asset('/js/home/trip-information.js') }}"></script>
 @stop

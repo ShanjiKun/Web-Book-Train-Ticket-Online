@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\home;
+namespace App\Http\Controllers\search;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
-class HomeController extends Controller
+class SearchController extends Controller
 {
-    public function getHomeView(){
+    public function getSearchView(){
     	$stations = DB::table('station')->pluck('name', 'station_id');
-    	return view('home.home', ['jsonStations' => $stations]);
+    	return view('search.search', ['jsonStations' => $stations]);
     }
 }

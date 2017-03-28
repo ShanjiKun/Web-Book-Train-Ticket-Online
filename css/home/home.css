@@ -103,3 +103,11 @@
 #station-dropdown-content>li>a:hover{
 	background-color: #2fa4e7;
 }
+.control-disable{
+    background-color: #eee;
+    pointer-events: none;
+}
+.form-control[readonly]{
+	cursor: default;
+	background-color: white;
+}
