@@ -12,7 +12,7 @@ class TripController extends Controller
     public function getTripAdd(){
     	$data = Train::select('train_id','name')->get()->toArray();
     	$data1 = Station::select('station_id','name')->get()->toArray();
-    	return view('admin\trip\trip-add',['data' => $data, 'data1' =>$data]);
+    	return view('admin\trip\trip-add',['data' => $data, 'data1' =>$data1]);
     }
     public function postTripAdd(){
     	// $trip = new Trip;

@@ -57,9 +57,6 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('dashboard/cate', function(){
 		return view('admin/dashboard/cate');
 	});
-	Route::get('trip/trip-add', function(){
-		return view('admin/trip/trip-add');
-	});
 	
 });
 
@@ -69,9 +66,9 @@ Route::post('get-train-name-via-trip', 'database\DatabaseController@getTrainName
 Route::post('get-train-time-via-station', 'database\DatabaseController@getTrainTimeViaStation');
 Route::post('get-number-seat', 'database\DatabaseController@getNumberSeat');
 Route::post('get-cars', 'database\DatabaseController@getCars');
-Route::get('login',['as' => 'getLogin','uses' => 'LoginController@getLogin']);
-Route::post('login',['as' => 'postLogin','uses' => 'LoginController@postLogin']);
-Route::get('logout',['as' => 'getLogout','uses' => 'LoginController@getLogout']);
+Route::get('admin/login',['as' => 'getLogin','uses' => 'LoginController@getLogin']);
+Route::post('admin/login',['as' => 'postLogin','uses' => 'LoginController@postLogin']);
+Route::get('admin/logout',['as' => 'getLogout','uses' => 'LoginController@getLogout']);
 Route::get('admin',['as' => 'admin', function(){
 	return view('admin/dashboard/main');
 }]);

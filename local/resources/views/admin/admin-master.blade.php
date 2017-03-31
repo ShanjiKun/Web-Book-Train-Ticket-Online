@@ -2,9 +2,15 @@
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<meta name="author" content="QuocTuan.Info" />
+	<meta name="author" content="Huyen.Info" />
     <!-- <link rel="stylesheet" href="{{ asset('/css/admin/style.css') }}"> -->
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/admin/style.css') }}">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/lib/jquery.timepicker.css') }}" />
+    <script type="text/javascript" src="{{ asset('/js/lib/jquery.timepicker.min.js') }}"></script>
+    
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/lib/bootstrap-datepicker.css') }}" />
+    <script type="text/javascript" src="{{ asset('/js/lib/bootstrap-datepicker.js') }}"></script>
 	<title>Admin Area :: @yield('title')</title>
 </head> 
     <body>

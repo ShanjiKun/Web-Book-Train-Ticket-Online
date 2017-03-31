@@ -273,8 +273,53 @@ img.thumbs {
 .user_list {
     background: url('/Web-Book-Train-Ticket-Online/images/user.png') no-repeat center center;
 }
-.cate_add {
-    background: url('/Web-Book-Train-Ticket-Online/images/category_add.png') no-repeat center center;
+.train_add {
+    background: url('/Web-Book-Train-Ticket-Online/images/train-add.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60% 40%;
+}
+.train_list {
+    background: url('/Web-Book-Train-Ticket-Online/images/train-picked.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60% 40%;
+}
+.trip_add {
+    background: url('/Web-Book-Train-Ticket-Online/images/trip-add.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60% 40%;
+}
+.trip_list {
+    background: url('/Web-Book-Train-Ticket-Online/images/tc-head.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60% 40%;
+}
+.station_list {
+    background: url('/Web-Book-Train-Ticket-Online/images/station.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60% 40%;
+}
+.station_add {
+    background: url('/Web-Book-Train-Ticket-Online/images/station.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60% 40%;
+}
+.car_add {
+    background: url('/Web-Book-Train-Ticket-Online/images/tc-blue.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60% 40%;
+}
+.car_list {
+    background: url('/Web-Book-Train-Ticket-Online/images/tc-green.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60% 40%;
 }
 .cate_list {
     background: url('/Web-Book-Train-Ticket-Online/images/category.png') no-repeat center center;
