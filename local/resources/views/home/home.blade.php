@@ -13,7 +13,6 @@
 	
 	<link rel="stylesheet" type="text/css" href="{{ asset('/css/lib/bootstrap-datepicker.css') }}" />
 	<script type="text/javascript" src="{{ asset('/js/lib/bootstrap-datepicker.js') }}"></script>
-	
 	<div id="home-page">
 		<div class="container-fluid">
 			<div class="row">
@@ -27,40 +26,40 @@
 							<form>
 								<div class="form-group">
 								    <p>Ga đi</p>
-								    <input type="text" class="form-control" id="GaDi" placeholder="Ga đi">
+								    <input type="text" class="form-control station-dropdown" id="station-leave" placeholder="Ga đi">
 								</div>
 							  	<div class="form-group">
 							    	<p>Ga đến</p>
-							    	<input type="text" class="form-control" id="GaDen" placeholder="Ga đến">
+							    	<input type="text" class="form-control station-dropdown" id="station-arrive" placeholder="Ga đến">
 							 	</div>
-							  	<div class="is-khuhoi-group">
-							  		<input type="radio" name="MotChieu">
+							  	<div class="round-trip">
+							  		<input type="radio" name="isRoundTrip" value="1" checked="checked">
 							  		<span>Một chiều</span>
-							  		<input type="radio" name="KhuHoi">
+							  		<input type="radio" name="isRoundTrip" value="2">
 							  		<span>Khứ hồi</span>
 							  	</div>
 							  	<div class="form-group">
 							    	<p>Ngày đi</p>
-							    	<input type="text" class="form-control input-datepicker" id="NgayDiDP" placeholder="Ngày đi">
-							    	<img class="image-calendar" src="https://us.123rf.com/450wm/mamanamsai/mamanamsai1412/mamanamsai141200858/35039467-calendar-icon-on-blue-button.jpg" id="btn-ngay-di-dp">
+							    	<input type="text" class="form-control input-datepicker" id="date-leave" readonly="readonly" placeholder="Ngày đi">
+							    	<img class="image-calendar" src="https://us.123rf.com/450wm/mamanamsai/mamanamsai1412/mamanamsai141200858/35039467-calendar-icon-on-blue-button.jpg" id="btn-date-leave">
 							    	<div class="input-timepicker">
-							    		<input type="text" name="" class="form-control" id="NgayDiTP" placeholder="Giờ đi">
+							    		<input type="text" class="form-control" id="time-leave" placeholder="Giờ đi">
 							    	</div>
 							 	</div>
 							 	<div class="form-group">
 							    	<p>Ngày về</p>
-							    	<input type="text" class="form-control input-datepicker" id="NgayVeDP" placeholder="Ngày về">
-							    	<img class="image-calendar" src="https://us.123rf.com/450wm/mamanamsai/mamanamsai1412/mamanamsai141200858/35039467-calendar-icon-on-blue-button.jpg" id="btn-ngay-ve-dp">
+							    	<input type="text" class="form-control input-datepicker control-disable"  id="date-round" placeholder="Ngày về">
+							    	<img class="image-calendar control-disable" src="https://us.123rf.com/450wm/mamanamsai/mamanamsai1412/mamanamsai141200858/35039467-calendar-icon-on-blue-button.jpg" id="btn-date-round">
 							    	<div class="input-timepicker">
-							    		<input type="text" name="" class="form-control" id="NgayVeTP" placeholder="Giờ về">
+							    		<input type="text" class="form-control control-disable" id="time-round" placeholder="Giờ về">
 							    	</div>
 							 	</div>
 							  	<div class="form-group">
-							  		<a href="" class="btn-1">Tìm kiếm</a>
+							  		<div id="search-btn" class="btn-1">Tìm kiếm</div>
 							  	</div>
 							</form>
 						</div>
-					</div>
+					</div> <!-- ticket-info-area -->
 				</div>
 				<div class="col-md-6">
 					<div id="poster-area">
@@ -79,7 +78,7 @@
 								<p id="no-ticket">Chưa có vé</p>
 							</div>
 							<div class="buy-ticket">
-								<a href="" class="btn-1">Mua vé</a>
+								<div class="btn-1">Mua vé</div>
 							</div>
 						</div>
 					</div>
@@ -87,44 +86,15 @@
 			</div>
 		</div>
 	</div>
+	<!-- Station Dropdown -->
+	<ul id="station-dropdown-content" class="dropdown-menu" style="display:none;" >
+		<!-- Station Dropdown Content -->
+	</ul>
 	<script>
-	    
-	    //Add datepicker
-	    $('#NgayDiDP').datepicker({
-	        'format': 'd-m-yyyy',
-	        'autoclose': true
-	    });
-
-	    $('#NgayVeDP').datepicker({
-	        'format': 'd-m-yyyy',
-	        'autoclose': true
-	    });
-
-	    $('#btn-ngay-di-dp').datepicker({
-	    	'format': 'd-m-yyyy',
-	        'autoclose': true
-	    }).on("changeDate", function(e){
-	    	var dateDMY = e.date.getDate() + '-' + (e.date.getMonth() + 1) + '-' +  e.date.getFullYear();
-	    	$('#NgayDiDP').val(dateDMY);
-	    });
-
-	    $('#btn-ngay-ve-dp').datepicker({
-	    	'format': 'd-m-yyyy',
-	        'autoclose': true
-	    }).on("changeDate", function(e){
-	    	var dateDMY = e.date.getDate() + '-' + (e.date.getMonth() + 1) + '-' +  e.date.getFullYear();
-	    	$('#NgayVeDP').val(dateDMY);
-	    });
-
-	    //Add time picker
-	    $('#NgayDiTP').timepicker({
-	    	'step': 30,
-	    	 'timeFormat': 'H:i'
-	    });
-
-	    $('#NgayVeTP').timepicker({
-	    	'step': 30,
-	    	 'timeFormat': 'H:i'
-	    });
+		sessionStorage.removeItem('tripsLeave');
+		sessionStorage.removeItem('tripsArrive');
+		sessionStorage.removeItem('tripInformation');
+		var stations = JSON.parse('{{ $jsonStations }}'.replace(/&quot;/g,'"')); //key: station_id, value: station_name
 	</script>
+	<script type="text/javascript" src="{{ asset('/js/home/trip-information.js') }}"></script>
 @stop

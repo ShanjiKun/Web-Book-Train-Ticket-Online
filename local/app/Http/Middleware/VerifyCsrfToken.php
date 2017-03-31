@@ -12,6 +12,10 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-        //
+        'search-trip',
+        'get-train-name-via-trip',
+        'get-train-time-via-station',
+        'get-number-seat',
+        'get-cars'
     ];
 }

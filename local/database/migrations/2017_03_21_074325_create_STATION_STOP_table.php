@@ -16,8 +16,8 @@ class CreateSTATIONSTOPTable extends Migration
         Schema::create('STATION_STOP', function (Blueprint $table) {
             $table->unsignedInteger('trip_id');
             $table->unsignedInteger('station_id');
-            $table->datetime('time_arrive');
-            $table->datetime('time_leave');
+            $table->datetime('date_arrive');
+            $table->datetime('date_leave');
             $table->foreign('trip_id')->references('trip_id')->on('TRIP');
             $table->foreign('station_id')->references('station_id')->on('STATION');
         });

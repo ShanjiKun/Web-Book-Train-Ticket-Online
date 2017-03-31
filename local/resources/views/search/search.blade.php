@@ -4,6 +4,12 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('/css/search/search.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('/css/home/home.css') }}">
 	<script type="text/javascript" src="{{ asset('/js/search/search.js') }}"></script>
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<link rel="stylesheet" type="text/css" href="{{ asset('/css/lib/jquery.timepicker.css') }}" />
+	<script type="text/javascript" src="{{ asset('/js/lib/jquery.timepicker.min.js') }}"></script>
+	<link rel="stylesheet" type="text/css" href="{{ asset('/css/lib/bootstrap-datepicker.css') }}" />
+	<script type="text/javascript" src="{{ asset('/js/lib/bootstrap-datepicker.js') }}"></script>
+
 	<div id="search-page">
 		<div class="container-fluid">
 			<div class="row">
@@ -11,7 +17,7 @@
 					<div class="search-main">
 						<div class="top-label">
 					  		<p style="display: inline; font-size: 16px; font-weight: bold;">Chiều đi:</p>
-					  		<p style="display: inline; font-size: 14px;">ngày 01/01/2011 từ Sài Gòn đến Hà Nội</p>
+					  		<p id="title-top-leave" style="display: inline; font-size: 14px;">ngày 01/01/2011 từ Sài Gòn đến Hà Nội</p>
 					  	</div> <!-- top-label -->
 					  	<div class="pick-train">
 							<div class="move-train-arrow-left ele-inline-block">
@@ -21,7 +27,7 @@
 								<div class="train-name">SE8</div>
 								<table class="train-info">
 									<tr>
-										<td class="text-left">
+										<td class="text-left text-1">
 											TG đi
 										</td>
 										<td class="text-right">
@@ -29,7 +35,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td class="text-left">
+										<td class="text-left text-1">
 											TG đến
 										</td>
 										<td class="text-right">
@@ -45,10 +51,10 @@
 										</td>
 									</tr>
 									<tr class="text-center">
-										<td>
+										<td class="text-1">
 											0
 										</td>
-										<td>
+										<td class="text-1">
 											343
 										</td>
 									</tr>
@@ -1004,40 +1010,40 @@
 							<form>
 								<div class="form-group">
 								    <p>Ga đi</p>
-								    <input type="text" class="form-control" id="GaDi" placeholder="Ga đi">
+								    <input type="text" class="form-control station-dropdown" id="station-leave" placeholder="Ga đi">
 								</div>
 							  	<div class="form-group">
 							    	<p>Ga đến</p>
-							    	<input type="text" class="form-control" id="GaDen" placeholder="Ga đến">
+							    	<input type="text" class="form-control station-dropdown" id="station-arrive" placeholder="Ga đến">
 							 	</div>
-							  	<div class="is-khuhoi-group">
-							  		<input type="radio" name="MotChieu">
+							  	<div class="round-trip">
+							  		<input type="radio" name="isRoundTrip" value="1" checked="checked">
 							  		<span>Một chiều</span>
-							  		<input type="radio" name="KhuHoi">
+							  		<input type="radio" name="isRoundTrip" value="2">
 							  		<span>Khứ hồi</span>
 							  	</div>
 							  	<div class="form-group">
 							    	<p>Ngày đi</p>
-							    	<input type="text" class="form-control input-datepicker" id="NgayDiDP" placeholder="Ngày đi">
-							    	<img class="image-calendar" src="https://us.123rf.com/450wm/mamanamsai/mamanamsai1412/mamanamsai141200858/35039467-calendar-icon-on-blue-button.jpg" id="btn-ngay-di-dp">
+							    	<input type="text" class="form-control input-datepicker" id="date-leave" readonly="readonly" placeholder="Ngày đi">
+							    	<img class="image-calendar" src="https://us.123rf.com/450wm/mamanamsai/mamanamsai1412/mamanamsai141200858/35039467-calendar-icon-on-blue-button.jpg" id="btn-date-leave">
 							    	<div class="input-timepicker">
-							    		<input type="text" name="" class="form-control" id="NgayDiTP" placeholder="Giờ đi">
+							    		<input type="text" class="form-control" id="time-leave" placeholder="Giờ đi">
 							    	</div>
 							 	</div>
 							 	<div class="form-group">
 							    	<p>Ngày về</p>
-							    	<input type="text" class="form-control input-datepicker" id="NgayVeDP" placeholder="Ngày về">
-							    	<img class="image-calendar" src="https://us.123rf.com/450wm/mamanamsai/mamanamsai1412/mamanamsai141200858/35039467-calendar-icon-on-blue-button.jpg" id="btn-ngay-ve-dp">
+							    	<input type="text" class="form-control input-datepicker control-disable"  id="date-round" placeholder="Ngày về">
+							    	<img class="image-calendar control-disable" src="https://us.123rf.com/450wm/mamanamsai/mamanamsai1412/mamanamsai141200858/35039467-calendar-icon-on-blue-button.jpg" id="btn-date-round">
 							    	<div class="input-timepicker">
-							    		<input type="text" name="" class="form-control" id="NgayVeTP" placeholder="Giờ về">
+							    		<input type="text" class="form-control control-disable" id="time-round" placeholder="Giờ về">
 							    	</div>
 							 	</div>
 							  	<div class="form-group">
-							  		<a href="" class="btn-1">Tìm kiếm</a>
+							  		<div id="search-btn" class="btn-1">Tìm kiếm</div>
 							  	</div>
 							</form>
-						</div> <!-- form -->
-					</div> <!-- left-area -->
+						</div>
+					</div> <!-- ticket-info-area -->
 				</div> <!-- col-md-3 -->
 			</div> <!-- row -->
 		</div> <!-- container-fluid -->
@@ -1066,59 +1072,373 @@
 	    	
 	    </div>
     </div>
-
-	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <!-- Station Dropdown -->
+    <ul id="station-dropdown-content" class="dropdown-menu" style="display:none;" >
+		<!-- Station Dropdown Content -->
+	</ul>
+    <script>
+		var stations = JSON.parse('{{ $jsonStations }}'.replace(/&quot;/g,'"')); //key: station_id, value: station_name
+	</script>
+	<script type="text/javascript" src="{{ asset('/js/home/trip-information.js') }}"></script>
 	<script type="text/javascript">
+		//Global variable
+		var currentTripID;
+		var dictCarImage = {}; //key: car-1, value: ./image/abc.png
 
-		$( "div.train-normal" ).hover(
-		  function() {
-		    $( this ).css('background-image','url('+ './images/train-hover.png' +')');
-		  }, function() {
-		    $( this ).css('background-image','url('+ './images/train.png' +')');
-		  }
-		);
 
-		$( "div.train-picked" ).hover(
-		  function() {
-		    $( this ).css('background-image','url('+ './images/train-picked-hover.png' +')');
-		  }, function() {
-		    $( this ).css('background-image','url('+ './images/train-picked.png' +')');
-		  }
-		);
+		//
+		$(document).ready(function(){
+			//tripsLeave: [{'trip_id':1}, {'trip_id':2}]
+			//Trips were sorted with date leave
+			var tripsLeave = sessionStorage.tripsLeave;
+			if(!tripsLeave){
+				window.location.replace("/Web-Book-Train-Ticket-Online/");
+				return;
+			}
 
+			//tripInformation: {"stationLeave":"SG",
+    		// 	"stationArrive":"DN",
+    		// 	"indexOfRound":1,
+    		// 	"dateLeave":"2017-03-22",
+    		// 	"dateRound":"2017-03-25",
+    		// 	"timeLeave":"00:00",
+    		// 	"timeRound":"00:00"
+    		// }
+			var tripInformation = JSON.parse(sessionStorage.tripInformation);
+			showTripInformation(tripInformation);
+			showTrips(tripsLeave, tripInformation, function(){
+				var dateOfUserString = tripInformation['dateLeave'] + ' ' + tripInformation['timeLeave'];
+				getTrainInformation(tripsLeave, getStationID(tripInformation['stationLeave']), getStationID(tripInformation['stationArrive']), dateOfUserString);
+			});
+		});
+		function showTripInformation(tripInformation){
+			$('#station-leave').val(tripInformation['stationLeave']);
+			$('#station-arrive').val(tripInformation['stationArrive']);
+			$('input:radio[name="isRoundTrip"]').filter('[value="'+tripInformation['indexOfRound']+'"]').attr('checked', true);
+			$('#date-leave').val(tripInformation['dateLeave']);
+			$('#time-leave').val(tripInformation['timeLeave']);
+			if(tripInformation['indexOfRound']=='2'){
+				$('#date-round').val(tripInformation['dateRound']);
+				$('#time-round').val(tripInformation['timeRound']);
+				enableDateTimeRoundPicker();
+			}
+
+			$('#title-top-leave').html('ngày '+tripInformation['dateLeave']+' từ '+tripInformation['stationLeave']+' đến '+tripInformation['stationArrive']);
+		}
+
+		function showTrips(jsonTripsLeave, tripInformation, success){
+			var tripsLeave = JSON.parse(jsonTripsLeave);
+			var trains = '<div class="move-train-arrow-left ele-inline-block"> </div> <!-- arrow -->';
+			for( i = 0; i < tripsLeave.length; i++){
+				var tripID = 'trip-'+tripsLeave[i].trip_id;
+				var trainNameID = 'trip-'+tripsLeave[i].trip_id+'-train-name';
+				var timeLeaveID = 'trip-'+tripsLeave[i].trip_id+'-time-leave';
+				var timeArriveID = 'trip-'+tripsLeave[i].trip_id+'-time-arrive';
+				var availableSeatID = 'trip-'+tripsLeave[i].trip_id+'-avaliable-seat';
+				var unavailableSeatID = 'trip-'+tripsLeave[i].trip_id+'-unavailable-seat';
+				trains += '<div id="'+ tripID +'" class="train train-normal ele-inline-block")>'+
+								'<div id="'+trainNameID+'" class="train-name">SE8</div>'+
+								'<table class="train-info">'+
+									'<tr>'+
+										'<td class="text-left text-1">'+
+											'TG đi'+
+										'</td>'+
+										'<td id="'+timeLeaveID+'" class="text-right">'+
+											'11/03 06:00'+
+										'</td>'+
+									'</tr>'+
+									'<tr>'+
+										'<td class="text-left text-1">'+
+											'TG đến'+
+										'</td>'+
+										'<td id="'+timeArriveID+'" class="text-right">'+
+											'12/03 15:33'+
+										'</td>'+
+									'</tr>'+
+									'<tr>'+
+										'<td class="text-left">'+
+											'SL chỗ đặt'+
+										'</td>'+
+										'<td class="text-right">'+
+											'SL chỗ trống'+
+										'</td>'+
+									'</tr>'+
+									'<tr class="text-center">'+
+										'<td id="'+unavailableSeatID+'" class="text-1">'+
+											'0'+
+										'</td>'+
+										'<td id="'+availableSeatID+'" class="text-1">'+
+											'343'+
+										'</td>'+
+									'</tr>'+
+								'</table>'+
+							'</div> ';
+			}
+			trains += '<div class="move-train-arrow-left ele-inline-block"> </div> <!-- arrow -->';
+
+			$('.pick-train').html(trains);
+			refreshTrainUI();
+
+			for(i = 0; i < tripsLeave.length; i++){
+				var tripID = 'trip-'+tripsLeave[i].trip_id;
+				addTrainClick(tripID);
+			}
+			success();
+		}
+		function getTrainInformation(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString){
+			getTrainName(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString, function(){
+				getTrainSeat(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString, function(){
+					getTrainTime(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString, function(_tripID){
+
+						//Set first train picked
+						var tripID = 'trip-'+ _tripID;
+						$('#'+tripID).removeClass('train-normal');
+						$('#'+tripID).addClass('train-picked');
+						currentTripID = tripID;
+						getCarInFormation(_tripID, stationIDLeave, stationIDArrive);
+						refreshTrainUI();
+					});
+				});
+			});
+		}
+		function getTrainName(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString, success){
+			//need: Which train?, When leave?, When arrive?, How many unavailable seat?, how many available seat?
+			//Get train name
+			//Input: [{"trip_id":"1"}, {"trip_id":"2"}, {"trip_id":"3"}, {"trip_id":"4"}] trips_id
+        	//Output: { "code":"0", "message":"success", "data":[{"trip_id":"1", "train_name":"SE1"}, {"trip_id":"2", "train_name":"SE2"}]} train_name base on trip_id
+			$.post('get-train-name-via-trip', {
+				trips: tripsLeave
+			}, function(data, status){
+				// alert('Train name: ' + data);
+				var response = JSON.parse(data);
+				if(response['code']=='0'){
+					var trainsName = response['data'];
+					for( i = 0; i < trainsName.length; i++){
+						var trainNameID = 'trip-'+trainsName[i].trip_id+'-train-name';;
+						var trainName = trainsName[i].train_name;
+						$('#'+trainNameID).html(trainName);
+					}
+					success()
+				}else{
+					alert(response['message']);
+				}
+			});
+		}
+		function getTrainSeat(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString, success){
+			//Get unavailable seat, available seat from station leave to station arrive
+			//Input: 'stationIDLeave': '1', 'stationIDArrive': '3', "trips":[{"trip_id":"1"}, {"trip_id":"2"}]
+			//Output: { "code":"0", "message":"success", "data":[{'trip_id':'1', 'unavailableSeat':'12', 'availableSeat':'60'}]}
+			$.post('get-number-seat',{
+				stationIDLeave: stationIDLeave,
+				stationIDArrive: stationIDArrive,
+				trips: tripsLeave
+			},function( data, status){
+				// alert('Available seat: ' + data);
+				var response = JSON.parse(data);
+				if(response['code']=='0'){
+					var seats = response['data'];
+					for(i = 0; i < seats.length; i++){
+						var availableSeatID = 'trip-'+seats[i].trip_id+'-avaliable-seat';
+						var unavailableSeatID = 'trip-'+seats[i].trip_id+'-unavailable-seat';
+						var availableSeat = seats[i].availableSeat;
+						var unavailableSeat = seats[i].unavailableSeat;
+						$('#'+availableSeatID).html(availableSeat);
+						$('#'+unavailableSeatID).html(unavailableSeat);
+					}
+					success();
+				}else{
+					alert(response['message']);
+				}
+			});
+		}
+		function getTrainTime(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString, success){
+			//Get time leave, time arrive
+			//Input: 'stationIDLeave': '1', 'stationIDArrive': '3', "trips":[{"trip_id":"1"}, {"trip_id":"2"}]
+			//Output: { "code":"0", "message":"success", "data":[{'trip_id':'1', 'timeLeave':'1490162400', 'timeArrive':'1490162400'}]}
+			//Sored date leave
+			$.post('get-train-time-via-station',{
+				stationIDLeave: stationIDLeave,
+				stationIDArrive: stationIDArrive,
+				trips: tripsLeave
+			},function(data, status){
+
+				var dateOfUser = new Date(dateOfUserString);
+
+				// alert('Train time: ' + data);
+				var response = JSON.parse(data);
+				if(response['code']=='0'){
+					var trainsTime = response['data'];
+
+					var indexTrainChecked = 0;
+					for( i = 0; i < trainsTime.length; i++){
+						var timeLeaveID = 'trip-'+trainsTime[i].trip_id+'-time-leave';
+						var timeArriveID = 'trip-'+trainsTime[i].trip_id+'-time-arrive';
+						var timeStampLeave = trainsTime[i].timeLeave;
+						var timeStampArrive = trainsTime[i].timeArrive;
+						var dateLeave = formatTimeStampToDMHM(timeStampLeave);
+						var dateArrive = formatTimeStampToDMHM(timeStampArrive);
+						$('#'+timeLeaveID).html(dateLeave);
+						$('#'+timeArriveID).html(dateArrive);
+						dateOfTrain = new Date(timeStampLeave*1000);
+						if(dateOfUser >= dateOfTrain){
+							indexTrainChecked = i;
+						}
+					}
+					success(trainsTime[indexTrainChecked].trip_id);
+				}else{
+					alert(response['message']);
+				}
+			});
+		}
+		function getCarInFormation(tripID, stationIDLeave, stationIDArrive){
+			//Need: carID, car type
+			//Input: tripID: 1
+			//Output: { "code":"0", "message":"success", "data":[{"car_id":"1", "type":"B80", "status":"0"}, {"car_id":"2", "type":"B80L", "status":"1"}]}
+			//Car was sorted DESC by num_seat
+			//Car status
+	        //0: available
+	        //1: unavailable
+	        //2: full seat
+			$.post('get-cars',{
+				tripID: tripID,
+				stationIDLeave: stationIDLeave,
+				stationIDArrive: stationIDArrive
+			},function(data, status){
+				// alert('Get cars: ' + data);
+				var response = JSON.parse(data);
+				if(response['code']==0){
+					var cars = response['data'];
+					var htmlCars = '';
+					for(i = cars.length-1; i >= 0 ; i--){
+						var carID = 'car-'+cars[i].car_id;
+						var type = cars[i].type;
+						var carStatus = cars[i].status;
+						var image = getCarImage(carStatus);
+						dictCarImage[carID] = image;
+						htmlCars += '<div id="'+carID+'" class="train-car '+type+'">'+
+								'<img src="'+image+'">'+
+								'<div class="car-label">'+(i+1)+'</div>'+
+							'</div>';
+					}
+					htmlCars += '<div class="train-car">'+
+								'<img src="./images/tc-head.png">'+
+								'<div class="car-label">SE8</div>'+
+							'</div>';
+					$('.pick-car').html(htmlCars);
+					refreshCarUI();
+				}else{
+					alert(response['message']);
+				}
+			});
+		}
+		function getCarImage(carStatus){
+			switch(carStatus){
+				case '0':
+					return './images/tc-blue.png';
+				case '1':
+					return './images/tc-gray.png';
+				case '2':
+					return './images/tc-orange.png';
+				default:
+					return './images/tc-green.png';
+			}
+		}
+		//Handle UI
+		function changeTrainPicked(tripID){
+
+			$('#'+currentTripID).removeClass('train-picked');
+			$('#'+currentTripID).addClass('train-normal');
+			$('#'+currentTripID).css('background-image','url('+ './images/train.png' +')');
+
+			$('#'+tripID).removeClass('train-normal');
+			$('#'+tripID).addClass('train-picked');
+			$('#'+tripID).css('background-image','url('+ './images/train-picked-hover.png' +')');
+
+			currentTripID = tripID;
+			getCarInFormation(tripID.split('-')[1], getStationIDLeave(), getStationIDArrive());
+			refreshTrainUI();
+		}
+		function refreshTrainUI(){
+			$( ".train-normal" ).hover(
+			  function() {
+			    $( this ).css('background-image','url('+ './images/train-hover.png' +')');
+			  }, function() {
+			    $( this ).css('background-image','url('+ './images/train.png' +')');
+			  }
+			);
+
+			$( ".train-picked" ).hover(
+			  function() {
+			    $( this ).css('background-image','url('+ './images/train-picked-hover.png' +')');
+			  }, function() {
+			    $( this ).css('background-image','url('+ './images/train-picked.png' +')');
+			  }
+			);
+		}
+		function refreshCarUI(){
+			//small popup
+			$('.B80').hover( function(){
+				$('#small-pop-up-body').html("Ngồi cứng (B80)");
+				showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
+			}, function(){
+				hideSmallPopup($('#small-pop-up'));
+			});
+			$('.B80L').hover( function(){
+				$('#small-pop-up-body').html("Ngồi cứng điều hòa (B80L)");
+				showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
+			}, function(){
+				hideSmallPopup($('#small-pop-up'));
+			});
+			$('.A64L').hover( function(){
+				$('#small-pop-up-body').html("Ngồi mềm điều hòa (A64L)");
+				showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
+			}, function(){
+				hideSmallPopup($('#small-pop-up'));
+			});
+			$('.Bn42L').hover( function(){
+				$('#small-pop-up-body').html("Nằm cứng điều hòa (Bn42L)");
+				showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
+			}, function(){
+				hideSmallPopup($('#small-pop-up'));
+			});
+			$('.An28L').hover( function(){
+				$('#small-pop-up-body').html("Nằm mềm điều hòa (An28L)");
+				showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
+			}, function(){
+				hideSmallPopup($('#small-pop-up'));
+			});
+		}
+		//Action click
+		function addTrainClick(tripID){
+			$('#'+tripID).click(function(){
+				onTrainTapped($(this).attr('id'));
+			});
+		}
+		function onTrainTapped(tripID){
+			//tripID is trip-1
+			//realID is 1
+			var realID = tripID.split('-')[1];
+			changeTrainPicked(tripID);
+		}
+		//Utils
+		function formatTimeStampToDMHM(timeStamp){
+			var date = new Date(timeStamp*1000);
+			return ("0" + date.getDate()).slice(-2)+'/'
+									+("0" + date.getMonth()).slice(-2)+' '
+									+("0" + date.getHours()).slice(-2)+':'
+									+("0" + date.getMinutes()).slice(-2);
+		}
+		function getStationIDLeave(){
+			var tripInformation = JSON.parse(sessionStorage.tripInformation);
+			return getStationID(tripInformation['stationLeave'])
+		}
+		function getStationIDArrive(){
+			var tripInformation = JSON.parse(sessionStorage.tripInformation);
+			return getStationID(tripInformation['stationArrive'])
+		}
+	</script>
+	<script type="text/javascript">
 		//Pop-up handle
-		//small popup
-		$('.B80').hover( function(){
-			$('#small-pop-up-body').html("Ngồi cứng (B80)");
-			showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
-		}, function(){
-			hideSmallPopup($('#small-pop-up'));
-		});
-		$('.B80L').hover( function(){
-			$('#small-pop-up-body').html("Ngồi cứng điều hòa (B80L)");
-			showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
-		}, function(){
-			hideSmallPopup($('#small-pop-up'));
-		});
-		$('.A64L').hover( function(){
-			$('#small-pop-up-body').html("Ngồi mềm điều hòa (A64L)");
-			showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
-		}, function(){
-			hideSmallPopup($('#small-pop-up'));
-		});
-		$('.Bn42L').hover( function(){
-			$('#small-pop-up-body').html("Nằm cứng điều hòa (Bn42L)");
-			showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
-		}, function(){
-			hideSmallPopup($('#small-pop-up'));
-		});
-		$('.An28L').hover( function(){
-			$('#small-pop-up-body').html("Nằm mềm điều hòa (An28L)");
-			showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
-		}, function(){
-			hideSmallPopup($('#small-pop-up'));
-		});
-
 		//Medium popup
 		$('.sit-color-white').hover(function(){
 			$('#medium-pop-up-header').html("Chỗ trống(Mã số vé: 12345)");
