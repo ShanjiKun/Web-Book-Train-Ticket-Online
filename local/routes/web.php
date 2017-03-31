@@ -61,12 +61,6 @@ Route::group(['prefix'=>'admin'],function(){
 });
 
 //
-Route::post('search-trip', 'database\DatabaseController@searchTrip');
-Route::post('get-train-name-via-trip', 'database\DatabaseController@getTrainNameViaTrip');
-Route::post('get-train-time-via-station', 'database\DatabaseController@getTrainTimeViaStation');
-Route::post('get-number-seat', 'database\DatabaseController@getNumberSeat');
-Route::post('get-cars', 'database\DatabaseController@getCars');
-Route::post('get-seat', 'database\DatabaseController@getSeat');
 Route::get('admin/login',['as' => 'getLogin','uses' => 'LoginController@getLogin']);
 Route::post('admin/login',['as' => 'postLogin','uses' => 'LoginController@postLogin']);
 Route::get('admin/logout',['as' => 'getLogout','uses' => 'LoginController@getLogout']);
@@ -109,3 +103,12 @@ Route::get('trip-list',['as' => 'getTripList' , 'uses' => 'TripController@getTri
 
 // Route::group(['middleware'=>'auth'], function(){
 //***** chua xu ly dc middleware <- không có Authenticate.php <- return redirect()->guest('login')
+
+//Database request
+Route::post('search-trip', 'database\DatabaseController@searchTrip');
+Route::post('get-train-name-via-trip', 'database\DatabaseController@getTrainNameViaTrip');
+Route::post('get-train-time-via-station', 'database\DatabaseController@getTrainTimeViaStation');
+Route::post('get-number-seat', 'database\DatabaseController@getNumberSeat');
+Route::post('get-cars', 'database\DatabaseController@getCars');
+Route::post('get-seat', 'database\DatabaseController@getSeat');
+//Database request
