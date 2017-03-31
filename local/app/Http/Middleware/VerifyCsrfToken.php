@@ -15,6 +15,7 @@ class VerifyCsrfToken extends BaseVerifier
         'search-trip',
         'get-train-name-via-trip',
         'get-train-time-via-station',
-        'get-number-seat'
+        'get-number-seat',
+        'get-cars'
     ];
 }

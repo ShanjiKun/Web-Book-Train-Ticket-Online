@@ -58,3 +58,4 @@ Route::post('search-trip', 'database\DatabaseController@searchTrip');
 Route::post('get-train-name-via-trip', 'database\DatabaseController@getTrainNameViaTrip');
 Route::post('get-train-time-via-station', 'database\DatabaseController@getTrainTimeViaStation');
 Route::post('get-number-seat', 'database\DatabaseController@getNumberSeat');
+Route::post('get-cars', 'database\DatabaseController@getCars');

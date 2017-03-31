@@ -77,7 +77,7 @@ class DatabaseController extends Controller
             $conditionsA = $conditionsA.' OR sa.trip_id = '.$trips[$i]['trip_id'];
         }
 
-        $query = "SELECT sl.trip_id, UNIX_TIMESTAMP(sl.date_leave) as timeLeave, UNIX_TIMESTAMP(sa.date_arrive) as timeArrive FROM station_stop sl INNER JOIN (SELECT sa.trip_id, sa.station_id, sa.date_arrive FROM station_stop sa WHERE (".$conditionsA.") AND sa.station_id = ".$stationIDArrive.") sa on sl.trip_id = sa.trip_id WHERE (".$conditionsL.") AND sl.station_id = ".$stationIDLeave;
+        $query = "SELECT sl.trip_id, UNIX_TIMESTAMP(sl.date_leave) as timeLeave, UNIX_TIMESTAMP(sa.date_arrive) as timeArrive FROM station_stop sl INNER JOIN (SELECT sa.trip_id, sa.station_id, sa.date_arrive FROM station_stop sa WHERE (".$conditionsA.") AND sa.station_id = ".$stationIDArrive.") sa on sl.trip_id = sa.trip_id WHERE (".$conditionsL.") AND sl.station_id = ".$stationIDLeave." ORDER BY timeLeave";
         $trainTimeWithStation = DB::select($query);
         if($trainTimeWithStation){
             $json = json_encode($trainTimeWithStation);
@@ -94,14 +94,27 @@ class DatabaseController extends Controller
         $stationIDArrive = $request->stationIDArrive;
         $trips = json_decode($request->trips, true); // Array dictionary
 
+        $conditions1 = 'tc.trip_id = '.$trips[0]['trip_id'];
+        $conditions2 = 'trip_id = '.$trips[0]['trip_id'];
+        for( $i = 1; $i < count($trips); $i++ ){
+            $conditions1 = $conditions1.' OR tc.trip_id = '.$trips[$i]['trip_id'];
+            $conditions2 = $conditions2.' OR trip_id = '.$trips[$i]['trip_id'];
+        }
+
         //Query get number of seat in trip
-        $query = "SELECT tc.trip_id, SUM(c.num_seat) as number_seat FROM `trip_car` tc INNER JOIN car c on tc.car_id = c.car_id where tc.trip_id = 1 or tc.trip_id = 2 GROUP BY tc.trip_id";
+        $query = "SELECT tc.trip_id, SUM(c.num_seat) as number_seat FROM `trip_car` tc INNER JOIN car c on tc.car_id = c.car_id where ".$conditions1." GROUP BY tc.trip_id";
         $numberSeats = DB::select($query);
 
         if(!$numberSeats) return Utils::createResponse( 1, null);
 
         //Query get number of unavailable seat in trip
-        $query = "SELECT trip_id, count(ticket_id) as unavailable_seat FROM `ticket_sold` WHERE (trip_id = 1 or trip_id = 2) and station_leave_id = 1 AND station_arrive_id = 3 GROUP BY trip_id";
+        $saCondition = '<=';
+        if($stationIDArrive - $stationIDLeave < 0){
+            //Heading is NS
+            $saCondition = '>=';
+        }
+
+        $query = "SELECT trip_id, count(ticket_id) as unavailable_seat FROM `ticket_sold` WHERE (".$conditions2.") and station_leave_id = ".$stationIDLeave." AND station_arrive_id ".$saCondition." ".$stationIDArrive." GROUP BY trip_id";
         $unavailableSeats = DB::select($query);
 
         //{'1':'122', '2':'80'}
@@ -130,5 +143,62 @@ class DatabaseController extends Controller
         $json .= ']';
         $ret = Utils::createResponse( 0, $json);
         return $ret;
+    }
+    public function getCars(Request $request){
+        //Input: tripId, stationIDLeave, stationIDArrive
+        //Output: { "code":"0", "message":"success", "data":[{"car_id":"1", "type":"B80", "status":"0"}, {"car_id":"2", "type":"B80L", "status":"1"}]}
+        $tripID = $request->tripID;
+        $stationIDLeave = $request->stationIDLeave;
+        $stationIDArrive = $request->stationIDArrive;
+
+        $query = "SELECT c.car_id, c.type_seat_id as type FROM car c inner JOIN (SELECT * FROM `trip_car` WHERE trip_id = :tripID) tc on c.car_id = tc.car_id ORDER BY `c`.`num_seat` DESC";
+        $cars = DB::select($query, ['tripID' => $tripID]);
+
+        //Car status
+        //0: available
+        //1: unavailable
+        //2: full seat
+        if($cars){
+            $today = time();
+            $json = '[';
+            foreach ($cars as $car) {
+                $query = "SELECT UNIX_TIMESTAMP(t.date_sell) as dateSell FROM trip t WHERE t.trip_id = :tripID";
+                $dateSell = DB::select($query, ['tripID'=>$tripID])[0]->dateSell;
+
+                $status = '1';
+                if($today >= $dateSell){
+                    $saCondition = '<=';
+                    if($stationIDArrive - $stationIDLeave < 0){
+                        //Heading is NS
+                        $saCondition = '>=';
+                    }
+
+                    $query = "SELECT COUNT(ts.ticket_id) as numSoldTicket, t.num_seat FROM ticket_sold ts INNER JOIN (SELECT t.ticket_id, t.car_id, c.num_seat FROM `tickets` t INNER JOIN car c on t.car_id = c.car_id WHERE c.car_id = ".$car->car_id.") t ON ts.ticket_id = t.ticket_id WHERE ts.trip_id = ".$tripID." AND station_leave_id = ".$stationIDLeave." AND station_arrive_id ".$saCondition." ".$stationIDArrive." GROUP BY t.car_id";
+
+                    $result = DB::select($query);
+                    if($result){
+                        $result = $result[0];
+                        $numSoldTicket = $result->numSoldTicket;
+                        $num_seat = $result->num_seat;
+                        if($numSoldTicket < $num_seat){
+                            $status = '0';
+                        }else{
+                            $status = '2';
+                        }
+                    }else{
+                        $status = '0';
+                    }
+                }
+                $json .= '{"car_id":"'.$car->car_id.'", "type":"'.$car->type.'", "status":"'.$status.'"}';
+                if($car!=end($cars)){
+                    $json .= ', ';
+                }
+            }
+            $json .= ']';
+            return Utils::createResponse( 0, $json);
+        }else{
+            return Utils::createResponse( 1, null);
+        }
+        
     }
 }

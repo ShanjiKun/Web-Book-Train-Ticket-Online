@@ -1081,8 +1081,15 @@
 	</script>
 	<script type="text/javascript" src="{{ asset('/js/home/trip-information.js') }}"></script>
 	<script type="text/javascript">
+		//Global variable
+		var currentTripID;
+		var dictCarImage = {}; //key: car-1, value: ./image/abc.png
+
+
+		//
 		$(document).ready(function(){
 			//tripsLeave: [{'trip_id':1}, {'trip_id':2}]
+			//Trips were sorted with date leave
 			var tripsLeave = sessionStorage.tripsLeave;
 			if(!tripsLeave){
 				window.location.replace("/Web-Book-Train-Ticket-Online/");
@@ -1099,8 +1106,10 @@
     		// }
 			var tripInformation = JSON.parse(sessionStorage.tripInformation);
 			showTripInformation(tripInformation);
-			showTrains(tripsLeave);
-			getTrainInformation(tripsLeave, getStationID(tripInformation['stationLeave']), getStationID(tripInformation['stationArrive']));
+			showTrips(tripsLeave, tripInformation, function(){
+				var dateOfUserString = tripInformation['dateLeave'] + ' ' + tripInformation['timeLeave'];
+				getTrainInformation(tripsLeave, getStationID(tripInformation['stationLeave']), getStationID(tripInformation['stationArrive']), dateOfUserString);
+			});
 		});
 		function showTripInformation(tripInformation){
 			$('#station-leave').val(tripInformation['stationLeave']);
@@ -1116,7 +1125,8 @@
 
 			$('#title-top-leave').html('ngày '+tripInformation['dateLeave']+' từ '+tripInformation['stationLeave']+' đến '+tripInformation['stationArrive']);
 		}
-		function showTrains(jsonTripsLeave){
+
+		function showTrips(jsonTripsLeave, tripInformation, success){
 			var tripsLeave = JSON.parse(jsonTripsLeave);
 			var trains = '<div class="move-train-arrow-left ele-inline-block"> </div> <!-- arrow -->';
 			for( i = 0; i < tripsLeave.length; i++){
@@ -1126,7 +1136,7 @@
 				var timeArriveID = 'trip-'+tripsLeave[i].trip_id+'-time-arrive';
 				var availableSeatID = 'trip-'+tripsLeave[i].trip_id+'-avaliable-seat';
 				var unavailableSeatID = 'trip-'+tripsLeave[i].trip_id+'-unavailable-seat';
-				trains += '<div id="'+ tripID +'" class="train train-picked ele-inline-block" onmouseover="hoverIn(this, 0)" onmouseout="hoverOut(this, 0)")>'+
+				trains += '<div id="'+ tripID +'" class="train train-normal ele-inline-block")>'+
 								'<div id="'+trainNameID+'" class="train-name">SE8</div>'+
 								'<table class="train-info">'+
 									'<tr>'+
@@ -1165,9 +1175,33 @@
 							'</div> ';
 			}
 			trains += '<div class="move-train-arrow-left ele-inline-block"> </div> <!-- arrow -->';
+
 			$('.pick-train').html(trains);
+			refreshTrainUI();
+
+			for(i = 0; i < tripsLeave.length; i++){
+				var tripID = 'trip-'+tripsLeave[i].trip_id;
+				addTrainClick(tripID);
+			}
+			success();
 		}
-		function getTrainInformation(tripsLeave, stationIDLeave, stationIDArrive){
+		function getTrainInformation(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString){
+			getTrainName(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString, function(){
+				getTrainSeat(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString, function(){
+					getTrainTime(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString, function(_tripID){
+
+						//Set first train picked
+						var tripID = 'trip-'+ _tripID;
+						$('#'+tripID).removeClass('train-normal');
+						$('#'+tripID).addClass('train-picked');
+						currentTripID = tripID;
+						getCarInFormation(_tripID, stationIDLeave, stationIDArrive);
+						refreshTrainUI();
+					});
+				});
+			});
+		}
+		function getTrainName(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString, success){
 			//need: Which train?, When leave?, When arrive?, How many unavailable seat?, how many available seat?
 			//Get train name
 			//Input: [{"trip_id":"1"}, {"trip_id":"2"}, {"trip_id":"3"}, {"trip_id":"4"}] trips_id
@@ -1175,7 +1209,7 @@
 			$.post('get-train-name-via-trip', {
 				trips: tripsLeave
 			}, function(data, status){
-				alert('Train name: ' + data);
+				// alert('Train name: ' + data);
 				var response = JSON.parse(data);
 				if(response['code']=='0'){
 					var trainsName = response['data'];
@@ -1184,38 +1218,13 @@
 						var trainName = trainsName[i].train_name;
 						$('#'+trainNameID).html(trainName);
 					}
+					success()
 				}else{
 					alert(response['message']);
 				}
 			});
-
-			//Get time leave, time arrive
-			//Input: 'stationIDLeave': '1', 'stationIDArrive': '3', "trips":[{"trip_id":"1"}, {"trip_id":"2"}]
-			//Output: { "code":"0", "message":"success", "data":[{'trip_id':'1', 'timeLeave':'1490162400', 'timeArrive':'1490162400'}]}
-			$.post('get-train-time-via-station',{
-				stationIDLeave: stationIDLeave,
-				stationIDArrive: stationIDArrive,
-				trips: tripsLeave
-			},function(data, status){
-				alert('Train time: ' + data);
-				var response = JSON.parse(data);
-				if(response['code']=='0'){
-					var trainsTime = response['data'];
-					for( i = 0; i < trainsTime.length; i++){
-						var timeLeaveID = 'trip-'+trainsTime[i].trip_id+'-time-leave';
-						var timeArriveID = 'trip-'+trainsTime[i].trip_id+'-time-arrive';
-						var timeStampLeave = trainsTime[i].timeLeave;
-						var timeStampArrive = trainsTime[i].timeArrive;
-						var dateLeave = formatTimeStampToDMHM(timeStampLeave);
-						var dateArrive = formatTimeStampToDMHM(timeStampArrive);
-						$('#'+timeLeaveID).html(dateLeave);
-						$('#'+timeArriveID).html(dateArrive);
-					}
-				}else{
-					alert(response['message']);
-				}
-			});
-
+		}
+		function getTrainSeat(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString, success){
 			//Get unavailable seat, available seat from station leave to station arrive
 			//Input: 'stationIDLeave': '1', 'stationIDArrive': '3', "trips":[{"trip_id":"1"}, {"trip_id":"2"}]
 			//Output: { "code":"0", "message":"success", "data":[{'trip_id':'1', 'unavailableSeat':'12', 'availableSeat':'60'}]}
@@ -1224,7 +1233,7 @@
 				stationIDArrive: stationIDArrive,
 				trips: tripsLeave
 			},function( data, status){
-				alert('Available seat: ' + data);
+				// alert('Available seat: ' + data);
 				var response = JSON.parse(data);
 				if(response['code']=='0'){
 					var seats = response['data'];
@@ -1236,13 +1245,180 @@
 						$('#'+availableSeatID).html(availableSeat);
 						$('#'+unavailableSeatID).html(unavailableSeat);
 					}
+					success();
 				}else{
 					alert(response['message']);
 				}
 			});
 		}
-		function getCar(tripsLeave){
+		function getTrainTime(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString, success){
+			//Get time leave, time arrive
+			//Input: 'stationIDLeave': '1', 'stationIDArrive': '3', "trips":[{"trip_id":"1"}, {"trip_id":"2"}]
+			//Output: { "code":"0", "message":"success", "data":[{'trip_id':'1', 'timeLeave':'1490162400', 'timeArrive':'1490162400'}]}
+			//Sored date leave
+			$.post('get-train-time-via-station',{
+				stationIDLeave: stationIDLeave,
+				stationIDArrive: stationIDArrive,
+				trips: tripsLeave
+			},function(data, status){
 
+				var dateOfUser = new Date(dateOfUserString);
+
+				// alert('Train time: ' + data);
+				var response = JSON.parse(data);
+				if(response['code']=='0'){
+					var trainsTime = response['data'];
+
+					var indexTrainChecked = 0;
+					for( i = 0; i < trainsTime.length; i++){
+						var timeLeaveID = 'trip-'+trainsTime[i].trip_id+'-time-leave';
+						var timeArriveID = 'trip-'+trainsTime[i].trip_id+'-time-arrive';
+						var timeStampLeave = trainsTime[i].timeLeave;
+						var timeStampArrive = trainsTime[i].timeArrive;
+						var dateLeave = formatTimeStampToDMHM(timeStampLeave);
+						var dateArrive = formatTimeStampToDMHM(timeStampArrive);
+						$('#'+timeLeaveID).html(dateLeave);
+						$('#'+timeArriveID).html(dateArrive);
+						dateOfTrain = new Date(timeStampLeave*1000);
+						if(dateOfUser >= dateOfTrain){
+							indexTrainChecked = i;
+						}
+					}
+					success(trainsTime[indexTrainChecked].trip_id);
+				}else{
+					alert(response['message']);
+				}
+			});
+		}
+		function getCarInFormation(tripID, stationIDLeave, stationIDArrive){
+			//Need: carID, car type
+			//Input: tripID: 1
+			//Output: { "code":"0", "message":"success", "data":[{"car_id":"1", "type":"B80", "status":"0"}, {"car_id":"2", "type":"B80L", "status":"1"}]}
+			//Car was sorted DESC by num_seat
+			//Car status
+	        //0: available
+	        //1: unavailable
+	        //2: full seat
+			$.post('get-cars',{
+				tripID: tripID,
+				stationIDLeave: stationIDLeave,
+				stationIDArrive: stationIDArrive
+			},function(data, status){
+				// alert('Get cars: ' + data);
+				var response = JSON.parse(data);
+				if(response['code']==0){
+					var cars = response['data'];
+					var htmlCars = '';
+					for(i = cars.length-1; i >= 0 ; i--){
+						var carID = 'car-'+cars[i].car_id;
+						var type = cars[i].type;
+						var carStatus = cars[i].status;
+						var image = getCarImage(carStatus);
+						dictCarImage[carID] = image;
+						htmlCars += '<div id="'+carID+'" class="train-car '+type+'">'+
+								'<img src="'+image+'">'+
+								'<div class="car-label">'+(i+1)+'</div>'+
+							'</div>';
+					}
+					htmlCars += '<div class="train-car">'+
+								'<img src="./images/tc-head.png">'+
+								'<div class="car-label">SE8</div>'+
+							'</div>';
+					$('.pick-car').html(htmlCars);
+					refreshCarUI();
+				}else{
+					alert(response['message']);
+				}
+			});
+		}
+		function getCarImage(carStatus){
+			switch(carStatus){
+				case '0':
+					return './images/tc-blue.png';
+				case '1':
+					return './images/tc-gray.png';
+				case '2':
+					return './images/tc-orange.png';
+				default:
+					return './images/tc-green.png';
+			}
+		}
+		//Handle UI
+		function changeTrainPicked(tripID){
+
+			$('#'+currentTripID).removeClass('train-picked');
+			$('#'+currentTripID).addClass('train-normal');
+			$('#'+currentTripID).css('background-image','url('+ './images/train.png' +')');
+
+			$('#'+tripID).removeClass('train-normal');
+			$('#'+tripID).addClass('train-picked');
+			$('#'+tripID).css('background-image','url('+ './images/train-picked-hover.png' +')');
+
+			currentTripID = tripID;
+			getCarInFormation(tripID.split('-')[1], getStationIDLeave(), getStationIDArrive());
+			refreshTrainUI();
+		}
+		function refreshTrainUI(){
+			$( ".train-normal" ).hover(
+			  function() {
+			    $( this ).css('background-image','url('+ './images/train-hover.png' +')');
+			  }, function() {
+			    $( this ).css('background-image','url('+ './images/train.png' +')');
+			  }
+			);
+
+			$( ".train-picked" ).hover(
+			  function() {
+			    $( this ).css('background-image','url('+ './images/train-picked-hover.png' +')');
+			  }, function() {
+			    $( this ).css('background-image','url('+ './images/train-picked.png' +')');
+			  }
+			);
+		}
+		function refreshCarUI(){
+			//small popup
+			$('.B80').hover( function(){
+				$('#small-pop-up-body').html("Ngồi cứng (B80)");
+				showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
+			}, function(){
+				hideSmallPopup($('#small-pop-up'));
+			});
+			$('.B80L').hover( function(){
+				$('#small-pop-up-body').html("Ngồi cứng điều hòa (B80L)");
+				showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
+			}, function(){
+				hideSmallPopup($('#small-pop-up'));
+			});
+			$('.A64L').hover( function(){
+				$('#small-pop-up-body').html("Ngồi mềm điều hòa (A64L)");
+				showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
+			}, function(){
+				hideSmallPopup($('#small-pop-up'));
+			});
+			$('.Bn42L').hover( function(){
+				$('#small-pop-up-body').html("Nằm cứng điều hòa (Bn42L)");
+				showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
+			}, function(){
+				hideSmallPopup($('#small-pop-up'));
+			});
+			$('.An28L').hover( function(){
+				$('#small-pop-up-body').html("Nằm mềm điều hòa (An28L)");
+				showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
+			}, function(){
+				hideSmallPopup($('#small-pop-up'));
+			});
+		}
+		//Action click
+		function addTrainClick(tripID){
+			$('#'+tripID).click(function(){
+				onTrainTapped($(this).attr('id'));
+			});
+		}
+		function onTrainTapped(tripID){
+			//tripID is trip-1
+			//realID is 1
+			var realID = tripID.split('-')[1];
+			changeTrainPicked(tripID);
 		}
 		//Utils
 		function formatTimeStampToDMHM(timeStamp){
@@ -1252,75 +1428,17 @@
 									+("0" + date.getHours()).slice(-2)+':'
 									+("0" + date.getMinutes()).slice(-2);
 		}
+		function getStationIDLeave(){
+			var tripInformation = JSON.parse(sessionStorage.tripInformation);
+			return getStationID(tripInformation['stationLeave'])
+		}
+		function getStationIDArrive(){
+			var tripInformation = JSON.parse(sessionStorage.tripInformation);
+			return getStationID(tripInformation['stationArrive'])
+		}
 	</script>
 	<script type="text/javascript">
-		//Handle UI
-
-		function hoverIn(e, status){
-			if(status==0){
-				e.style.backgroundImage = "url('./images/train-picked-hover.png')";
-			}else{
-				e.style.backgroundImage = "url('./images/train-hover.png')";
-			}
-		}
-
-		function hoverOut(e, status){
-			if(status==0){
-				e.style.backgroundImage = "url('./images/train-picked.png')";
-			}else{
-				e.style.backgroundImage = "url('./images/train.png')";
-			}
-		}
-
-		$( ".train-normal" ).hover(
-		  function() {
-		    $( this ).css('background-image','url('+ './images/train-hover.png' +')');
-		  }, function() {
-		    $( this ).css('background-image','url('+ './images/train.png' +')');
-		  }
-		);
-
-		$( ".train-picked" ).hover(
-		  function() {
-		    $( this ).css('background-image','url('+ './images/train-picked-hover.png' +')');
-		  }, function() {
-		    $( this ).css('background-image','url('+ './images/train-picked.png' +')');
-		  }
-		);
-
 		//Pop-up handle
-		//small popup
-		$('.B80').hover( function(){
-			$('#small-pop-up-body').html("Ngồi cứng (B80)");
-			showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
-		}, function(){
-			hideSmallPopup($('#small-pop-up'));
-		});
-		$('.B80L').hover( function(){
-			$('#small-pop-up-body').html("Ngồi cứng điều hòa (B80L)");
-			showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
-		}, function(){
-			hideSmallPopup($('#small-pop-up'));
-		});
-		$('.A64L').hover( function(){
-			$('#small-pop-up-body').html("Ngồi mềm điều hòa (A64L)");
-			showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
-		}, function(){
-			hideSmallPopup($('#small-pop-up'));
-		});
-		$('.Bn42L').hover( function(){
-			$('#small-pop-up-body').html("Nằm cứng điều hòa (Bn42L)");
-			showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
-		}, function(){
-			hideSmallPopup($('#small-pop-up'));
-		});
-		$('.An28L').hover( function(){
-			$('#small-pop-up-body').html("Nằm mềm điều hòa (An28L)");
-			showSmallPopup($(this), $('#small-pop-up'), $('#small-pop-up-triangle'));
-		}, function(){
-			hideSmallPopup($('#small-pop-up'));
-		});
-
 		//Medium popup
 		$('.sit-color-white').hover(function(){
 			$('#medium-pop-up-header').html("Chỗ trống(Mã số vé: 12345)");
