@@ -201,4 +201,21 @@ class DatabaseController extends Controller
         }
         
     }
+    public function getSeat(Request $request){
+        //Need: ticket_id, ordinal ticket on train
+        //Input: carID
+        //Output: { "code":"0", "message":"success", "data":[{"ticket_id":"1", "ordinal":"1"}, {"ticket_id":"2", "ordinal":"2"}]}
+        //Data sorted by ordinal ASC
+
+        $carID = $request->carID;
+        if(!$carID) return Utils::createResponse(2, null);
+
+        $query = "SELECT t.ticket_id, t.ordinal FROM tickets t WHERE t.car_id = :carID ORDER BY t.ordinal";
+        $result = DB::select($query, ['carID' => $carID]);
+
+        if(!$result) return Utils::createResponse(1, null);
+
+        $json = json_encode($result);
+        return Utils::createResponse( 0, $json);
+    }
 }

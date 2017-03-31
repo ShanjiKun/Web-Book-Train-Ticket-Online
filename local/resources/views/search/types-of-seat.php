@@ -1502,7 +1502,7 @@
 	</div> <!-- seat-64-hafl-block -->
 </div> <!-- container-seat -->
 
-
+<!--Nằm-->
 <div class="container-seat">
 					  					<div class="car-floor-full-height">
 					  						<div class="bed-way full-width">
@@ -1527,7 +1527,7 @@
 					  							<div class="col-1-8 font-8 text-center">Khoang 5</div>
 					  							<div class="col-1-8 font-8 text-center">Khoang 6</div>
 					  							<div class="col-1-8 font-8 text-center">Khoang 7</div>
-					  							<div class="col-1-8 font-8 text-center"></div>
+					  							<div class="col-1-8 font-8 text-center">Khoang 8</div>
 					  						</div>
 					  						<div class="bed">
 					  							<div class="bed-left">

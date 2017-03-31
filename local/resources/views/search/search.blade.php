@@ -1353,29 +1353,135 @@
 					return './images/tc-green.png';
 			}
 		}
+		//Hanlde seat
 		function handleSeat(carID){
 			//CarID car-1
 			//RealID 1
-			var realID = carID.split('-')[1];
-			
+			getSeat(carID, null);
 		}
-		function getSeat(carID, success){
+		function getSeat(carID, carType, success){
 			//Need: ticket_id, ordinal ticket on train
 			//Input: carID
 			//Output: { "code":"0", "message":"success", "data":[{"ticket_id":"1", "ordinal":"1"}, {"ticket_id":"2", "ordinal":"2"}]}
 			//Data sorted by ordinal ASC
-			$.post('getSeat',{
-				carID: carID
+			var realID = carID.split('-')[1];
+			$.post('get-seat',{
+				carID: realID
 			},function(data, status){
 				alert('Get seat: ' + data);
 
 				var response = JSON.parse(data);
 				if(response['code']=='0'){
-					alert(response['data']);
+					// alert(response['data']);
+					showSeat(currentCars[carID].type, response['data']);
 				}else{
 					alert(response['message']);
 				}
+
+				if(success) success();
 			});
+		}
+		function showSeat(type, seats){
+			var html;
+			switch (type){
+				case 'B80':
+					if(seats.length!=80){
+						alert('B80 must enough 80 seats');
+						break;
+					}
+					html = show80Type(seats);
+					break;
+				case 'B80L':
+
+					break;
+				case 'A64L':
+
+					break;
+				case 'Bn42L':
+
+					break;
+				case 'An28L':
+
+					break;
+				default:
+				alert('Can not find seat type: '+type);
+			}
+			$('.car-floor').html(html);
+
+			function show80Type(seats){
+				var html = '<div class="container-seat">';
+				for(i = 0; i < 40; i++){
+					var seatID = 'seat-'+seats[i].ticket_id;
+					var ordinal = seats[i].ordinal;
+					if(i%2==0){
+						html += '<div id="'+seatID+'" onclick="onSeatTapped(this)" class="seat seat-80">'+
+									'<div class="sit-side">'+
+										
+									'</div>'+
+									'<div class="sit sit-left">'+
+										'<div class="sit-bg sit-color-orange">'+
+											'<div class="sit-num">'+ordinal+'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>';
+					}else{
+						html += '<div id="'+seatID+'" onclick="onSeatTapped(this)" class="seat seat-80">'+
+									'<div class="sit sit-right">'+
+										'<div class="sit-bg sit-color-orange">'+
+											'<div class="sit-num">'+ordinal+'</div>'+
+										'</div>'+
+									'</div>'+
+									'<div class="sit-side">'+
+										
+									'</div>'+
+								'</div>';
+					}
+				}
+
+				html += '<div class="car-way"></div>';
+
+				for(i = 40; i < 80; i++){
+					var seatID = 'seat-'+seats[i].ticket_id;
+					var ordinal = seats[i].ordinal;
+					if(i%2==0){
+						html += '<div id="'+seatID+'" onclick="onSeatTapped(this)" class="seat seat-80">'+
+									'<div class="sit-side">'+
+										
+									'</div>'+
+									'<div class="sit sit-left">'+
+										'<div class="sit-bg sit-color-orange">'+
+											'<div class="sit-num">'+ordinal+'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>';
+					}else{
+						html += '<div id="'+seatID+'" onclick="onSeatTapped(this)" class="seat seat-80">'+
+									'<div class="sit sit-right">'+
+										'<div class="sit-bg sit-color-orange">'+
+											'<div class="sit-num">'+ordinal+'</div>'+
+										'</div>'+
+									'</div>'+
+									'<div class="sit-side">'+
+										
+									'</div>'+
+								'</div>';
+					}
+				}
+				html += '</div>';
+				return html;
+			}
+			function show80LType(seats){
+				
+			}
+			function showA64L(seats){
+
+			}
+			function showBn42L(seats){
+
+			}
+			function showAn28L(seats){
+				
+			}
 		}
 		//Handle UI
 		function changeTrainUI(tripID){
@@ -1474,6 +1580,9 @@
 
 			changeCarUI(carID);
 			handleSeat(carID);
+		}
+		function onSeatTapped(e){
+			alert(e.id);
 		}
 		//Utils
 		function formatTimeStampToDMHM(timeStamp){
