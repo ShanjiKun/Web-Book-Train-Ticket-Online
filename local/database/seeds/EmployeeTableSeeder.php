@@ -13,16 +13,16 @@ class EmployeeTableSeeder extends Seeder
     {
         //employee_id, name, password, username
         DB::table('employee')->insert([
-        	'employee_id' => 'emp1',
         	'name' => 'Nguyễn Văn Bé',
         	'password' => Hash::make('123456'),
-        	'username' => 'nvb'
+        	'username' => 'nvb',
+            'level' => 1
         ]);
         DB::table('employee')->insert([
-        	'employee_id' => 'emp2',
         	'name' => 'Trần Văn Bỏng',
         	'password' => Hash::make('123456'),
-        	'username' => 'tvb'
+        	'username' => 'tvb',
+            'level' => 2
         ]);
 
     }
