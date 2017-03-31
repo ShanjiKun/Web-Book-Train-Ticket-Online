@@ -283,7 +283,7 @@
 					  							<div class="col-1-8 font-8 text-center">Khoang 5</div>
 					  							<div class="col-1-8 font-8 text-center">Khoang 6</div>
 					  							<div class="col-1-8 font-8 text-center">Khoang 7</div>
-					  							<div class="col-1-8 font-8 text-center"></div>
+					  							<div class="col-1-8 font-8 text-center">Khoang 8</div>
 					  						</div>
 					  						<div class="bed">
 					  							<div class="bed-left">
@@ -1083,7 +1083,8 @@
 	<script type="text/javascript">
 		//Global variable
 		var currentTripID;
-		var dictCarImage = {}; //key: car-1, value: ./image/abc.png
+		var currentCarID;
+		var currentCars = {}; //key: car-1, value: ["type":"B80", "status":"1"]
 
 
 		//
@@ -1312,20 +1313,29 @@
 					for(i = cars.length-1; i >= 0 ; i--){
 						var carID = 'car-'+cars[i].car_id;
 						var type = cars[i].type;
-						var carStatus = cars[i].status;
-						var image = getCarImage(carStatus);
-						dictCarImage[carID] = image;
+						var status = cars[i].status;
+						var image = getCarImage(status);
+						currentCars[carID] = {"type": type, "status": status};
+
 						htmlCars += '<div id="'+carID+'" class="train-car '+type+'">'+
 								'<img src="'+image+'">'+
 								'<div class="car-label">'+(i+1)+'</div>'+
 							'</div>';
 					}
+					var trainNameID = 'trip-'+tripID+'-train-name';
+					var trainName = $('#'+trainNameID).html();
 					htmlCars += '<div class="train-car">'+
 								'<img src="./images/tc-head.png">'+
-								'<div class="car-label">SE8</div>'+
+								'<div class="car-label">'+trainName+'</div>'+
 							'</div>';
 					$('.pick-car').html(htmlCars);
+					var defaultCarID = 'car-'+cars[0].car_id;
+					onCarTapped(defaultCarID);
 					refreshCarUI();
+					for(i =0; i < cars.length; i++){
+						var carID = 'car-'+cars[i].car_id;
+						addCarClick(carID);
+					}
 				}else{
 					alert(response['message']);
 				}
@@ -1343,8 +1353,32 @@
 					return './images/tc-green.png';
 			}
 		}
+		function handleSeat(carID){
+			//CarID car-1
+			//RealID 1
+			var realID = carID.split('-')[1];
+			
+		}
+		function getSeat(carID, success){
+			//Need: ticket_id, ordinal ticket on train
+			//Input: carID
+			//Output: { "code":"0", "message":"success", "data":[{"ticket_id":"1", "ordinal":"1"}, {"ticket_id":"2", "ordinal":"2"}]}
+			//Data sorted by ordinal ASC
+			$.post('getSeat',{
+				carID: carID
+			},function(data, status){
+				alert('Get seat: ' + data);
+
+				var response = JSON.parse(data);
+				if(response['code']=='0'){
+					alert(response['data']);
+				}else{
+					alert(response['message']);
+				}
+			});
+		}
 		//Handle UI
-		function changeTrainPicked(tripID){
+		function changeTrainUI(tripID){
 
 			$('#'+currentTripID).removeClass('train-picked');
 			$('#'+currentTripID).addClass('train-normal');
@@ -1354,9 +1388,16 @@
 			$('#'+tripID).addClass('train-picked');
 			$('#'+tripID).css('background-image','url('+ './images/train-picked-hover.png' +')');
 
-			currentTripID = tripID;
-			getCarInFormation(tripID.split('-')[1], getStationIDLeave(), getStationIDArrive());
 			refreshTrainUI();
+		}
+		function changeCarUI(carID){
+			if(currentCarID){
+				var image = getCarImage(currentCars[currentCarID].status);
+				$('#'+currentCarID+' img').attr('src', image);
+			}
+			var image = getCarImage('3');
+			$('#'+carID+' img').attr('src', image);
+			currentCarID = carID;
 		}
 		function refreshTrainUI(){
 			$( ".train-normal" ).hover(
@@ -1418,7 +1459,21 @@
 			//tripID is trip-1
 			//realID is 1
 			var realID = tripID.split('-')[1];
-			changeTrainPicked(tripID);
+			changeTrainUI(tripID);
+			currentTripID = tripID;
+			getCarInFormation(tripID.split('-')[1], getStationIDLeave(), getStationIDArrive());
+		}
+		function addCarClick(carID){
+			$('#'+carID).click(function(){
+				onCarTapped(carID);
+			});
+		}
+		function onCarTapped(carID){
+			//carID is car-1
+			//realID is 1
+
+			changeCarUI(carID);
+			handleSeat(carID);
 		}
 		//Utils
 		function formatTimeStampToDMHM(timeStamp){
