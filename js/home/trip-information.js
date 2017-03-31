@@ -254,7 +254,7 @@ $('#btn-date-leave').datepicker({
 }).on("changeDate", function(e){
 	// var dateDMY = e.date.getDate() + '-' + (e.date.getMonth() + 1) + '-' +  e.date.getFullYear();
 	var dateYMD = e.date.getFullYear() + '-' + (e.date.getMonth() + 1) + '-' +  e.date.getDate();
-	$('#date-leave').val(dateDMY);
+	$('#date-leave').val(dateYMD);
 });
 
 $('#btn-date-round').datepicker({
@@ -262,7 +262,7 @@ $('#btn-date-round').datepicker({
     'autoclose': true
 }).on("changeDate", function(e){
 	var dateYMD = e.date.getFullYear() + '-' + (e.date.getMonth() + 1) + '-' +  e.date.getDate();
-	$('#date-round').val(dateDMY);
+	$('#date-round').val(dateYMD);
 });
 
 //Add time picker

@@ -16,7 +16,8 @@ class TicketsTableSeeder extends Seeder
 	    	for($ct = 0; $ct < $numSeat; $ct++)
 	    	{
 	    		DB::table('tickets')->insert([
-		        	'car_id' => $carId
+		        	'car_id' => $carId,
+                    'ordinal' => $ct+1
 		        ]);
 	    	}
 	    }

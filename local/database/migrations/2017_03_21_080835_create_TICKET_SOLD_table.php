@@ -21,6 +21,7 @@ class CreateTICKETSOLDTable extends Migration
             $table->string('bill_id', 20)->nullable();
             $table->unsignedInteger('station_leave_id');
             $table->unsignedInteger('station_arrive_id');
+            $table->string('status', 3);
             $table->foreign('ticket_id')->references('ticket_id')->on('TICKETS');
             $table->foreign('trip_id')->references('trip_id')->on('TRIP');
             $table->foreign('type_passenger_id')->references('type_passenger_id')->on('TYPE_PASSENGER');
