@@ -46,7 +46,7 @@
 		        </div>
 		        <div class="collapse navbar-collapse navbar-menubuilder">
 		            <ul class="nav navbar-nav navbar-left">
-		                <li><a href="/Web-Book-Train-Ticket-Online/timve">TÌM VÉ</a>
+		                <li><a href="/Web-Book-Train-Ticket-Online/search">TÌM VÉ</a>
 		                </li>
 		                <li><a href="/Web-Book-Train-Ticket-Online/thongtindatcho">THÔNG TIN ĐẶT CHỖ</a>
 		                </li>

@@ -14,23 +14,28 @@ class TypeSeatTableSeeder extends Seeder
         //type_seat_id, name
         DB::table('type_seat')->insert([
         	'type_seat_id' => 'B80',
-        	'name' => 'Ngồi cứng'
+        	'name' => 'Ngồi cứng',
+            'fare' => 200
         ]);
         DB::table('type_seat')->insert([
         	'type_seat_id' => 'B80L',
-        	'name' => 'Ngồi cứng điều hòa'
+        	'name' => 'Ngồi cứng điều hòa',
+            'fare' => 250
         ]);
         DB::table('type_seat')->insert([
         	'type_seat_id' => 'A64L',
-        	'name' => 'Ngồi mềm điều hòa'
+        	'name' => 'Ngồi mềm điều hòa',
+            'fare' => 300
         ]);
         DB::table('type_seat')->insert([
         	'type_seat_id' => 'Bn42L',
-        	'name' => 'Nằm cứng điều hòa'
+        	'name' => 'Nằm cứng điều hòa',
+            'fare' => 350
         ]);
         DB::table('type_seat')->insert([
         	'type_seat_id' => 'An28L',
-        	'name' => 'Nằm mềm điều hòa'
+        	'name' => 'Nằm mềm điều hòa',
+            'fare' => 400
         ]);
     }
 }

@@ -16,6 +16,7 @@ class CreateTRAINTable extends Migration
         Schema::create('TRAIN', function (Blueprint $table) {
             $table->string('train_id', 20)->primary();
             $table->string('name', 20);
+            $table->float('fare', 8, 2);
         });
     }
 

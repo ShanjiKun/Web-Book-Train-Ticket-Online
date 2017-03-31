@@ -11,12 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home/home');
-});
-Route::get('/timve', function(){
-	return view('search/search');
-});
+Route::get('/', 'home\HomeController@getHomeView');
+Route::get('/search', 'search\SearchController@getSearchView');
 Route::get('/thongtindatcho', function(){
 	return view('booking-information/booking-information');
 });
@@ -66,6 +62,13 @@ Route::group(['prefix'=>'admin'],function(){
 	});
 	
 });
+
+//
+Route::post('search-trip', 'database\DatabaseController@searchTrip');
+Route::post('get-train-name-via-trip', 'database\DatabaseController@getTrainNameViaTrip');
+Route::post('get-train-time-via-station', 'database\DatabaseController@getTrainTimeViaStation');
+Route::post('get-number-seat', 'database\DatabaseController@getNumberSeat');
+Route::post('get-cars', 'database\DatabaseController@getCars');
 Route::get('login',['as' => 'getLogin','uses' => 'LoginController@getLogin']);
 Route::post('login',['as' => 'postLogin','uses' => 'LoginController@postLogin']);
 Route::get('logout',['as' => 'getLogout','uses' => 'LoginController@getLogout']);
