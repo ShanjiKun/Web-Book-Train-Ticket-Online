@@ -16,6 +16,7 @@ class CreateTIKETSTable extends Migration
         Schema::create('TICKETS', function (Blueprint $table) {
             $table->increments('ticket_id');
             $table->unsignedInteger('car_id');
+            $table->unsignedInteger('ordinal');
             $table->foreign('car_id')->references('car_id')->on('CAR');
         });
     }

@@ -66,6 +66,7 @@ Route::post('get-train-name-via-trip', 'database\DatabaseController@getTrainName
 Route::post('get-train-time-via-station', 'database\DatabaseController@getTrainTimeViaStation');
 Route::post('get-number-seat', 'database\DatabaseController@getNumberSeat');
 Route::post('get-cars', 'database\DatabaseController@getCars');
+Route::post('get-seat', 'database\DatabaseController@getSeat');
 Route::get('admin/login',['as' => 'getLogin','uses' => 'LoginController@getLogin']);
 Route::post('admin/login',['as' => 'postLogin','uses' => 'LoginController@postLogin']);
 Route::get('admin/logout',['as' => 'getLogout','uses' => 'LoginController@getLogout']);
