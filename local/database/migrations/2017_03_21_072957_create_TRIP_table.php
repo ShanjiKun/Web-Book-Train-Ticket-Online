@@ -15,10 +15,10 @@ class CreateTRIPTable extends Migration
     {
         Schema::create('TRIP', function (Blueprint $table) {
             $table->increments('trip_id');
-            $table->string('train_id', 20);
+            $table->unsignedInteger('train_id');
             $table->unsignedInteger('station_leave_id');
             $table->unsignedInteger('station_arrive_id');
-            $table->string('employee_id', 20);
+            $table->unsignedInteger('employee_id');
             $table->datetime('date_leave');
             $table->datetime('date_arrive');
             $table->datetime('date_sell');

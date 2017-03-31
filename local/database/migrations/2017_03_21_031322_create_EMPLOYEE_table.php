@@ -14,10 +14,11 @@ class CreateEMPLOYEETable extends Migration
     public function up()
     {
         Schema::create('EMPLOYEE', function (Blueprint $table) {
-            $table->string('employee_id', 20)->primary();
+            $table->increments('employee_id');
             $table->string('name', 50);
             $table->string('password');
             $table->string('username', 20)->unique();
+            $table->unsignedInteger('level');
             $table->rememberToken();
         });
     }
