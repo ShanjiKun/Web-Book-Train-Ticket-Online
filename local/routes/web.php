@@ -51,6 +51,13 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('admin-main', function(){
 		return view('admin/admin-main');
 	});
+	Route::get('admin-master', function(){
+		return view('admin/dashboard/main');
+	});
+	Route::get('dashboard/cate', function(){
+		return view('admin/dashboard/cate');
+	});
+	
 });
 
 //
@@ -60,3 +67,45 @@ Route::post('get-train-time-via-station', 'database\DatabaseController@getTrainT
 Route::post('get-number-seat', 'database\DatabaseController@getNumberSeat');
 Route::post('get-cars', 'database\DatabaseController@getCars');
 Route::post('get-seat', 'database\DatabaseController@getSeat');
+Route::get('admin/login',['as' => 'getLogin','uses' => 'LoginController@getLogin']);
+Route::post('admin/login',['as' => 'postLogin','uses' => 'LoginController@postLogin']);
+Route::get('admin/logout',['as' => 'getLogout','uses' => 'LoginController@getLogout']);
+Route::get('admin',['as' => 'admin', function(){
+	return view('admin/dashboard/main');
+}]);
+//login
+Route::get('employee_add',['as' => 'getEmployeeAdd' , 'uses' => 'EmployeeController@getEmployeeAdd']);
+Route::post('employee_add',['as' => 'postEmployeeAdd' , 'uses' => 'EmployeeController@postEmployeeAdd']);
+Route::get('employee_list',['as' => 'getEmployeeList' , 'uses' => 'EmployeeController@getEmployeeList']);
+Route::get('employee_update/{id}',['as' => 'getEmployeeDelete' , 'uses' => 'EmployeeController@getEmployeeDelete']);
+Route::get('employee-edit/{id}',['as' => 'getEmployeeEdit' , 'uses' => 'EmployeeController@getEmployeeEdit']);
+Route::post('employee-edit/{id}',['as' => 'postEmployeeEdit' , 'uses' => 'EmployeeController@postEmployeeEdit']);
+//Employee
+Route::get('train-add',['as' => 'getTrainAdd' , 'uses' => 'TrainController@getTrainAdd']);
+Route::post('train-add',['as' => 'postTrainAdd' , 'uses' => 'TrainController@postTrainAdd']);
+Route::get('train-list',['as' => 'getTrainList' , 'uses' => 'TrainController@getTrainList']);
+Route::get('train-update/{id}',['as' => 'getTrainDelete' , 'uses' => 'TrainController@getTrainDelete']);
+Route::get('train-edit/{id}',['as' => 'getTrainEdit' , 'uses' => 'TrainController@getTrainEdit']);
+Route::post('train-edit/{id}',['as' => 'postTrainEdit' , 'uses' => 'TrainController@postTrainEdit']);
+//Train
+Route::get('station-add',['as' => 'getStationAdd' , 'uses' => 'StationController@getStationAdd']);
+Route::post('station-add',['as' => 'postStationAdd' , 'uses' => 'StationController@postStationAdd']);
+Route::get('station-list',['as' => 'getStationList' , 'uses' => 'StationController@getStationList']);
+Route::get('station-delete/{id}',['as' => 'getStationDelete' , 'uses' => 'StationController@getStationDelete'])->where('id', '[0-9]+');
+Route::get('station-edit/{id}',['as' => 'getStationEdit' , 'uses' => 'StationController@getStationEdit']);
+Route::post('station-edit/{id}',['as' => 'postStationEdit' , 'uses' => 'StationController@postStationEdit']);
+//Station
+Route::get('trip-add',['as' => 'getTripAdd' , 'uses' => 'TripController@getTripAdd']);
+Route::post('trip-add',['as' => 'postTripAdd' , 'uses' => 'TripController@postTripAdd']);
+Route::get('trip-list',['as' => 'getTripList' , 'uses' => 'TripController@getTripList']);
+// Trip
+//*****
+// Route::group(['prefix' => 'admin'], function(){
+// 	Route::group(['prefix' => 'employee'],function(){
+// 		Route::get('employee_add',['as' => 'getEmployeeAdd' , 'uses' => 'EmployeeController@getEmployeeAdd']);
+// 		Route::post('employee_add',['as' => 'postEmployeeAdd' , 'uses' => 'EmployeeController@postEmployeeAdd']);
+// 	});
+// });
+
+// Route::group(['middleware'=>'auth'], function(){
+//***** chua xu ly dc middleware <- không có Authenticate.php <- return redirect()->guest('login')

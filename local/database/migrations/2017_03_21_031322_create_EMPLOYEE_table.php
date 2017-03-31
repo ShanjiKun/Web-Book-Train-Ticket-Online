@@ -17,7 +17,8 @@ class CreateEMPLOYEETable extends Migration
             $table->string('employee_id', 20)->primary();
             $table->string('name', 50);
             $table->string('password');
-            $table->string('username', 20);
+            $table->string('username', 20)->unique();
+            $table->rememberToken();
         });
     }
 

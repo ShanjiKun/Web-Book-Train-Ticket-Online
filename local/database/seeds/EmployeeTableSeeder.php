@@ -15,13 +15,13 @@ class EmployeeTableSeeder extends Seeder
         DB::table('employee')->insert([
         	'employee_id' => 'emp1',
         	'name' => 'Nguyễn Văn Bé',
-        	'password' => md5('1234'),
+        	'password' => Hash::make('123456'),
         	'username' => 'nvb'
         ]);
         DB::table('employee')->insert([
         	'employee_id' => 'emp2',
         	'name' => 'Trần Văn Bỏng',
-        	'password' => md5('1234'),
+        	'password' => Hash::make('123456'),
         	'username' => 'tvb'
         ]);
 
