@@ -28,6 +28,11 @@ class CreateTICKETSOLDTable extends Migration
             $table->foreign('bill_id')->references('bill_id')->on('BILL');
             $table->foreign('station_leave_id')->references('station_id')->on('STATION');
             $table->foreign('station_arrive_id')->references('station_id')->on('STATION');
+            //status:
+            // U: unavailble
+            // S: sold
+            // W: wait
+            // A: available
         });
     }
 

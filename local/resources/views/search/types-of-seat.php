@@ -1527,7 +1527,7 @@
 					  							<div class="col-1-8 font-8 text-center">Khoang 5</div>
 					  							<div class="col-1-8 font-8 text-center">Khoang 6</div>
 					  							<div class="col-1-8 font-8 text-center">Khoang 7</div>
-					  							<div class="col-1-8 font-8 text-center">Khoang 8</div>
+					  							<div class="col-1-8 font-8 text-center"></div>
 					  						</div>
 					  						<div class="bed">
 					  							<div class="bed-left">
@@ -1670,7 +1670,7 @@
 					  							</div> <!-- bed-right -->
 					  						</div> <!-- bed -->
 					  						<div class="bed">
-					  							<div class="bed-left">
+					  							<div class="bed-left bed-hide">
 					  								<div class="bed-outer">
 					  									<div class="main-bed text-center sit-color-green">
 					  										15
@@ -1680,7 +1680,7 @@
 					  							</div> <!-- bed-left -->
 					  						</div> <!-- bed -->
 					  						<div class="bed">
-					  							<div class="bed-right">
+					  							<div class="bed-right bed-hide">
 					  								<div class="bed-outer">
 					  									<div class="main-bed text-center sit-color-white">
 					  										16
@@ -1830,7 +1830,7 @@
 					  							</div> <!-- bed-right -->
 					  						</div> <!-- bed -->
 					  						<div class="bed">
-					  							<div class="bed-left">
+					  							<div class="bed-left bed-hide">
 					  								<div class="bed-outer">
 					  									<div class="main-bed text-center sit-color-green">
 					  										31
@@ -1840,7 +1840,7 @@
 					  							</div> <!-- bed-left -->
 					  						</div> <!-- bed -->
 					  						<div class="bed">
-					  							<div class="bed-right">
+					  							<div class="bed-right bed-hide">
 					  								<div class="bed-outer">
 					  									<div class="main-bed text-center sit-color-orange">
 					  										32
@@ -1990,7 +1990,7 @@
 					  							</div> <!-- bed-right -->
 					  						</div> <!-- bed -->
 					  						<div class="bed">
-					  							<div class="bed-left">
+					  							<div class="bed-left bed-hide">
 					  								<div class="bed-outer">
 					  									<div class="main-bed text-center sit-color-white">
 					  										47
@@ -2000,10 +2000,361 @@
 					  							</div> <!-- bed-left -->
 					  						</div> <!-- bed -->
 					  						<div class="bed">
-					  							<div class="bed-right">
+					  							<div class="bed-right bed-hide">
 					  								<div class="bed-outer">
 					  									<div class="main-bed text-center sit-color-green">
 					  										48
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-right -->
+					  						</div> <!-- bed -->
+					  						<div class="car-floor-full-height"></div>
+					  					</div> <!-- container-bed -->
+					  				</div> <!-- container-seat -->
+
+<!--Nằm mềm lạnh-->
+<div class="container-seat">
+					  					<div class="car-floor-full-height">
+					  						<div class="bed-way full-width">
+					  							
+					  						</div>
+					  						<div class="bed-way full-width">
+					  						</div>
+					  						<div class="bed-way text-center full-width font-small">
+					  							T2
+					  						</div>
+					  						<div class="bed-way text-center full-width font-small">
+					  							T1
+					  						</div>
+					  					</div> <!-- car-floor-full-height -->
+					  					<div class="container-bed">
+					  						<div class="bed-way full-width"></div>
+					  						<div class="bed-way full-width">
+					  							<div class="col-1-8 font-8 text-center">Khoang 1</div>
+					  							<div class="col-1-8 font-8 text-center">Khoang 2</div>
+					  							<div class="col-1-8 font-8 text-center">Khoang 3</div>
+					  							<div class="col-1-8 font-8 text-center">Khoang 4</div>
+					  							<div class="col-1-8 font-8 text-center">Khoang 5</div>
+					  							<div class="col-1-8 font-8 text-center">Khoang 6</div>
+					  							<div class="col-1-8 font-8 text-center">Khoang 7</div>
+					  							<div class="col-1-8 font-8 text-center"></div>
+					  						</div>
+					  						<div class="bed">
+					  							<div class="bed-left">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-orange">
+					  										1
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-left -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-right">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-white">
+					  										2
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-right -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-left">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-gray">
+					  										3
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-left -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-right">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-yellow">
+					  										4
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-right -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-left">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-green">
+					  										5
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-left -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-right">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-violet">
+					  										6
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-right -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-left">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-orange">
+					  										7
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-left -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-right">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-white">
+					  										8
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-right -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-left">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-orange">
+					  										9
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-left -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-right">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-white">
+					  										10
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-right -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-left">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-orange">
+					  										11
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-left -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-right">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-green">
+					  										12
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-right -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-left">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-orange">
+					  										13
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-left -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-right">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-orange">
+					  										14
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-right -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-left bed-hide">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-green">
+					  										15
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-left -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-right bed-hide">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-white">
+					  										16
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-right -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-left">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-orange">
+					  										17
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-left -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-right">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-green">
+					  										18
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-right -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-left">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-orange">
+					  										19
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-left -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-right">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-orange">
+					  										20
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-right -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-left">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-white">
+					  										21
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-left -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-right">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-orange">
+					  										22
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-right -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-left">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-green">
+					  										23
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-left -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-right">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-orange">
+					  										24
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-right -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-left">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-white">
+					  										25
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-left -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-right">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-orange">
+					  										26
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-right -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-left">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-orange">
+					  										27
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-left -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-right">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-green">
+					  										28
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-right -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-left">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-orange">
+					  										29
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-left -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-right">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-white">
+					  										30
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-right -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-left bed-hide">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-green">
+					  										31
+					  									</div>
+					  									<div class="bed-illu"></div>
+					  								</div>
+					  							</div> <!-- bed-left -->
+					  						</div> <!-- bed -->
+					  						<div class="bed">
+					  							<div class="bed-right bed-hide">
+					  								<div class="bed-outer">
+					  									<div class="main-bed text-center sit-color-orange">
+					  										32
 					  									</div>
 					  									<div class="bed-illu"></div>
 					  								</div>
