@@ -21,16 +21,28 @@ class TripCarTableSeeder extends Seeder
         	'car_id' => 2
         ]);
         DB::table('trip_car')->insert([
-            'trip_id' => 1,
-            'car_id' => 6
-        ]);
-        DB::table('trip_car')->insert([
-        	'trip_id' => 2,
-        	'car_id' => 3
+            'trip_id' => 2,
+            'car_id' => 3
         ]);
         DB::table('trip_car')->insert([
         	'trip_id' => 2,
         	'car_id' => 4
+        ]);
+        DB::table('trip_car')->insert([
+        	'trip_id' => 3,
+        	'car_id' => 5
+        ]);
+        DB::table('trip_car')->insert([
+            'trip_id' => 3,
+            'car_id' => 6
+        ]);
+        DB::table('trip_car')->insert([
+            'trip_id' => 4,
+            'car_id' => 7
+        ]);
+        DB::table('trip_car')->insert([
+            'trip_id' => 4,
+            'car_id' => 8
         ]);
     }
 }
