@@ -11,96 +11,102 @@ class TicketSoldTableSeeder extends Seeder
      */
     public function run()
     {
+        //status:
+        // U: unavailble
+        // S: sold
+        // W: wait
+        // A: available
         DB::table('ticket_sold')->insert([
         	'ticket_id' => 1,
         	'trip_id' => 1,
-        	'date_sell' => '2017-03-21 00:00:00',
+        	'date_sell' => '2017-03-30 00:00:00',
         	'type_passenger_id' => 'NL',
         	'station_leave_id' => 1,
         	'station_arrive_id' =>3,
-            'status' => 'KKD' //unavailable
+            'status' => 'S'
         ]);
         DB::table('ticket_sold')->insert([
         	'ticket_id' => 2,
         	'trip_id' => 1,
-        	'date_sell' => '2017-03-21 00:00:00',
+        	'date_sell' => '2017-03-30 00:00:00',
         	'type_passenger_id' => 'NL',
         	'station_leave_id' => 1,
         	'station_arrive_id' =>3,
-            'status' => 'KKD' //unavailable
+            'status' => 'W'
         ]);
         DB::table('ticket_sold')->insert([
-        	'ticket_id' => 3,
+        	'ticket_id' => 81,
         	'trip_id' => 1,
-        	'date_sell' => '2017-03-21 00:00:00',
+        	'date_sell' => '2017-03-30 00:00:00',
         	'type_passenger_id' => 'NL',
         	'station_leave_id' => 1,
         	'station_arrive_id' => 3,
-            'status' => 'KKD' //unavailable
+            'status' => 'S'
         ]);
         DB::table('ticket_sold')->insert([
-        	'ticket_id' => 1,
+        	'ticket_id' => 82,
         	'trip_id' => 1,
-        	'date_sell' => '2017-03-21 00:00:00',
+        	'date_sell' => '2017-03-30 00:00:00',
         	'type_passenger_id' => 'NL',
         	'station_leave_id' => 3,
         	'station_arrive_id' => 5,
-            'status' => 'KKD' //unavailable
+            'status' => 'W'
         ]);
         DB::table('ticket_sold')->insert([
-            'ticket_id' => 4,
-            'trip_id' => 1,
-            'date_sell' => '2017-03-21 00:00:00',
+            'ticket_id' => 123,
+            'trip_id' => 2,
+            'date_sell' => '2017-03-30 00:00:00',
             'type_passenger_id' => 'NL',
             'station_leave_id' => 1,
             'station_arrive_id' => 3,
-            'status' => 'CGD' //unavailable
+            'status' => 'S'
         ]);
         DB::table('ticket_sold')->insert([
-            'ticket_id' => 5,
-            'trip_id' => 1,
-            'date_sell' => '2017-03-21 00:00:00',
+            'ticket_id' => 124,
+            'trip_id' => 2,
+            'date_sell' => '2017-03-30 00:00:00',
             'type_passenger_id' => 'NL',
             'station_leave_id' => 3,
             'station_arrive_id' => 5,
-            'status' => 'CGD' //unavailable
+            'status' => 'W'
         ]);
 
         DB::table('ticket_sold')->insert([
-        	'ticket_id' => 1,
-        	'trip_id' => 2,
-        	'date_sell' => '2017-03-21 00:00:00',
+        	'ticket_id' => 231,
+        	'trip_id' => 3,
+        	'date_sell' => '2017-03-30 00:00:00',
         	'type_passenger_id' => 'NL',
-        	'station_leave_id' => 1,
+        	'station_leave_id' => 5,
         	'station_arrive_id' =>3,
-            'status' => 'KKD' //unavailable
+            'status' => 'S'
         ]);
         DB::table('ticket_sold')->insert([
-        	'ticket_id' => 2,
-        	'trip_id' => 2,
-        	'date_sell' => '2017-03-21 00:00:00',
+        	'ticket_id' => 232,
+        	'trip_id' => 3,
+        	'date_sell' => '2017-03-30 00:00:00',
         	'type_passenger_id' => 'NL',
-        	'station_leave_id' => 1,
-        	'station_arrive_id' =>3,
-            'status' => 'KKD' //unavailable
+        	'station_leave_id' => 3,
+        	'station_arrive_id' => 1,
+            'status' => 'W'
+        ]);
+
+        DB::table('ticket_sold')->insert([
+            'ticket_id' => 375,
+            'trip_id' => 4,
+            'date_sell' => '2017-03-30 00:00:00',
+            'type_passenger_id' => 'NL',
+            'station_leave_id' => 5,
+            'station_arrive_id' =>3,
+            'status' => 'W'
         ]);
         DB::table('ticket_sold')->insert([
-            'ticket_id' => 4,
-            'trip_id' => 2,
-            'date_sell' => '2017-03-21 00:00:00',
+            'ticket_id' => 376,
+            'trip_id' => 4,
+            'date_sell' => '2017-03-30 00:00:00',
             'type_passenger_id' => 'NL',
-            'station_leave_id' => 1,
+            'station_leave_id' => 5,
             'station_arrive_id' =>3,
-            'status' => 'CGD' //unavailable
-        ]);
-        DB::table('ticket_sold')->insert([
-            'ticket_id' => 5,
-            'trip_id' => 2,
-            'date_sell' => '2017-03-21 00:00:00',
-            'type_passenger_id' => 'NL',
-            'station_leave_id' => 1,
-            'station_arrive_id' =>3,
-            'status' => 'CGD' //unavailable
+            'status' => 'W'
         ]);
     }
 }
