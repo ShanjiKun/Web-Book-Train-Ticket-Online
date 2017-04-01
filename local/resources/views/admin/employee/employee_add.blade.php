@@ -1,16 +1,12 @@
 @extends('admin.admin-master')
 
-@section('title', 'Them user')
-
+@section('title', 'Thêm admin')
+@section('logo', 'Thêm Admin')
 @section('content')
 <form action="" method="POST" style="width: 650px;">
 	<input type="hidden" name="_token" value="{{csrf_token()}}">
 	<fieldset>
-		<legend>Thông Tin User</legend>
-		<span class="form_label">ID:</span>
-		<span class="form_item">
-			<input type="text" name="txtId" class="textbox" value="{!! old('txtId')!!}" />
-		</span><br />
+		<legend>Thông Tin Admin</legend>
 		<span class="form_label">Your Name:</span>
 		<span class="form_item">
 			<input type="text" name="txtName" class="textbox" value="{!! old('txtName')!!}" />
@@ -27,14 +23,24 @@
 		<span class="form_item">
 			<input type="password" name="txtRepass" class="textbox" />
 		</span><br />
-		<!-- <span class="form_label">Level:</span>
+		<span class="form_label">Level:</span>
 		<span class="form_item">
-			<input type="radio" name="rdoLevel" value="1" /> Admin 
-			<input type="radio" name="rdoLevel" value="2" checked="checked" /> Member
-		</span><br /> -->
+			<input type="radio" name="rdoLevel" value="1" checked="checked"
+			@if (old('rdoLevel') ==1)
+				checked
+			@endif
+			/> SupperAdmin 
+			
+			<input type="radio" name="rdoLevel" value="2"  
+			@if (old('rdoLevel') ==2)
+				checked
+			@endif
+			/> Admin
+			
+		</span><br />
 		<span class="form_label"></span>
 		<span class="form_item">
-			<input type="submit" name="btnUserAdd" value="Thêm User" class="button" />
+			<input type="submit" name="btnUserAdd" value="Thêm User" class="button" onclick="return acceptDelete('Bạn có muốn thêm không')"/>
 		</span>
 	</fieldset>
 </form>    

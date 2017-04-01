@@ -24,15 +24,11 @@ class TrainAddRequest extends FormRequest
     public function rules()
     {
         return [
-            'txtTrainId' => 'required|primary:train,train_id',
-            'txtTrainId' => 'required',
             'txtTrainName' => 'required'
         ];
     }
     public function messages(){
         return[
-            'txtTrainId.required' => 'Vui lòng nhập Mã Tàu',
-            'txtTrainId.primary' => 'Mã Tàu đã tồn tại',
             'txtTrainName.required' => 'Vui lòng nhập tên tàu'
             
         ];

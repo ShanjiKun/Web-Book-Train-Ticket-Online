@@ -57,15 +57,23 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('dashboard/cate', function(){
 		return view('admin/dashboard/cate');
 	});
-	
+	Route::get('dashboard/chart', function(){
+		$user = DB::table('employee')->count();
+		$station = DB::table('station')->count();
+		$train = DB::table('train')->count();
+		return view('admin/dashboard/chart',['user' => $user, 'station'=>$station, 'train'=>$train]);
+	});
 });
 
 //
 Route::get('admin/login',['as' => 'getLogin','uses' => 'LoginController@getLogin']);
 Route::post('admin/login',['as' => 'postLogin','uses' => 'LoginController@postLogin']);
-Route::get('admin/logout',['as' => 'getLogout','uses' => 'LoginController@getLogout']);
+Route::get('logout',['as' => 'getLogout','uses' => 'LoginController@getLogout']);
 Route::get('admin',['as' => 'admin', function(){
 	return view('admin/dashboard/main');
+}]);
+Route::get('admin1',['as' => 'admin1', function(){
+	return view('admin/dashboard/cate');
 }]);
 //login
 Route::get('employee_add',['as' => 'getEmployeeAdd' , 'uses' => 'EmployeeController@getEmployeeAdd']);

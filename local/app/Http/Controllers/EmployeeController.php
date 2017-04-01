@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\EmployeeAddRequest;
 use App\Http\Requests\EmployeeEditRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 class EmployeeController extends Controller
 {
@@ -14,10 +15,10 @@ class EmployeeController extends Controller
     }
     public function postEmployeeAdd(EmployeeAddRequest $requests){
     	$user = new User;
-        $user->employee_id= $requests->txtId;
     	$user->name = $requests->txtName;
     	$user->username = $requests->txtUser;
-    	$user->password = $requests->txtPass;
+    	$user->password = Hash::make($requests->txtPass);
+        $user->level = $requests ->rdoLevel;
     	$user->save();
     	return redirect()->route('getEmployeeList')->with(['flash_level'=> 'result_msg', 'flash_message'=> 'Thêm nhân viên thành công']);
     }
@@ -38,7 +39,7 @@ class EmployeeController extends Controller
         $user = User::find($id);
         $user->name = $requests->txtName;
         $user->username = $requests->txtUser;
-        $user->password = $requests->txtPass;
+        $user->password = Hash::make($requests->txtPass);
         $user->save();
         return redirect()->route('getEmployeeList')->with(['flash_level'=> 'result_msg', 'flash_message'=> 'Sửa nhân viên thành công']);
     }
