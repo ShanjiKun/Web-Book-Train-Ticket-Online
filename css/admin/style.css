@@ -327,8 +327,10 @@ img.thumbs {
 .news_add {
     background: url('/Web-Book-Train-Ticket-Online/images/news_add.png') no-repeat center center;
 }
-.news_list {
-    background: url('/Web-Book-Train-Ticket-Online/images/news.png') no-repeat center center;
+.chart_list {
+    background: url('/Web-Book-Train-Ticket-Online/images/chart.png');
+    background-repeat: no-repeat;
+    background-position: center;
 }
     /********************************
     DÙNG CHO TRANG LOGIN 

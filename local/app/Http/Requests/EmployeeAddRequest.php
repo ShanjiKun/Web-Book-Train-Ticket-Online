@@ -24,8 +24,6 @@ class EmployeeAddRequest extends FormRequest
     public function rules()
     {
         return [
-            'txtId' => 'required|primary:employee,employee_id',
-            'txtId' => 'required',
             'txtName' => 'required',
             'txtUser' => 'required|unique:employee,username',
             'txtUser' => 'required',
@@ -35,8 +33,6 @@ class EmployeeAddRequest extends FormRequest
     }
     public function messages(){
         return [
-            'txtId.required' => 'Vui lòng nhập Mã nhân viên',
-            'txtId.primary' => 'Mã nhân viên đã tồn tại',
             'txtName.required' => 'Vui lòng nhập họ & tên',
             'txtUser.required' => 'Vui lòng nhập Username',
             'txtUser.unique' => 'Username này đã tồn tại',

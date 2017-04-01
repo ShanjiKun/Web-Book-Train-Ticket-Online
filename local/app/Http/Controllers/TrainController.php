@@ -13,7 +13,6 @@ class TrainController extends Controller
     }
     public function postTrainAdd(TrainAddRequest $request){
     	$train = new Train;
-    	$train -> train_id = $request -> txtTrainId;
     	$train -> name = $request -> txtTrainName;
     	$train -> save();
     	return redirect()-> route('getTrainList')->with(['flash_level' => 'result_msg','flash_message' => 'Thêm tàu thành công']);

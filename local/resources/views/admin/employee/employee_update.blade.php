@@ -1,12 +1,12 @@
 @extends('admin.admin-master')
 
-@section('title', 'Update users')
-
+@section('title', 'Cập Nhật Admin')
+@section('logo', 'Cập Nhật Admin')
 @section('content')
 <form action="" method="POST" style="width: 650px;">
 	<input type="hidden" name="_token" value="{{csrf_token()}}">
 	<fieldset>
-		<legend>Thông Tin User</legend>
+		<legend>Thông Tin Admin</legend>
 		<span class="form_label">Your Name:</span>
 		<span class="form_item">
 			<input type="text" name="txtName" class="textbox" value="{!! old('txtName',isset($data["name"]) ? $data["name"] : null)!!}"/>
@@ -23,14 +23,24 @@
 		<span class="form_item">
 			<input type="password" name="txtRepass" class="textbox" />
 		</span><br />
-		<!-- <span class="form_label">Level:</span>
+		@if( Auth::User()->employee_id != $data["employee_id"])
+		<span class="form_label">Level:</span>
 		<span class="form_item">
-			<input type="radio" name="rdoLevel" value="1" /> Admin 
-			<input type="radio" name="rdoLevel" value="2" checked="checked" /> Member
-		</span><br /> -->
+			<input type="radio" name="rdoLevel" value="1" 
+			@if ($data["level"]==1)
+				checked
+			@endif
+			/> SupperAdmin 
+			<input type="radio" name="rdoLevel" value="2"
+			@if ($data["level"]==2)
+					checked
+				@endif 
+			/> Admin
+		</span><br />
+		@endif
 		<span class="form_label"></span>
 		<span class="form_item">
-			<input type="submit" name="btnUserEdit" value="Sửa User" class="button" />
+			<input type="submit" name="btnUserEdit" value="Sửa User" class="button" onclick="return acceptDelete('Bạn có muốn sửa không')"/>
 		</span>
 	</fieldset>
 </form>   

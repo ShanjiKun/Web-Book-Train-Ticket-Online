@@ -11,6 +11,13 @@
     
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/lib/bootstrap-datepicker.css') }}" />
     <script type="text/javascript" src="{{ asset('/js/lib/bootstrap-datepicker.js') }}"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
 	<title>Admin Area :: @yield('title')</title>
 </head> 
     <body>
@@ -18,7 +25,7 @@
             <div id="top">
                 <div class="banner-left-logo">
                     <div class="banner-right">
-                        Admin Area :: Trang chính
+                        Admin Area :: @yield('logo')
                     </div>
                 </div>
             </div>
@@ -26,10 +33,10 @@
         		<table width="100%">
         			<tr>
         				<td>
-        					<a href="">Trang chính</a> | <a href="">Quản lý user</a> | <a href="">Quản lý danh mục</a> | <a href="">Quản lý tin</a>
+        					<a href="{!! route('admin')!!}">Trang chính</a> | <a href="{!! route('admin')!!}">Quản lý Admin</a> | <a href="admin/dashboard/cate">Quản lý danh mục</a> | <a href="">Quản lý tin</a>
         				</td>
         				<td align="right">
-        					Xin chào admin | <a href="{!! url('logout')!!}">Logout</a>
+        					Xin chào {!! Auth::User() -> username !!} | <a href="{!! url('logout')!!}">Logout</a>
         				</td>
         			</tr>
         		</table>

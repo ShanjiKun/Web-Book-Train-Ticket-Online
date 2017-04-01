@@ -1,12 +1,12 @@
 @extends('admin.admin-master')
 
-@section('title', 'Danh sach users')
-
+@section('title', 'Danh sách Admin')
+@section('logo', 'Danh Sách Admin')
 @section('content')
 <table class="list_table">
     <tr class="list_heading">
         <td class="id_col">STT</td>
-        <td>Mã Nhân Viên</td>
+        <td>Mã Admin</td>
         <td>Họ và Tên</td>
         <td class="action_col">Cập Nhật</td>
     </tr>

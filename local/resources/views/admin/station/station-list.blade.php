@@ -1,7 +1,7 @@
 @extends('admin.admin-master')
 
 @section('title', 'Danh sách ga tàu')
-
+@section('logo', 'Danh Sách Ga Tàu')
 @section('content')
 <table class="list_table">
 	<tr class="list_heading">
