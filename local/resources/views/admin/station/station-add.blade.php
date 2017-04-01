@@ -1,6 +1,7 @@
 @extends('admin.admin-master')
 
 @section('title', 'Thêm Ga Tàu')
+@section('logo', 'Thêm Ga Tàu')
 
 @section('content')
 <form action="" method="POST" style="width: 650px;">
@@ -25,7 +26,7 @@
 		</span><br />
 		<span class="form_label"></span>
 		<span class="form_item">
-			<input type="submit" name="btnStationAdd" value="Thêm Ga Tàu" class="button" />
+			<input type="submit" name="btnStationAdd" value="Thêm Ga Tàu" class="button" onclick="return acceptDelete('Bạn có muốn thêm không')"/>
 		</span>
 	</fieldset>
 </form>  

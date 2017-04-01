@@ -1,7 +1,7 @@
 @extends('admin.admin-master')
 
 @section('title', 'Sửa Ga Tàu')
-
+@section('logo', 'Cập Nhật Ga Tàu')
 @section('content')
 <form action="" method="POST" style="width: 650px;">
 	<input type="hidden" name="_token" value="{{csrf_token()}}">
@@ -25,7 +25,7 @@
 		</span><br />
 		<span class="form_label"></span>
 		<span class="form_item">
-			<input type="submit" name="btnStationEdit" value="Sửa" class="button" />
+			<input type="submit" name="btnStationEdit" value="Sửa" class="button" onclick="return acceptDelete('Bạn có muốn sửa không')"/>
 		</span>
 	</fieldset>
 </form>  

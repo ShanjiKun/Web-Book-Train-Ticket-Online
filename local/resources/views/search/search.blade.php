@@ -259,515 +259,9 @@
 					  		</div>
 					  		<div class="car-details">
 					  			<div class="car-floor">
-					  				<div class="container-seat">
-					  					<div class="car-floor-full-height">
-					  						<div class="bed-way full-width">
-					  							
-					  						</div>
-					  						<div class="bed-way text-center full-width font-small">
-					  							T3
-					  						</div>
-					  						<div class="bed-way text-center full-width font-small">
-					  							T2
-					  						</div>
-					  						<div class="bed-way text-center full-width font-small">
-					  							T1
-					  						</div>
-					  					</div> <!-- car-floor-full-height -->
-					  					<div class="container-bed">
-					  						<div class="bed-way full-width">
-					  							<div class="col-1-8 font-8 text-center">Khoang 1</div>
-					  							<div class="col-1-8 font-8 text-center">Khoang 2</div>
-					  							<div class="col-1-8 font-8 text-center">Khoang 3</div>
-					  							<div class="col-1-8 font-8 text-center">Khoang 4</div>
-					  							<div class="col-1-8 font-8 text-center">Khoang 5</div>
-					  							<div class="col-1-8 font-8 text-center">Khoang 6</div>
-					  							<div class="col-1-8 font-8 text-center">Khoang 7</div>
-					  							<div class="col-1-8 font-8 text-center">Khoang 8</div>
-					  						</div>
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										1
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-white">
-					  										2
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-gray">
-					  										3
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-yellow">
-					  										4
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-green">
-					  										5
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-violet">
-					  										6
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										7
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-white">
-					  										8
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										9
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-white">
-					  										10
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										11
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-green">
-					  										12
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										13
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										14
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-green">
-					  										15
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-white">
-					  										16
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										17
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-green">
-					  										18
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										19
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										20
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-white">
-					  										21
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										22
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-green">
-					  										23
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										24
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-white">
-					  										25
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										26
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										27
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-green">
-					  										28
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										29
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-white">
-					  										30
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-green">
-					  										31
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										32
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										33
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-green">
-					  										34
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										35
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-white">
-					  										36
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										37
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-green">
-					  										38
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										39
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-green">
-					  										40
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										41
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-white">
-					  										42
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										43
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										44
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-green">
-					  										45
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-orange">
-					  										46
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-left">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-white">
-					  										47
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-left -->
-					  						</div> <!-- bed -->
-					  						<div class="bed">
-					  							<div class="bed-right">
-					  								<div class="bed-outer">
-					  									<div class="main-bed text-center sit-color-green">
-					  										48
-					  									</div>
-					  									<div class="bed-illu"></div>
-					  								</div>
-					  							</div> <!-- bed-right -->
-					  						</div> <!-- bed -->
-					  						<div class="car-floor-full-height"></div>
-					  					</div> <!-- container-bed -->
-					  				</div> <!-- container-seat -->
+
+					  				<!-- content seat in here -->
+					  				
 					  			</div> <!-- car-floor -->
 					  		</div> <!-- car-details -->
 					  	</div> <!-- car-info -->
@@ -1086,7 +580,6 @@
 		var currentCarID;
 		var currentCars = {}; //key: car-1, value: ["type":"B80", "status":"1"]
 
-
 		//
 		$(document).ready(function(){
 			//tripsLeave: [{'trip_id':1}, {'trip_id':2}]
@@ -1312,6 +805,7 @@
 					var htmlCars = '';
 					for(i = cars.length-1; i >= 0 ; i--){
 						var carID = 'car-'+cars[i].car_id;
+						var carLabel = 'car-'+cars[i].car_id+'-label';
 						var type = cars[i].type;
 						var status = cars[i].status;
 						var image = getCarImage(status);
@@ -1319,7 +813,7 @@
 
 						htmlCars += '<div id="'+carID+'" class="train-car '+type+'">'+
 								'<img src="'+image+'">'+
-								'<div class="car-label">'+(i+1)+'</div>'+
+								'<div id="'+carLabel+'" class="car-label">'+(i+1)+'</div>'+
 							'</div>';
 					}
 					var trainNameID = 'trip-'+tripID+'-train-name';
@@ -1357,23 +851,32 @@
 		function handleSeat(carID){
 			//CarID car-1
 			//RealID 1
-			getSeat(carID, null);
+			getSeat(carID, currentTripID.split('-')[1], getStationIDLeave(), getStationIDArrive(), null);
 		}
-		function getSeat(carID, carType, success){
+		function getSeat(carID, tripID, stationIDLeave, stationIDArrive, success){
 			//Need: ticket_id, ordinal ticket on train
-			//Input: carID
-			//Output: { "code":"0", "message":"success", "data":[{"ticket_id":"1", "ordinal":"1"}, {"ticket_id":"2", "ordinal":"2"}]}
-			//Data sorted by ordinal ASC
+	        //Input: carID, tripId, stationIDLeave, stationIDArrive
+	        //Output: { "code":"0", "message":"success", "data":[{"ticket_id":"1", "ordinal":"1", "status":"A"}, {"ticket_id":"2", "ordinal":"2", "status":"U"}]}
+	        //status:
+	        // U: unavailble
+	        // S: sold
+	        // W: wait
+	        // A: available
+	        //Data sorted by ordinal ASC
 			var realID = carID.split('-')[1];
 			$.post('get-seat',{
-				carID: realID
+				carID: realID,
+				tripID: tripID,
+				stationIDLeave: stationIDLeave,
+				stationIDArrive: stationIDArrive
+
 			},function(data, status){
-				alert('Get seat: ' + data);
+				// alert('Get seat: ' + data);
 
 				var response = JSON.parse(data);
 				if(response['code']=='0'){
 					// alert(response['data']);
-					showSeat(currentCars[carID].type, response['data']);
+					showSeat( carID, currentCars[carID].type, response['data']);
 				}else{
 					alert(response['message']);
 				}
@@ -1381,53 +884,90 @@
 				if(success) success();
 			});
 		}
-		function showSeat(type, seats){
-			var html;
+		function showSeat( carID, type, seats){
+			//status:
+	        // U: unavailble
+	        // S: sold
+	        // W: wait
+	        // A: available
+	        //Data sorted by ordinal ASC
+
+	        var carLabel = $('#'+carID+'-label').html();
+			var carName = 'Toa số: ' + carLabel;
+
+			var html = '';
 			switch (type){
 				case 'B80':
 					if(seats.length!=80){
 						alert('B80 must enough 80 seats');
 						break;
 					}
+					carName += ' Ngồi cứng';
 					html = show80Type(seats);
 					break;
 				case 'B80L':
-
+					if(seats.length!=80){
+						alert('B80L must enough 80 seats');
+						break;
+					}
+					carName += ' Ngồi cứng điều hòa';
+					html = show80Type(seats);
 					break;
 				case 'A64L':
-
+					if(seats.length!=64){
+						alert('A64L must enough 64 seats');
+						break;
+					}
+					carName += ' Ngồi mềm điều hòa';
+					html = showA64L(seats);
 					break;
 				case 'Bn42L':
-
+					if(seats.length!=42){
+						alert('Bn42L must enough 42 seats');
+						break;
+					}
+					carName += ' Nằm cứng điều hòa';
+					html = showBn42L(seats);
 					break;
 				case 'An28L':
-
+					if(seats.length!=28){
+						alert('An28L must enough 28 seats');
+						break;
+					}
+					carName += ' Ngồi mềm điều hòa';
+					html = showAn28L(seats);
 					break;
 				default:
 				alert('Can not find seat type: '+type);
+				html = 'Can not find seat type: '+'type';
 			}
+
+			$('.car-name').html(carName);
 			$('.car-floor').html(html);
+			refreshSeatUI();
 
 			function show80Type(seats){
 				var html = '<div class="container-seat">';
 				for(i = 0; i < 40; i++){
 					var seatID = 'seat-'+seats[i].ticket_id;
 					var ordinal = seats[i].ordinal;
+					var onclickStr = getOnclick(seats[i].status);
+					var bgSeat = getBGSeat(seats[i].status);
 					if(i%2==0){
-						html += '<div id="'+seatID+'" onclick="onSeatTapped(this)" class="seat seat-80">'+
+						html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="seat seat-80">'+
 									'<div class="sit-side">'+
 										
 									'</div>'+
 									'<div class="sit sit-left">'+
-										'<div class="sit-bg sit-color-orange">'+
+										'<div class="sit-bg '+bgSeat+'">'+
 											'<div class="sit-num">'+ordinal+'</div>'+
 										'</div>'+
 									'</div>'+
 								'</div>';
 					}else{
-						html += '<div id="'+seatID+'" onclick="onSeatTapped(this)" class="seat seat-80">'+
+						html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="seat seat-80">'+
 									'<div class="sit sit-right">'+
-										'<div class="sit-bg sit-color-orange">'+
+										'<div class="sit-bg '+bgSeat+'">'+
 											'<div class="sit-num">'+ordinal+'</div>'+
 										'</div>'+
 									'</div>'+
@@ -1443,21 +983,23 @@
 				for(i = 40; i < 80; i++){
 					var seatID = 'seat-'+seats[i].ticket_id;
 					var ordinal = seats[i].ordinal;
+					var onclickStr = getOnclick(seats[i].status);
+					var bgSeat = getBGSeat(seats[i].status);
 					if(i%2==0){
-						html += '<div id="'+seatID+'" onclick="onSeatTapped(this)" class="seat seat-80">'+
+						html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="seat seat-80">'+
 									'<div class="sit-side">'+
 										
 									'</div>'+
 									'<div class="sit sit-left">'+
-										'<div class="sit-bg sit-color-orange">'+
+										'<div class="sit-bg '+bgSeat+'">'+
 											'<div class="sit-num">'+ordinal+'</div>'+
 										'</div>'+
 									'</div>'+
 								'</div>';
 					}else{
-						html += '<div id="'+seatID+'" onclick="onSeatTapped(this)" class="seat seat-80">'+
+						html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="seat seat-80">'+
 									'<div class="sit sit-right">'+
-										'<div class="sit-bg sit-color-orange">'+
+										'<div class="sit-bg '+bgSeat+'">'+
 											'<div class="sit-num">'+ordinal+'</div>'+
 										'</div>'+
 									'</div>'+
@@ -1470,17 +1012,277 @@
 				html += '</div>';
 				return html;
 			}
-			function show80LType(seats){
-				
-			}
 			function showA64L(seats){
+				var html = '<div class="container-seat">';
+				html += '<div class="seat-64-hafl-block">';
+				for(i = 0; i < 32; i++){
+					var seatID = 'seat-'+seats[i].ticket_id;
+					var ordinal = seats[i].ordinal;
+					var onclickStr = getOnclick(seats[i].status);
+					var bgSeat = getBGSeat(seats[i].status);
 
+					html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="seat seat-64">'+
+								'<div class="sit-side">'+
+									
+								'</div>'+
+								'<div class="sit sit-left">'+
+									'<div class="sit-bg '+bgSeat+'">'+
+										'<div class="sit-num">'+ordinal+'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>';
+					if(i ==15){
+						html += '<div class="car-way"></div>';
+					}
+				}
+				html += '</div>';
+				html += '<div class="seat-64-seperator">'+
+							'<div></div>'+
+							'<div></div>'+
+						'</div>';
+
+				html += '<div class="seat-64-hafl-block">';
+				for(i = 32; i < 64; i++){
+					var seatID = 'seat-'+seats[i].ticket_id;
+					var ordinal = seats[i].ordinal;
+					var onclickStr = getOnclick(seats[i].status);
+					var bgSeat = getBGSeat(seats[i].status);
+
+					html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="seat seat-64">'+
+								'<div class="sit sit-right">'+
+									'<div class="sit-bg '+bgSeat+'">'+
+										'<div class="sit-num">'+ordinal+'</div>'+
+									'</div>'+
+								'</div>'+
+
+								'<div class="sit-side">'+
+									
+								'</div>'+
+							'</div>';
+					if(i == 47){
+						html += '<div class="car-way"></div>';
+					}
+				}
+				html += '</div>';
+				html += '</div>';
+				return html;
 			}
 			function showBn42L(seats){
+				var html = '<div class="container-seat">';
 
+				html += '<div class="car-floor-full-height">'+
+	  						'<div class="bed-way full-width">'+
+	  							
+	  						'</div>'+
+	  						'<div class="bed-way text-center full-width font-small">'+
+	  							'T3'+
+	  						'</div>'+
+	  						'<div class="bed-way text-center full-width font-small">'+
+	  							'T2'+
+	  						'</div>'+
+	  						'<div class="bed-way text-center full-width font-small">'+
+	  							'T1'+
+	  						'</div>'+
+	  					'</div>';
+
+	  			html += '<div class="container-bed">';
+	  			html += '<div class="bed-way full-width">'+
+  							'<div class="col-1-8 font-8 text-center">Khoang 1</div>'+
+  							'<div class="col-1-8 font-8 text-center">Khoang 2</div>'+
+  							'<div class="col-1-8 font-8 text-center">Khoang 3</div>'+
+  							'<div class="col-1-8 font-8 text-center">Khoang 4</div>'+
+  							'<div class="col-1-8 font-8 text-center">Khoang 5</div>'+
+  							'<div class="col-1-8 font-8 text-center">Khoang 6</div>'+
+  							'<div class="col-1-8 font-8 text-center">Khoang 7</div>'+
+  							'<div class="col-1-8 font-8 text-center"></div>'+
+  						'</div>';
+	  			for(i = 0; i < 42; i++){
+
+	  				var seatID = 'seat-'+seats[i].ticket_id;
+					var ordinal = seats[i].ordinal;
+					var onclickStr = getOnclick(seats[i].status);
+					var bgSeat = getBGSeat(seats[i].status);
+
+	  				if(i%2==0){
+	  					html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="bed">'+
+		  							'<div class="bed-left">'+
+		  								'<div class="bed-outer">'+
+		  									'<div class="main-bed text-center '+bgSeat+'">'+
+		  										ordinal+
+		  									'</div>'+
+		  									'<div class="bed-illu"></div>'+
+		  								'</div>'+
+		  							'</div> <!-- bed-left -->'+
+		  						'</div>';
+	  				}else{
+	  					html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="bed">'+
+		  							'<div class="bed-right">'+
+		  								'<div class="bed-outer">'+
+		  									'<div class="main-bed text-center '+bgSeat+'">'+
+		  										ordinal+
+		  									'</div>'+
+		  									'<div class="bed-illu"></div>'+
+		  								'</div>'+
+		  							'</div> <!-- bed-left -->'+
+		  						'</div>';
+	  				}
+	  				if(i==13 || i==27 || i==41){
+	  					html += '<div class="bed">'+
+		  							'<div class="bed-left bed-hide">'+
+		  								'<div class="bed-outer">'+
+		  									'<div class="main-bed text-center sit-color-orange">'+
+		  										'1'+
+		  									'</div>'+
+		  									'<div class="bed-illu"></div>'+
+		  								'</div>'+
+		  							'</div> <!-- bed-left -->'+
+		  						'</div>'+
+		  						'<div class="bed">'+
+		  							'<div class="bed-right bed-hide">'+
+		  								'<div class="bed-outer">'+
+		  									'<div class="main-bed text-center sit-color-orange">'+
+		  										'1'+
+		  									'</div>'+
+		  									'<div class="bed-illu"></div>'+
+		  								'</div>'+
+		  							'</div> <!-- bed-left -->'+
+		  						'</div>';
+	  				}
+	  			}
+	  			html += '<div class="car-floor-full-height"></div>';
+	  			html += '</div>';
+	  			html += '</div>';
+	  			return html;
 			}
 			function showAn28L(seats){
-				
+				var html = '<div class="container-seat">';
+
+				html += '<div class="car-floor-full-height">'+
+	  						'<div class="bed-way full-width">'+
+	  							
+	  						'</div>'+
+	  						'<div class="bed-way full-width">'+
+
+	  						'</div>'+
+	  						'<div class="bed-way text-center full-width font-small">'+
+	  							'T2'+
+	  						'</div>'+
+	  						'<div class="bed-way text-center full-width font-small">'+
+	  							'T1'+
+	  						'</div>'+
+	  					'</div>';
+
+	  			html += '<div class="container-bed">';
+	  			html += '<div class="bed-way full-width"></div>';
+	  			html += '<div class="bed-way full-width">'+
+  							'<div class="col-1-8 font-8 text-center">Khoang 1</div>'+
+  							'<div class="col-1-8 font-8 text-center">Khoang 2</div>'+
+  							'<div class="col-1-8 font-8 text-center">Khoang 3</div>'+
+  							'<div class="col-1-8 font-8 text-center">Khoang 4</div>'+
+  							'<div class="col-1-8 font-8 text-center">Khoang 5</div>'+
+  							'<div class="col-1-8 font-8 text-center">Khoang 6</div>'+
+  							'<div class="col-1-8 font-8 text-center">Khoang 7</div>'+
+  							'<div class="col-1-8 font-8 text-center"></div>'+
+  						'</div>';
+	  			for(i = 0; i < 28; i++){
+
+	  				var seatID = 'seat-'+seats[i].ticket_id;
+					var ordinal = seats[i].ordinal;
+					var onclickStr = getOnclick(seats[i].status);
+					var bgSeat = getBGSeat(seats[i].status);
+
+	  				if(i%2==0){
+	  					html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="bed">'+
+		  							'<div class="bed-left">'+
+		  								'<div class="bed-outer">'+
+		  									'<div class="main-bed text-center '+bgSeat+'">'+
+		  										ordinal+
+		  									'</div>'+
+		  									'<div class="bed-illu"></div>'+
+		  								'</div>'+
+		  							'</div> <!-- bed-left -->'+
+		  						'</div>';
+	  				}else{
+	  					html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="bed">'+
+		  							'<div class="bed-right">'+
+		  								'<div class="bed-outer">'+
+		  									'<div class="main-bed text-center '+bgSeat+'">'+
+		  										ordinal+
+		  									'</div>'+
+		  									'<div class="bed-illu"></div>'+
+		  								'</div>'+
+		  							'</div> <!-- bed-left -->'+
+		  						'</div>';
+	  				}
+	  				if(i==13 || i==27){
+	  					html += '<div class="bed">'+
+		  							'<div class="bed-left bed-hide">'+
+		  								'<div class="bed-outer">'+
+		  									'<div class="main-bed text-center sit-color-orange">'+
+		  										'1'+
+		  									'</div>'+
+		  									'<div class="bed-illu"></div>'+
+		  								'</div>'+
+		  							'</div> <!-- bed-left -->'+
+		  						'</div>'+
+		  						'<div class="bed">'+
+		  							'<div class="bed-right bed-hide">'+
+		  								'<div class="bed-outer">'+
+		  									'<div class="main-bed text-center sit-color-orange">'+
+		  										'1'+
+		  									'</div>'+
+		  									'<div class="bed-illu"></div>'+
+		  								'</div>'+
+		  							'</div> <!-- bed-left -->'+
+		  						'</div>';
+	  				}
+	  			}
+	  			html += '<div class="car-floor-full-height"></div>';
+	  			html += '</div>';
+	  			html += '</div>';
+	  			return html;
+			}
+			function getOnclick(type){
+				var ret;
+				switch(type){
+					case 'A':
+						ret = 'onSeatTapped(this)';
+						break;
+					case 'W':
+						ret = '';
+						break;
+					case 'S':
+						ret = '';
+						break;
+					case 'U':
+						ret = '';
+						break;
+					default:
+						alert('Function get onclick unknow type: ' + type);
+						ret = '';
+				}
+				return ret;
+			}
+			function getBGSeat(type){
+				var ret;
+				switch(type){
+					case 'A':
+						ret = 'sit-color-white';
+						break;
+					case 'W':
+						ret = 'sit-color-yellow';
+						break;
+					case 'S':
+						ret = 'sit-color-orange';
+						break;
+					case 'U':
+						ret = 'sit-color-gray';
+						break;
+					default:
+						alert('Function get onclick unknow type: ' + type);
+						ret = '';
+				}
+				return ret;
 			}
 		}
 		//Handle UI
@@ -1555,6 +1357,74 @@
 				hideSmallPopup($('#small-pop-up'));
 			});
 		}
+		function refreshSeatUI(){
+			//Pop-up handle
+			//Medium popup
+			$('.sit-color-white').hover(function(){
+				$('#medium-pop-up-header').html("Chỗ trống(Mã số vé: 12345)");
+				$('#medium-pop-up-header').css('color', '#3d86b1');
+				$('#medium-pop-up-content').html("Giá: 123,000 VNĐ");
+				showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
+			},function(){
+				hideSmallPopup($('#medium-pop-up'));
+			});
+			$('.sit-color-green').hover(function(){
+				$('#medium-pop-up-header').html("Trong giỏ vé(Thời gian giữ vé: 10 phút)(Mã số vé: 12345)");
+				$('#medium-pop-up-header').css('color', '#3d86b1');
+				$('#medium-pop-up-content').html("Giá: 123,000 VNĐ");
+				showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
+			},function(){
+				hideSmallPopup($('#medium-pop-up'));
+			});
+			$('.sit-color-yellow').hover(function(){
+				$('#medium-pop-up-header').html("Đang GD(Thời gian giữ vé: 4 phút)(Mã số vé: 12345)");
+				$('#medium-pop-up-header').css('color', '#fec306');
+				$('#medium-pop-up-content').html("Giá: 123,000 VNĐ");
+				showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
+			},function(){
+				hideSmallPopup($('#medium-pop-up'));
+			});
+			$('.sit-color-orange').hover(function(){
+				$('#medium-pop-up-header').html("Chưa khả dụng");
+				$('#medium-pop-up-header').css('color', '#df5327');
+				$('#medium-pop-up-content').html("Chỗ chưa khả dụng");
+				showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
+			},function(){
+				hideSmallPopup($('#medium-pop-up'));
+			});
+			$('.sit-color-gray').hover(function(){
+				$('#medium-pop-up-header').html("Không bán(Mã số vé: 12345)");
+				$('#medium-pop-up-header').css('color', '#3d86b1');
+				$('#medium-pop-up-content').html("Bán vé viết tay");
+				showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
+			},function(){
+				hideSmallPopup($('#medium-pop-up'));
+			});
+			$('.sit-color-violet').hover(function(){
+				$('#medium-pop-up-header').html("Chỗ chặn dài hơn là sao nhỉ ???");
+				$('#medium-pop-up-header').css('color', '#3d86b1');
+				$('#medium-pop-up-content').html("Làm sao??? AAAAAA");
+				showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
+			},function(){
+				hideSmallPopup($('#medium-pop-up'));
+			});
+		}
+		//Handle popup
+		function showSmallPopup(e, popup, popup_triangle) {
+		  	var x = e.offset().left - (popup.width() - e.width())/2;
+		  	var y = e.offset().top -  popup.outerHeight();
+		    popup.show()
+		    .css('top',  y)
+		    .css('left', x)
+		    .appendTo('body');
+
+		    //Update triangle position
+		    var marginOfTriangle = (popup.width() - popup_triangle.width())/2;
+		    popup_triangle.css('margin-left', marginOfTriangle);
+		}
+		function hideSmallPopup(popup){
+	  		popup.hide();
+		}
 		//Action click
 		function addTrainClick(tripID){
 			$('#'+tripID).click(function(){
@@ -1599,75 +1469,6 @@
 		function getStationIDArrive(){
 			var tripInformation = JSON.parse(sessionStorage.tripInformation);
 			return getStationID(tripInformation['stationArrive'])
-		}
-	</script>
-	<script type="text/javascript">
-		//Pop-up handle
-		//Medium popup
-		$('.sit-color-white').hover(function(){
-			$('#medium-pop-up-header').html("Chỗ trống(Mã số vé: 12345)");
-			$('#medium-pop-up-header').css('color', '#3d86b1');
-			$('#medium-pop-up-content').html("Giá: 123,000 VNĐ");
-			showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
-		},function(){
-			hideSmallPopup($('#medium-pop-up'));
-		});
-		$('.sit-color-green').hover(function(){
-			$('#medium-pop-up-header').html("Trong giỏ vé(Thời gian giữ vé: 10 phút)(Mã số vé: 12345)");
-			$('#medium-pop-up-header').css('color', '#3d86b1');
-			$('#medium-pop-up-content').html("Giá: 123,000 VNĐ");
-			showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
-		},function(){
-			hideSmallPopup($('#medium-pop-up'));
-		});
-		$('.sit-color-yellow').hover(function(){
-			$('#medium-pop-up-header').html("Đang GD(Thời gian giữ vé: 4 phút)(Mã số vé: 12345)");
-			$('#medium-pop-up-header').css('color', '#fec306');
-			$('#medium-pop-up-content').html("Giá: 123,000 VNĐ");
-			showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
-		},function(){
-			hideSmallPopup($('#medium-pop-up'));
-		});
-		$('.sit-color-orange').hover(function(){
-			$('#medium-pop-up-header').html("Chưa khả dụng");
-			$('#medium-pop-up-header').css('color', '#df5327');
-			$('#medium-pop-up-content').html("Chỗ chưa khả dụng");
-			showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
-		},function(){
-			hideSmallPopup($('#medium-pop-up'));
-		});
-		$('.sit-color-gray').hover(function(){
-			$('#medium-pop-up-header').html("Không bán(Mã số vé: 12345)");
-			$('#medium-pop-up-header').css('color', '#3d86b1');
-			$('#medium-pop-up-content').html("Bán vé viết tay");
-			showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
-		},function(){
-			hideSmallPopup($('#medium-pop-up'));
-		});
-		$('.sit-color-violet').hover(function(){
-			$('#medium-pop-up-header').html("Chỗ chặn dài hơn là sao nhỉ ???");
-			$('#medium-pop-up-header').css('color', '#3d86b1');
-			$('#medium-pop-up-content').html("Làm sao??? AAAAAA");
-			showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
-		},function(){
-			hideSmallPopup($('#medium-pop-up'));
-		});
-		//Handle popup
-		function showSmallPopup(e, popup, popup_triangle) {
-		  	var x = e.offset().left - (popup.width() - e.width())/2;
-		  	var y = e.offset().top -  popup.outerHeight();
-		    popup.show()
-		    .css('top',  y)
-		    .css('left', x)
-		    .appendTo('body');
-
-		    //Update triangle position
-		    var marginOfTriangle = (popup.width() - popup_triangle.width())/2;
-		    popup_triangle.css('margin-left', marginOfTriangle);
-		}
-
-		function hideSmallPopup(popup){
-	  		popup.hide();
 		}
 	</script>
 @stop

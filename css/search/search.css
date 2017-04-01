@@ -314,6 +314,9 @@
     height: 10px;
     line-height: 30px;
 }
+.bed-hide{
+	display: none !important;
+}
 /*END BED CSS*/
 
 

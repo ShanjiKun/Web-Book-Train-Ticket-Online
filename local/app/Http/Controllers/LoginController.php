@@ -16,7 +16,7 @@ class LoginController extends Controller
         else{
             return redirect()->route('admin');
         }
-        // Chua check dc
+        
     	
     }
     public function postLogin(LoginRequest $request){
@@ -24,9 +24,14 @@ class LoginController extends Controller
 				'username' => $request->txtUser, 
 				'password' => $request->txtPass
 		];
-    	if (Auth::attempt($login)) {
+    	if (Auth::attempt($login) && Auth::User()->level ==1) {
             // Authentication passed...
             return redirect()->route('admin');
+
+        }
+        else if (Auth::attempt($login) && Auth::User()->level ==2) {
+            // Authentication passed...
+            return redirect()->route('admin1');
 
         }
         else{
