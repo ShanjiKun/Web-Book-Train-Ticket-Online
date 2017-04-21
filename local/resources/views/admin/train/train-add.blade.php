@@ -13,7 +13,7 @@
 		</span><br />
 		<span class="form_label"></span>
 		<span class="form_item">
-			<input type="submit" name="btnTrainAdd" value="Thêm Tàu" class="button" onclick="return acceptDelete('Bạn có muốn thêm không')"/>
+			<input type="submit" name="btnTrainAdd" value="Thêm Tàu" class="button"/>
 		</span>
 	</fieldset>
 </form>  
