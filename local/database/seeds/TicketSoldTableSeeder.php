@@ -70,6 +70,24 @@ class TicketSoldTableSeeder extends Seeder
             'station_arrive_id' => 5,
             'status' => 'W'
         ]);
+        DB::table('ticket_sold')->insert([
+            'ticket_id' => 203,
+            'trip_id' => 2,
+            'date_sell' => '2017-03-30 00:00:00',
+            'type_passenger_id' => 'NL',
+            'station_leave_id' => 1,
+            'station_arrive_id' => 3,
+            'status' => 'S'
+        ]);
+        DB::table('ticket_sold')->insert([
+            'ticket_id' => 204,
+            'trip_id' => 2,
+            'date_sell' => '2017-03-30 00:00:00',
+            'type_passenger_id' => 'NL',
+            'station_leave_id' => 3,
+            'station_arrive_id' => 5,
+            'status' => 'W'
+        ]);
 
         DB::table('ticket_sold')->insert([
         	'ticket_id' => 231,

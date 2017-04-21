@@ -70,7 +70,14 @@ Route::get('admin/login',['as' => 'getLogin','uses' => 'LoginController@getLogin
 Route::post('admin/login',['as' => 'postLogin','uses' => 'LoginController@postLogin']);
 Route::get('logout',['as' => 'getLogout','uses' => 'LoginController@getLogout']);
 Route::get('admin',['as' => 'admin', function(){
-	return view('admin/dashboard/main');
+	if(!Auth::check()){
+            return view('admin\Login\login');
+        }
+        else{
+            return view('admin/dashboard/main');
+        }
+        
+	
 }]);
 Route::get('admin1',['as' => 'admin1', function(){
 	return view('admin/dashboard/cate');
