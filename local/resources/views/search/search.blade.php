@@ -1148,7 +1148,7 @@
 		  						'</div>';
 	  				}
 	  			}
-	  			html += '<div class="car-floor-full-height"></div>';
+	  			// html += '<div class="car-floor-full-height"></div>';
 	  			html += '</div>';
 	  			html += '</div>';
 	  			return html;
@@ -1236,7 +1236,7 @@
 		  						'</div>';
 	  				}
 	  			}
-	  			html += '<div class="car-floor-full-height"></div>';
+	  			// html += '<div class="car-floor-full-height"></div>';
 	  			html += '</div>';
 	  			html += '</div>';
 	  			return html;
