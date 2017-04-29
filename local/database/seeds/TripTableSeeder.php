@@ -17,8 +17,8 @@ class TripTableSeeder extends Seeder
         	'station_leave_id' => 1,
         	'station_arrive_id' => 5,
         	'employee_id' => 1,
-        	'date_leave' => '2017-04-21 6:00:00',
-        	'date_arrive' => '2017-04-22 21:00:00',
+        	'date_leave' => '2017-04-29 6:00:00',
+        	'date_arrive' => '2017-04-30 21:00:00',
             'date_sell' => '2017-04-20 00:00:00'
         ]);
         DB::table('trip')->insert([
@@ -26,8 +26,8 @@ class TripTableSeeder extends Seeder
         	'station_leave_id' => 1,
         	'station_arrive_id' => 3,
         	'employee_id' => 1,
-        	'date_leave' => '2017-04-21 11:00:00',
-        	'date_arrive' => '2017-04-22 7:30:00',
+        	'date_leave' => '2017-04-29 11:00:00',
+        	'date_arrive' => '2017-04-30 7:30:00',
             'date_sell' => '2017-03-21 6:00:00'
         ]);
 
@@ -36,8 +36,8 @@ class TripTableSeeder extends Seeder
             'station_leave_id' => 5,
             'station_arrive_id' => 1,
             'employee_id' => 1,
-            'date_leave' => '2017-04-21 9:00:00',
-            'date_arrive' => '2017-04-22 20:30:00',
+            'date_leave' => '2017-04-29 9:00:00',
+            'date_arrive' => '2017-04-30 20:30:00',
             'date_sell' => '2017-03-21 6:00:00'
         ]);
         DB::table('trip')->insert([
@@ -45,8 +45,8 @@ class TripTableSeeder extends Seeder
             'station_leave_id' => 5,
             'station_arrive_id' => 3,
             'employee_id' => 1,
-            'date_leave' => '2017-04-21 9:00:00',
-            'date_arrive' => '2017-04-22 03:30:00',
+            'date_leave' => '2017-04-29 9:00:00',
+            'date_arrive' => '2017-04-30 03:30:00',
             'date_sell' => '2017-03-21 6:00:00'
         ]);
     }

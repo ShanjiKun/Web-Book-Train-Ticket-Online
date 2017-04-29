@@ -580,7 +580,6 @@
 		var currentCarID;
 		var currentCars = {}; //key: car-1, value: ["type":"B80", "status":"1"]
 
-		//
 		$(document).ready(function(){
 			//tripsLeave: [{'trip_id':1}, {'trip_id':2}]
 			//Trips were sorted with date leave
