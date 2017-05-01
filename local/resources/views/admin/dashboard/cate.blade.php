@@ -7,13 +7,13 @@
 	<tr>
 		<td class="function_item trip_add"><a href="">Thêm Chuyến Tàu</a></td>
 		<td class="function_item train_add"><a href="{!! route('getTrainAdd')!!} ">Thêm Tàu</a></td>
-		<td class="function_item car_add"><a href="">Thêm Toa Tàu</a></td>
+		<td class="function_item car_add"><a href="{!! route('getCarAdd')!!} ">Thêm Toa Tàu</a></td>
 		<td class="function_item station_add"><a href="{!! route('getStationAdd')!!}">Thêm Ga Tàu</a></td>
 	</tr>	
 	<tr>
 		<td class="function_item trip_list"><a href="">Quản Lý Chuyến Tàu</a></td>
 		<td class="function_item train_list"><a href="{!! route('getTrainList')!!} "> Quản Lý Tàu</a></td>
-		<td class="function_item car_list"><a href="">Quản Lý Toa Tàu</a></td>
+		<td class="function_item car_list"><a href="{!! route('getCarList')!!} ">Quản Lý Toa Tàu</a></td>
 		<td class="function_item station_list"><a href="{!! route('getStationList')!!}">Quản Lý Ga Tàu</a></td>
 
 		<!-- <td rowspan="3" class="statistics_panel">
