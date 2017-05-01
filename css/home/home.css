@@ -96,6 +96,7 @@
 #no-ticket{
 	color: red; 
 	font-size: 14px;
+	text-align: center;
 }
 .ticket-heading{
 	padding: 2px 2px;

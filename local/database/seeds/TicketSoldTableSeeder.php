@@ -11,7 +11,7 @@ class TicketSoldTableSeeder extends Seeder
      */
     public function run()
     {
-        //status:
+        //state:
         // U: unavailble
         // S: sold
         // W: wait
@@ -23,7 +23,7 @@ class TicketSoldTableSeeder extends Seeder
         	'type_passenger_id' => 'NL',
         	'station_leave_id' => 1,
         	'station_arrive_id' =>3,
-            'status' => 'S'
+            'state' => 'S'
         ]);
         DB::table('ticket_sold')->insert([
         	'ticket_id' => 2,
@@ -32,7 +32,7 @@ class TicketSoldTableSeeder extends Seeder
         	'type_passenger_id' => 'NL',
         	'station_leave_id' => 1,
         	'station_arrive_id' =>3,
-            'status' => 'W'
+            'state' => 'W'
         ]);
         DB::table('ticket_sold')->insert([
         	'ticket_id' => 81,
@@ -41,7 +41,7 @@ class TicketSoldTableSeeder extends Seeder
         	'type_passenger_id' => 'NL',
         	'station_leave_id' => 1,
         	'station_arrive_id' => 3,
-            'status' => 'S'
+            'state' => 'S'
         ]);
         DB::table('ticket_sold')->insert([
         	'ticket_id' => 82,
@@ -50,7 +50,7 @@ class TicketSoldTableSeeder extends Seeder
         	'type_passenger_id' => 'NL',
         	'station_leave_id' => 3,
         	'station_arrive_id' => 5,
-            'status' => 'W'
+            'state' => 'W'
         ]);
         DB::table('ticket_sold')->insert([
             'ticket_id' => 123,
@@ -59,7 +59,7 @@ class TicketSoldTableSeeder extends Seeder
             'type_passenger_id' => 'NL',
             'station_leave_id' => 1,
             'station_arrive_id' => 3,
-            'status' => 'S'
+            'state' => 'S'
         ]);
         DB::table('ticket_sold')->insert([
             'ticket_id' => 124,
@@ -68,7 +68,7 @@ class TicketSoldTableSeeder extends Seeder
             'type_passenger_id' => 'NL',
             'station_leave_id' => 3,
             'station_arrive_id' => 5,
-            'status' => 'W'
+            'state' => 'W'
         ]);
         DB::table('ticket_sold')->insert([
             'ticket_id' => 203,
@@ -77,7 +77,7 @@ class TicketSoldTableSeeder extends Seeder
             'type_passenger_id' => 'NL',
             'station_leave_id' => 1,
             'station_arrive_id' => 3,
-            'status' => 'S'
+            'state' => 'S'
         ]);
         DB::table('ticket_sold')->insert([
             'ticket_id' => 204,
@@ -86,7 +86,7 @@ class TicketSoldTableSeeder extends Seeder
             'type_passenger_id' => 'NL',
             'station_leave_id' => 3,
             'station_arrive_id' => 5,
-            'status' => 'W'
+            'state' => 'W'
         ]);
 
         DB::table('ticket_sold')->insert([
@@ -96,7 +96,7 @@ class TicketSoldTableSeeder extends Seeder
         	'type_passenger_id' => 'NL',
         	'station_leave_id' => 5,
         	'station_arrive_id' =>3,
-            'status' => 'S'
+            'state' => 'S'
         ]);
         DB::table('ticket_sold')->insert([
         	'ticket_id' => 232,
@@ -105,7 +105,7 @@ class TicketSoldTableSeeder extends Seeder
         	'type_passenger_id' => 'NL',
         	'station_leave_id' => 3,
         	'station_arrive_id' => 1,
-            'status' => 'W'
+            'state' => 'W'
         ]);
 
         DB::table('ticket_sold')->insert([
@@ -115,7 +115,7 @@ class TicketSoldTableSeeder extends Seeder
             'type_passenger_id' => 'NL',
             'station_leave_id' => 5,
             'station_arrive_id' =>3,
-            'status' => 'W'
+            'state' => 'W'
         ]);
         DB::table('ticket_sold')->insert([
             'ticket_id' => 376,
@@ -124,7 +124,7 @@ class TicketSoldTableSeeder extends Seeder
             'type_passenger_id' => 'NL',
             'station_leave_id' => 5,
             'station_arrive_id' =>3,
-            'status' => 'W'
+            'state' => 'W'
         ]);
     }
 }

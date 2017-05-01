@@ -238,8 +238,8 @@ function onStationPick(e){
 //Add datepicker
 $('#date-leave').datepicker({
     'format': 'yyyy-m-d',
-    'autoclose': true,
-    'startDate' : new Date()
+    'autoclose': true
+    // 'startDate' : new Date()
 });
 
 $('#date-round').datepicker({
@@ -250,10 +250,9 @@ $('#date-round').datepicker({
 
 $('#btn-date-leave').datepicker({
 	'format': 'yyyy-m-d',
-    'autoclose': true,
-    'startDate' : new Date()
+    'autoclose': true
+    // 'startDate' : new Date()
 }).on("changeDate", function(e){
-	// var dateDMY = e.date.getDate() + '-' + (e.date.getMonth() + 1) + '-' +  e.date.getFullYear();
 	var dateYMD = e.date.getFullYear() + '-' + (e.date.getMonth() + 1) + '-' +  e.date.getDate();
 	$('#date-leave').val(dateYMD);
 });
