@@ -487,12 +487,29 @@
 							<p>Giỏ vé</p>
 						</div>
 						<div class="ticket-manager">
-							<div id="num-ticket">
+							<div id="ticket-container">
 								<p id="no-ticket">Chưa có vé</p>
-							</div>
+								<!-- <div class="ticket-heading text-center">
+									<p style="color: #317eac;">Chiều đi</p>
+									<div class="ticket">
+										<div class="col-md-9">
+											<div>SE7 Quang Ngai-Da</div>
+											<div>05/05/2015 05:55</div>
+											<div>NCL toa 5 cho 55</div>
+										</div>
+										<div class="col-md-3" style="padding: 0px 5px;">
+											<div class="trash-ticket">
+												<p>123</p>
+												<img src="http://dsvn.vn/images/del30.png" width="32px" height="24px">
+											</div>
+										</div>
+										<div class="line"></div>
+									</div> ticket
+								</div> ticket-heading -->
+							</div> <!-- ticket-container -->
 							<div class="buy-ticket">
 								<a href="" class="btn-1">Mua vé</a>
-							</div>
+							</div> <!-- buy-ticket -->
 						</div>
 					</div> <!-- num-ticket-area -->
 					<div id="ticket-info-area">
@@ -580,6 +597,10 @@
 		var currentCarID;
 		var currentCars = {}; //key: car-1, value: ["type":"B80", "status":"1"]
 
+		var stationIDLeave, stationIDArrive;
+
+		var pickedTickets = {}; // key:trip-1 value:{key: car-1(carID) value:{Key: 1(ticketID), value: seat-1(id off div)}}
+
 		$(document).ready(function(){
 			//tripsLeave: [{'trip_id':1}, {'trip_id':2}]
 			//Trips were sorted with date leave
@@ -598,10 +619,12 @@
     		// 	"timeRound":"00:00"
     		// }
 			var tripInformation = JSON.parse(sessionStorage.tripInformation);
+			stationIDLeave = getStationID(tripInformation['stationLeave']);
+			stationIDArrive = getStationID(tripInformation['stationArrive']);
 			showTripInformation(tripInformation);
 			showTrips(tripsLeave, tripInformation, function(){
 				var dateOfUserString = tripInformation['dateLeave'] + ' ' + tripInformation['timeLeave'];
-				getTrainInformation(tripsLeave, getStationID(tripInformation['stationLeave']), getStationID(tripInformation['stationArrive']), dateOfUserString);
+				getTrainInformation(tripsLeave, dateOfUserString);
 			});
 		});
 		function showTripInformation(tripInformation){
@@ -678,23 +701,23 @@
 			}
 			success();
 		}
-		function getTrainInformation(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString){
-			getTrainName(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString, function(){
-				getTrainSeat(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString, function(){
-					getTrainTime(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString, function(_tripID){
+		function getTrainInformation(tripsLeave, dateOfUserString){
+			getTrainName(tripsLeave, dateOfUserString, function(){
+				getTrainSeat(tripsLeave, dateOfUserString, function(){
+					getTrainTime(tripsLeave, dateOfUserString, function(_tripID){
 
 						//Set first train picked
 						var tripID = 'trip-'+ _tripID;
 						$('#'+tripID).removeClass('train-normal');
 						$('#'+tripID).addClass('train-picked');
 						currentTripID = tripID;
-						getCarInFormation(_tripID, stationIDLeave, stationIDArrive);
+						getCarInFormation(_tripID);
 						refreshTrainUI();
 					});
 				});
 			});
 		}
-		function getTrainName(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString, success){
+		function getTrainName(tripsLeave, dateOfUserString, success){
 			//need: Which train?, When leave?, When arrive?, How many unavailable seat?, how many available seat?
 			//Get train name
 			//Input: [{"trip_id":"1"}, {"trip_id":"2"}, {"trip_id":"3"}, {"trip_id":"4"}] trips_id
@@ -707,7 +730,7 @@
 				if(response['code']=='0'){
 					var trainsName = response['data'];
 					for( i = 0; i < trainsName.length; i++){
-						var trainNameID = 'trip-'+trainsName[i].trip_id+'-train-name';;
+						var trainNameID = 'trip-'+trainsName[i].trip_id+'-train-name';
 						var trainName = trainsName[i].train_name;
 						$('#'+trainNameID).html(trainName);
 					}
@@ -717,7 +740,7 @@
 				}
 			});
 		}
-		function getTrainSeat(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString, success){
+		function getTrainSeat(tripsLeave, dateOfUserString, success){
 			//Get unavailable seat, available seat from station leave to station arrive
 			//Input: 'stationIDLeave': '1', 'stationIDArrive': '3', "trips":[{"trip_id":"1"}, {"trip_id":"2"}]
 			//Output: { "code":"0", "message":"success", "data":[{'trip_id':'1', 'unavailableSeat':'12', 'availableSeat':'60'}]}
@@ -744,7 +767,7 @@
 				}
 			});
 		}
-		function getTrainTime(tripsLeave, stationIDLeave, stationIDArrive, dateOfUserString, success){
+		function getTrainTime(tripsLeave, dateOfUserString, success){
 			//Get time leave, time arrive
 			//Input: 'stationIDLeave': '1', 'stationIDArrive': '3', "trips":[{"trip_id":"1"}, {"trip_id":"2"}]
 			//Output: { "code":"0", "message":"success", "data":[{'trip_id':'1', 'timeLeave':'1490162400', 'timeArrive':'1490162400'}]}
@@ -783,7 +806,7 @@
 				}
 			});
 		}
-		function getCarInFormation(tripID, stationIDLeave, stationIDArrive){
+		function getCarInFormation(tripID){
 			//Need: carID, car type
 			//Input: tripID: 1
 			//Output: { "code":"0", "message":"success", "data":[{"car_id":"1", "type":"B80", "status":"0"}, {"car_id":"2", "type":"B80L", "status":"1"}]}
@@ -850,9 +873,10 @@
 		function handleSeat(carID){
 			//CarID car-1
 			//RealID 1
-			getSeat(carID, currentTripID.split('-')[1], getStationIDLeave(), getStationIDArrive(), null);
+			getSeat(carID, currentTripID.split('-')[1]);
+			updatePicketSeatsUI(pickedTickets);
 		}
-		function getSeat(carID, tripID, stationIDLeave, stationIDArrive, success){
+		function getSeat(carID, tripID, onSuccess){
 			//Need: ticket_id, ordinal ticket on train
 	        //Input: carID, tripId, stationIDLeave, stationIDArrive
 	        //Output: { "code":"0", "message":"success", "data":[{"ticket_id":"1", "ordinal":"1", "status":"A"}, {"ticket_id":"2", "ordinal":"2", "status":"U"}]}
@@ -875,15 +899,15 @@
 				var response = JSON.parse(data);
 				if(response['code']=='0'){
 					// alert(response['data']);
-					showSeat( carID, currentCars[carID].type, response['data']);
+					showSeat( carID, currentCars[carID].type, response['data'], function(){
+						onSuccess();
+					});
 				}else{
 					alert(response['message']);
 				}
-
-				if(success) success();
 			});
 		}
-		function showSeat( carID, type, seats){
+		function showSeat( carID, type, seats, onSuccess){
 			//status:
 	        // U: unavailble
 	        // S: sold
@@ -943,6 +967,7 @@
 
 			$('.car-name').html(carName);
 			$('.car-floor').html(html);
+			onSuccess();
 			refreshSeatUI();
 
 			function show80Type(seats){
@@ -958,16 +983,16 @@
 										
 									'</div>'+
 									'<div class="sit sit-left">'+
-										'<div class="sit-bg '+bgSeat+'">'+
-											'<div class="sit-num">'+ordinal+'</div>'+
+										'<div id="'+seatID+'-bg" class="sit-bg '+bgSeat+'">'+
+											'<div id="'+seatID+'-ordinal" class="sit-num">'+ordinal+'</div>'+
 										'</div>'+
 									'</div>'+
 								'</div>';
 					}else{
 						html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="seat seat-80">'+
 									'<div class="sit sit-right">'+
-										'<div class="sit-bg '+bgSeat+'">'+
-											'<div class="sit-num">'+ordinal+'</div>'+
+										'<div id="'+seatID+'-bg" class="sit-bg '+bgSeat+'">'+
+											'<div id="'+seatID+'-ordinal" class="sit-num">'+ordinal+'</div>'+
 										'</div>'+
 									'</div>'+
 									'<div class="sit-side">'+
@@ -990,16 +1015,16 @@
 										
 									'</div>'+
 									'<div class="sit sit-left">'+
-										'<div class="sit-bg '+bgSeat+'">'+
-											'<div class="sit-num">'+ordinal+'</div>'+
+										'<div id="'+seatID+'-bg" class="sit-bg '+bgSeat+'">'+
+											'<div id="'+seatID+'-ordinal" class="sit-num">'+ordinal+'</div>'+
 										'</div>'+
 									'</div>'+
 								'</div>';
 					}else{
 						html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="seat seat-80">'+
 									'<div class="sit sit-right">'+
-										'<div class="sit-bg '+bgSeat+'">'+
-											'<div class="sit-num">'+ordinal+'</div>'+
+										'<div id="'+seatID+'-bg" class="sit-bg '+bgSeat+'">'+
+											'<div id="'+seatID+'-ordinal" class="sit-num">'+ordinal+'</div>'+
 										'</div>'+
 									'</div>'+
 									'<div class="sit-side">'+
@@ -1025,8 +1050,8 @@
 									
 								'</div>'+
 								'<div class="sit sit-left">'+
-									'<div class="sit-bg '+bgSeat+'">'+
-										'<div class="sit-num">'+ordinal+'</div>'+
+									'<div id="'+seatID+'-bg" class="sit-bg '+bgSeat+'">'+
+										'<div id="'+seatID+'-ordinal" class="sit-num">'+ordinal+'</div>'+
 									'</div>'+
 								'</div>'+
 							'</div>';
@@ -1049,8 +1074,8 @@
 
 					html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="seat seat-64">'+
 								'<div class="sit sit-right">'+
-									'<div class="sit-bg '+bgSeat+'">'+
-										'<div class="sit-num">'+ordinal+'</div>'+
+									'<div id="'+seatID+'-bg" class="sit-bg '+bgSeat+'">'+
+										'<div id="'+seatID+'-ordinal" class="sit-num">'+ordinal+'</div>'+
 									'</div>'+
 								'</div>'+
 
@@ -1106,8 +1131,8 @@
 	  					html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="bed">'+
 		  							'<div class="bed-left">'+
 		  								'<div class="bed-outer">'+
-		  									'<div class="main-bed text-center '+bgSeat+'">'+
-		  										ordinal+
+		  									'<div id="'+seatID+'-bg" class="main-bed text-center '+bgSeat+'">'+
+		  										'<div id="'+seatID+'-ordinal">'+ordinal+'</div>'+
 		  									'</div>'+
 		  									'<div class="bed-illu"></div>'+
 		  								'</div>'+
@@ -1117,8 +1142,8 @@
 	  					html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="bed">'+
 		  							'<div class="bed-right">'+
 		  								'<div class="bed-outer">'+
-		  									'<div class="main-bed text-center '+bgSeat+'">'+
-		  										ordinal+
+		  									'<div id="'+seatID+'-bg" class="main-bed text-center '+bgSeat+'">'+
+		  										'<div id="'+seatID+'-ordinal">'+ordinal+'</div>'+
 		  									'</div>'+
 		  									'<div class="bed-illu"></div>'+
 		  								'</div>'+
@@ -1194,8 +1219,8 @@
 	  					html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="bed">'+
 		  							'<div class="bed-left">'+
 		  								'<div class="bed-outer">'+
-		  									'<div class="main-bed text-center '+bgSeat+'">'+
-		  										ordinal+
+		  									'<div id="'+seatID+'-bg" class="main-bed text-center '+bgSeat+'">'+
+		  										'<div id="'+seatID+'-ordinal">'+ordinal+'</div>'+
 		  									'</div>'+
 		  									'<div class="bed-illu"></div>'+
 		  								'</div>'+
@@ -1205,8 +1230,8 @@
 	  					html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="bed">'+
 		  							'<div class="bed-right">'+
 		  								'<div class="bed-outer">'+
-		  									'<div class="main-bed text-center '+bgSeat+'">'+
-		  										ordinal+
+		  									'<div id="'+seatID+'-bg" class="main-bed text-center '+bgSeat+'">'+
+		  										'<div id="'+seatID+'-ordinal">'+ordinal+'</div>'+
 		  									'</div>'+
 		  									'<div class="bed-illu"></div>'+
 		  								'</div>'+
@@ -1262,7 +1287,8 @@
 				}
 				return ret;
 			}
-			function getBGSeat(type){
+		}
+		function getBGSeat(type){
 				var ret;
 				switch(type){
 					case 'A':
@@ -1282,7 +1308,72 @@
 						ret = '';
 				}
 				return ret;
-			}
+		}
+		function pickSeat(tripID, seatID){
+			$.post('pick-seat',{
+				tripID: tripID,
+				seatID: seatID,
+				stationIDLeave: stationIDLeave,
+				stationIDArrive: stationIDArrive
+			},function(data, status){
+				if(status != 'success'){ alert('pick seat: failed!'); return;}
+				
+				var response = JSON.parse(data);
+				if(response['code'] != '0'){
+					var ticketInfo = response['data'];
+					var status = ticketInfo.status;
+					var bgSeat = getBGSeat(status);
+
+					$('#seat-'+seatID+'-bg').removeClass('sit-color-white').addClass(bgSeat);
+					$('#seat-'+seatID).removeAttr('onclick');
+					return;
+				}
+
+				//Change seat layout
+				updatePicketSeatUI(seatID);
+
+				//Create ticket
+				if(pickedTickets[currentTripID] === undefined) pickedTickets[currentTripID] = {};
+				if(pickedTickets[currentTripID][currentCarID] === undefined) pickedTickets[currentTripID][currentCarID] = {};
+				pickedTickets[currentTripID][currentCarID][seatID] = 'seat-'+seatID;
+
+				var trainName = $('#'+currentTripID+'-train-name').html();
+				var stationLeave = $('#station-leave').val();
+				var stationArrive = $('#station-arrive').val();
+
+				var timeLeave = $('#'+currentTripID+'-time-leave').html();
+
+				var typeSeat = 'NCL';
+				var carNumber = $('#'+currentCarID+'-label').html();
+				var seatNumber = $('#seat-'+seatID+'-ordinal').html();
+				
+				var html='';
+				//Make login--------------------------------
+				if(Object.keys(pickedTickets[currentTripID][currentCarID]).length == 1){
+					html = '<div class="ticket-heading text-center">'+
+									'<p style="color: #317eac;">Chiều đi</p>'+
+							'</div>';
+					$('#ticket-container').html(html);
+				}
+				html = '<div id="ticket-'+seatID+'" class="ticket">'+
+							'<div class="col-md-9">'+
+								'<div>'+trainName+' '+ stationLeave+'-'+stationArrive+'</div>'+
+								'<div>'+timeLeave+'</div>'+
+								'<div>'+typeSeat+' toa '+carNumber+' chỗ '+seatNumber+'</div>'+
+							'</div>'+
+							'<div class="col-md-3" style="padding: 0px 5px;">'+
+								'<div class="trash-ticket" onclick="deleteTicket('+seatID+')">'+
+									'<p>123</p>'+
+									'<img src="http://dsvn.vn/images/del30.png" width="32px" height="24px">'+
+								'</div>'+
+							'</div>'+
+							'<div class="line"></div>'+
+						'</div>';
+				html = $('.ticket-heading').append(html);
+			});
+		}
+		function deleteTicket(seatID){
+			$('#ticket-'+seatID).remove();
 		}
 		//Handle UI
 		function changeTrainUI(tripID){
@@ -1408,6 +1499,15 @@
 				hideSmallPopup($('#medium-pop-up'));
 			});
 		}
+		function updatePicketSeatUI(seatID){
+			$('#seat-'+seatID+'-bg').removeClass('sit-color-white').addClass('sit-color-green');
+			$('#seat-'+seatID).removeAttr('onclick');
+		}
+		function updatePicketSeatsUI(seatIDs){
+			for(var seatID in seatIDs){
+				updatePicketSeatUI(seatID);
+			}
+		}
 		//Handle popup
 		function showSmallPopup(e, popup, popup_triangle) {
 		  	var x = e.offset().left - (popup.width() - e.width())/2;
@@ -1436,7 +1536,7 @@
 			var realID = tripID.split('-')[1];
 			changeTrainUI(tripID);
 			currentTripID = tripID;
-			getCarInFormation(tripID.split('-')[1], getStationIDLeave(), getStationIDArrive());
+			getCarInFormation(tripID.split('-')[1]);
 		}
 		function addCarClick(carID){
 			$('#'+carID).click(function(){
@@ -1448,10 +1548,15 @@
 			//realID is 1
 
 			changeCarUI(carID);
-			handleSeat(carID);
+			getSeat(carID, currentTripID.split('-')[1], function(){
+				if(pickedTickets[currentTripID] === undefined || pickedTickets[currentTripID][currentCarID] === undefined) return;
+				updatePicketSeatsUI(pickedTickets[currentTripID][currentCarID]);
+			});
 		}
 		function onSeatTapped(e){
-			alert(e.id);
+			var seatID = e.id.split('-')[1];
+			var tripID = currentTripID.split('-')[1];
+			pickSeat(tripID, seatID);
 		}
 		//Utils
 		function formatTimeStampToDMHM(timeStamp){

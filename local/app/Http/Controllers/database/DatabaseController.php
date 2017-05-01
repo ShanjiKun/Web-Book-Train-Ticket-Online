@@ -38,7 +38,7 @@ class DatabaseController extends Controller
             return $ret;
         }
 
-        return Utils::createResponse( 1, null);
+        return Utils::createResponse( 1, '{}');
     }
 
     public function getTrainNameViaTrip(Request $request){
@@ -60,7 +60,7 @@ class DatabaseController extends Controller
             $ret = Utils::createResponse( 0, $json);
             return $ret;
         }
-        return Utils::createResponse( 1, null);
+        return Utils::createResponse( 1, '{}');
     }
     public function getTrainTimeViaStation(Request $request){
         //Input: params = 'stationIDLeave': '1', 'stationIDArrive': '3', "trips":[{"trip_id":"1"}, {"trip_id":"2"}]
@@ -84,7 +84,7 @@ class DatabaseController extends Controller
             $ret = Utils::createResponse( 0, $json);
             return $ret;
         }
-        return Utils::createResponse( 1, null);
+        return Utils::createResponse( 1, '{}');
     }
     //Fixed query get unavailable seats
     public function getNumberSeat(Request $request){
@@ -106,7 +106,7 @@ class DatabaseController extends Controller
         $query = "SELECT tc.trip_id, SUM(c.num_seat) as number_seat FROM `trip_car` tc INNER JOIN car c on tc.car_id = c.car_id where ".$conditions1." GROUP BY tc.trip_id";
         $numberSeats = DB::select($query);
 
-        if(!$numberSeats) return Utils::createResponse( 1, null);
+        if(!$numberSeats) return Utils::createResponse( 1, '{}');
 
         //Query get number of unavailable seat in trip
         //Fixed
@@ -209,7 +209,7 @@ class DatabaseController extends Controller
             $json .= ']';
             return Utils::createResponse( 0, $json);
         }else{
-            return Utils::createResponse( 1, null);
+            return Utils::createResponse( 1, '{}');
         }
     }
     public function getSeat(Request $request){
@@ -236,7 +236,7 @@ class DatabaseController extends Controller
         $seats = DB::select($query, ['carID' => $carID]);
 
         //Checking $seats
-        if(!$seats) return Utils::createResponse(1, null);
+        if(!$seats) return Utils::createResponse(1, '{}');
 
         //Select date sell of trip
         $query = "SELECT UNIX_TIMESTAMP(t.date_sell) as dateSell FROM trip t WHERE t.trip_id = :tripID";
@@ -310,6 +310,32 @@ class DatabaseController extends Controller
         return Utils::createResponse( 0, $json);
     }
     public function pickSeat(Request $request){
-        
+        $tripID = $request->tripID;
+        $ticketID = $request->seatID;
+        $stationIDLeave = $request->stationIDLeave;
+        $stationIDArrive = $request->stationIDArrive;
+
+        $query = "SELECT * FROM ticket_sold WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID;
+        //Select seat in ticket sold inorder to find seat that is not free
+        //Fixed
+        $greater = '>';
+        $greaterEqual = '>=';
+        $less = '<';
+        $lessEqual = '<=';
+        if($stationIDArrive < $stationIDLeave){
+            //Heading is NS
+            $query = "SELECT ticket_id, status FROM ticket_sold  WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND NOT ((station_leave_id ".$less." ".$stationIDLeave." AND station_leave_id ".$lessEqual." ".$stationIDArrive.") OR (station_arrive_id ".$greaterEqual." ".$stationIDLeave." AND station_arrive_id ".$greater." ".$stationIDArrive."))";
+        }else{
+            //Heading is SN
+            $query = "SELECT ticket_id, status FROM ticket_sold WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND NOT ((station_leave_id ".$greater." ".$stationIDLeave." AND station_leave_id ".$greaterEqual." ".$stationIDArrive.") OR (station_arrive_id ".$lessEqual." ".$stationIDLeave." AND station_arrive_id ".$less." ".$stationIDArrive."))";
+        }
+
+        $result = DB::select($query);
+        if(count($result) == 0){
+            return Utils::createResponse( 0,  '{}'); //Success
+        }else{
+            $json = json_encode($result[0]);
+            return Utils::createResponse( 1, $json);
+        }
     }
 }

@@ -126,4 +126,5 @@ Route::post('get-train-time-via-station', 'database\DatabaseController@getTrainT
 Route::post('get-number-seat', 'database\DatabaseController@getNumberSeat');
 Route::post('get-cars', 'database\DatabaseController@getCars');
 Route::post('get-seat', 'database\DatabaseController@getSeat');
+Route::post('pick-seat', 'database\DatabaseController@pickSeat');
 //Database request
