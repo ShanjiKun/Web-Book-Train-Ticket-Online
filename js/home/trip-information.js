@@ -61,7 +61,7 @@ $('#search-btn').click(function(){
 	},function(data, status){
 		if(status == 'success'){
 			// alert('Response: ' + data);
-
+			
 			//Parse data
 			//Trips were sorted ASC by Date Leave
 			//{ "code":"0", "message":"success", "data":{"leave":[{'trip_id':1}, {'trip_id':2}], "arrive":[{'trip_id':1}, {'trip_id':2}]}}

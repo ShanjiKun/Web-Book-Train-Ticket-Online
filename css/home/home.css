@@ -88,17 +88,26 @@
 }
 
 .ticket-manager{
-	text-align: center;
+	
 }
-.ticket-manager div{
-	margin-bottom: 15px;
-}
-#num-ticket{
-	margin: 15px 0px;
+#ticket-container{
+	padding: 2px 2px;
 }
 #no-ticket{
 	color: red; 
 	font-size: 14px;
+}
+.ticket-heading{
+	padding: 2px 2px;
+}
+.ticket{
+	min-height: 1px;
+	padding: 4px 2px;
+	overflow: hidden;
+	position: relative;
+
+	text-align: left;
+	font-size: 11px;
 }
 #station-dropdown-content>li>a:hover{
 	background-color: #2fa4e7;
@@ -110,4 +119,20 @@
 .form-control[readonly]{
 	cursor: default;
 	background-color: white;
+}
+.line{
+	width: 100%;
+	border-top: 1px solid gray;
+	float: left;
+}
+.trash-ticket{
+	cursor: pointer;
+}
+.trash-ticket p{
+	margin: 0px;
+	padding: 0px 3px;
+	color: red;
+}
+.buy-ticket{
+	padding: 10px 15px 5px 15px;
 }

@@ -9,15 +9,12 @@ class Utils{
 				break;
 			case 1:
 				$message = 'Data empty';
-				$jsonData = '{}';
 				break;
 			case 2:
 				$message = 'Json wrong';
-				$jsonData = '{}';
 				break;
 			default:
 				$message = 'Server error';
-				$jsonData = '{}';
 				break;
 		}
 		$ret = '{"code": "'.$code.'", "message": "'.$message.'", "data": '.$jsonData.'}';
