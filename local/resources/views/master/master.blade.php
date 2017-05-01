@@ -27,7 +27,7 @@
 						
 					</div> <!-- banner-left-logo -->
 					<div class="banner-left-time">
-						Chủ nhật, 05/03/2017
+						Thứ Bảy, 01/04/2017
 					</div> <!-- banner-left-time -->
 				</div> <!-- banner-left -->
 			</div> <!-- banner-container -->

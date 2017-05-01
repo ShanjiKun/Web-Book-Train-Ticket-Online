@@ -60,8 +60,8 @@ $('#search-btn').click(function(){
 		timeRound: timeRound
 	},function(data, status){
 		if(status == 'success'){
-			alert('Response: ' + data);
-
+			// alert('Response: ' + data);
+			
 			//Parse data
 			//Trips were sorted ASC by Date Leave
 			//{ "code":"0", "message":"success", "data":{"leave":[{'trip_id':1}, {'trip_id':2}], "arrive":[{'trip_id':1}, {'trip_id':2}]}}
@@ -239,7 +239,7 @@ function onStationPick(e){
 $('#date-leave').datepicker({
     'format': 'yyyy-m-d',
     'autoclose': true,
-    // 'startDate' : new Date()
+    'startDate' : new Date()
 });
 
 $('#date-round').datepicker({
@@ -250,7 +250,8 @@ $('#date-round').datepicker({
 
 $('#btn-date-leave').datepicker({
 	'format': 'yyyy-m-d',
-    'autoclose': true
+    'autoclose': true,
+    'startDate' : new Date()
 }).on("changeDate", function(e){
 	// var dateDMY = e.date.getDate() + '-' + (e.date.getMonth() + 1) + '-' +  e.date.getFullYear();
 	var dateYMD = e.date.getFullYear() + '-' + (e.date.getMonth() + 1) + '-' +  e.date.getDate();
@@ -259,7 +260,8 @@ $('#btn-date-leave').datepicker({
 
 $('#btn-date-round').datepicker({
 	'format': 'yyyy-m-d',
-    'autoclose': true
+    'autoclose': true,
+    'startDate' : new Date()
 }).on("changeDate", function(e){
 	var dateYMD = e.date.getFullYear() + '-' + (e.date.getMonth() + 1) + '-' +  e.date.getDate();
 	$('#date-round').val(dateYMD);

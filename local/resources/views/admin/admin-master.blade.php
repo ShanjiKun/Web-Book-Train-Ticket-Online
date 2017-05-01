@@ -12,12 +12,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/lib/bootstrap-datepicker.css') }}" />
     <script type="text/javascript" src="{{ asset('/js/lib/bootstrap-datepicker.js') }}"></script>
 
-    
-<<<<<<< HEAD
-=======
-
->>>>>>> dev-admin
-
 	<title>Admin Area :: @yield('title')</title>
 </head> 
     <body>
