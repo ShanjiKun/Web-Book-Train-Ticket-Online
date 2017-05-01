@@ -13,7 +13,10 @@
     <script type="text/javascript" src="{{ asset('/js/lib/bootstrap-datepicker.js') }}"></script>
 
     
+<<<<<<< HEAD
+=======
 
+>>>>>>> dev-admin
 
 	<title>Admin Area :: @yield('title')</title>
 </head> 
