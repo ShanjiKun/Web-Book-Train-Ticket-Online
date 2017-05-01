@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', 'home\HomeController@getHomeView');
-Route::get('/search', 'search\SearchController@getSearchView');
+Route::get('/', ['as' => '/', 'uses' => 'home\HomeController@getHomeView']);
+Route::get('/search', ['as' => 'search', 'uses' => 'search\SearchController@getSearchView']);
 Route::get('/thongtindatcho', function(){
 	return view('booking-information/booking-information');
 });
@@ -66,8 +66,8 @@ Route::group(['prefix'=>'admin'],function(){
 });
 
 //
-Route::get('admin/login',['as' => 'getLogin','uses' => 'LoginController@getLogin']);
-Route::post('admin/login',['as' => 'postLogin','uses' => 'LoginController@postLogin']);
+Route::get('login',['as' => 'getLogin','uses' => 'LoginController@getLogin']);
+Route::post('login',['as' => 'postLogin','uses' => 'LoginController@postLogin']);
 Route::get('logout',['as' => 'getLogout','uses' => 'LoginController@getLogout']);
 Route::get('admin',['as' => 'admin', function(){
 	if(!Auth::check()){
@@ -135,3 +135,6 @@ Route::post('get-cars', 'database\DatabaseController@getCars');
 Route::post('get-seat', 'database\DatabaseController@getSeat');
 Route::post('pick-seat', 'database\DatabaseController@pickSeat');
 //Database request
+//Normal user
+Route::post('getUser', 'LoginController@getUser');
+//Normal user

@@ -15,9 +15,9 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $table ='employee';
+    protected $table ='users';
     protected $fillable = [
-        'employee_id','name', 'password','username','level'
+        'user_id','name', 'password','username','level'
     ];
 
     /**
@@ -29,6 +29,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
     public $incrementing = false;
-    protected $primaryKey = 'employee_id';
+    protected $primaryKey = 'user_id';
     public $timestamps = false;
 }

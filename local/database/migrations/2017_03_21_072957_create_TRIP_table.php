@@ -18,14 +18,14 @@ class CreateTRIPTable extends Migration
             $table->unsignedInteger('train_id');
             $table->unsignedInteger('station_leave_id');
             $table->unsignedInteger('station_arrive_id');
-            $table->unsignedInteger('employee_id');
+            $table->unsignedInteger('user_id');
             $table->datetime('date_leave');
             $table->datetime('date_arrive');
             $table->datetime('date_sell');
             $table->foreign('train_id')->references('train_id')->on('TRAIN');
             $table->foreign('station_leave_id')->references('station_id')->on('STATION');
             $table->foreign('station_arrive_id')->references('station_id')->on('STATION');
-            $table->foreign('employee_id')->references('employee_id')->on('EMPLOYEE');
+            $table->foreign('user_id')->references('user_id')->on('USERS');
         });
     }
 
