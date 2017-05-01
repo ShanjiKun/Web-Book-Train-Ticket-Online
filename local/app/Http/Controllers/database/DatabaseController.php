@@ -95,15 +95,16 @@ class DatabaseController extends Controller
         $stationIDArrive = $request->stationIDArrive;
         $trips = json_decode($request->trips, true); // Array dictionary
 
-        $conditions1 = 'tc.trip_id = '.$trips[0]['trip_id'];
+        // $conditions1 = 'tc.trip_id = '.$trips[0]['trip_id'];
         $conditions2 = 'trip_id = '.$trips[0]['trip_id'];
         for( $i = 1; $i < count($trips); $i++ ){
-            $conditions1 = $conditions1.' OR tc.trip_id = '.$trips[$i]['trip_id'];
+            // $conditions1 = $conditions1.' OR tc.trip_id = '.$trips[$i]['trip_id'];
             $conditions2 = $conditions2.' OR trip_id = '.$trips[$i]['trip_id'];
         }
 
         //Query get number of seat in trip
-        $query = "SELECT tc.trip_id, SUM(c.num_seat) as number_seat FROM `trip_car` tc INNER JOIN car c on tc.car_id = c.car_id where ".$conditions1." GROUP BY tc.trip_id";
+        // $query = "SELECT tc.trip_id, SUM(c.num_seat) as number_seat FROM `trip_car` tc INNER JOIN car c on tc.car_id = c.car_id where ".$conditions1." GROUP BY tc.trip_id";
+        $query = "SELECT tt.trip_id, SUM(c.num_seat) as number_seat FROM car c INNER JOIN (SELECT trip_id, train_id FROM TRIP WHERE ".$conditions2.") tt on c.train_id = tt.train_id GROUP BY tt.train_id";
         $numberSeats = DB::select($query);
 
         if(!$numberSeats) return Utils::createResponse( 1, '{}');
@@ -158,7 +159,7 @@ class DatabaseController extends Controller
         $stationIDLeave = $request->stationIDLeave;
         $stationIDArrive = $request->stationIDArrive;
 
-        $query = "SELECT c.car_id, c.type_seat_id as type FROM car c inner JOIN (SELECT * FROM `trip_car` WHERE trip_id = :tripID) tc on c.car_id = tc.car_id ORDER BY `c`.`num_seat` DESC";
+        $query = "SELECT c.car_id, c.type_seat_id as type FROM car c inner JOIN (SELECT train_id FROM trip WHERE trip_id = :tripID) tc on c.train_id = tc.train_id ORDER BY `c`.`num_seat` DESC";
         $cars = DB::select($query, ['tripID' => $tripID]);
 
         //Car state

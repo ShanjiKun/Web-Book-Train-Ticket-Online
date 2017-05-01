@@ -17,8 +17,10 @@ class CreateCARTable extends Migration
             $table->increments('car_id');
             $table->string('name', 20)->unique();
             $table->unsignedInteger('num_seat');
+            $table->unsignedInteger('train_id');
             $table->string('type_seat_id', 20);
             $table->foreign('type_seat_id')->references('type_seat_id')->on('TYPE_SEAT');
+            $table->foreign('train_id')->references('train_id')->on('train');
         });
     }
 
