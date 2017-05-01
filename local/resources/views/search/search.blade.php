@@ -1310,13 +1310,15 @@
 				return ret;
 		}
 		function pickSeat(tripID, seatID){
+
 			$.post('pick-seat',{
 				tripID: tripID,
 				seatID: seatID,
 				stationIDLeave: stationIDLeave,
 				stationIDArrive: stationIDArrive
 			},function(data, status){
-				if(state != 'success'){ alert('pick seat: failed!'); return;}
+
+				if(status != 'success'){ alert('pick seat: failed!'); return;}
 				
 				var response = JSON.parse(data);
 				if(response['code'] != '0'){
@@ -1554,9 +1556,13 @@
 			});
 		}
 		function onSeatTapped(e){
-			var seatID = e.id.split('-')[1];
-			var tripID = currentTripID.split('-')[1];
-			pickSeat(tripID, seatID);
+			if(user === undefined){
+				alert('Vui lòng đăng nhập để mua vé');
+			}else{
+				var seatID = e.id.split('-')[1];
+				var tripID = currentTripID.split('-')[1];
+				pickSeat(tripID, seatID);
+			}
 		}
 		//Utils
 		function formatTimeStampToDMHM(timeStamp){
