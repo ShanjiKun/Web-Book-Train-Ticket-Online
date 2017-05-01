@@ -15,7 +15,7 @@ class CreateSTATIONTable extends Migration
     {
         Schema::create('STATION', function (Blueprint $table) {
             $table->increments('station_id');
-            $table->string('name');
+            $table->string('name', 100)->unique();
             $table->string('city')->nullable();
             $table->string('address');
             $table->float('distance', 8, 2);

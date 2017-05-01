@@ -15,7 +15,7 @@ class CreateCARTable extends Migration
     {
         Schema::create('CAR', function (Blueprint $table) {
             $table->increments('car_id');
-            $table->string('name', 20);
+            $table->string('name', 20)->unique();
             $table->unsignedInteger('num_seat');
             $table->string('type_seat_id', 20);
             $table->foreign('type_seat_id')->references('type_seat_id')->on('TYPE_SEAT');
