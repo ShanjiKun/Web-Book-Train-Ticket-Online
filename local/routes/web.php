@@ -111,9 +111,9 @@ Route::get('trip-list',['as' => 'getTripList' , 'uses' => 'TripController@getTri
 Route::get('car-add',['as' => 'getCarAdd' , 'uses' => 'CarController@getCarAdd']);
 Route::post('car-add',['as' => 'postCarAdd' , 'uses' => 'CarController@postCarAdd']);
 Route::get('car-list',['as' => 'getCarList' , 'uses' => 'CarController@getCarList']);
-// Route::get('train-update/{id}',['as' => 'getCarDelete' , 'uses' => 'CarController@getCarDelete']);
-// Route::get('train-edit/{id}',['as' => 'getCarEdit' , 'uses' => 'CarController@getCarEdit']);
-// Route::post('train-edit/{id}',['as' => 'postCarEdit' , 'uses' => 'CarController@postCarEdit']);
+Route::get('car-update/{id}',['as' => 'getCarDelete' , 'uses' => 'CarController@getCarDelete']);
+Route::get('car-edit/{id}',['as' => 'getCarEdit' , 'uses' => 'CarController@getCarEdit']);
+Route::post('car-edit/{id}',['as' => 'postCarEdit' , 'uses' => 'CarController@postCarEdit']);
 //Car
 //*****
 // Route::group(['prefix' => 'admin'], function(){
