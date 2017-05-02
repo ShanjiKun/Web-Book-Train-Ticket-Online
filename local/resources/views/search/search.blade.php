@@ -595,7 +595,7 @@
 		//Global variable
 		var currentTripID;
 		var currentCarID;
-		var currentCars = {}; //key: car-1, value: ["type":"B80", "status":"1"]
+		var currentCars = {}; //key: car-1, value: ["type":"B80", "state":"1"]
 
 		var stationIDLeave, stationIDArrive;
 
@@ -736,7 +736,7 @@
 					}
 					success()
 				}else{
-					alert(response['message']);
+					alert('getTrainName:'+response['message']);
 				}
 			});
 		}
@@ -763,7 +763,7 @@
 					}
 					success();
 				}else{
-					alert(response['message']);
+					alert('getTrainSeat:'+response['message']);
 				}
 			});
 		}
@@ -802,16 +802,16 @@
 					}
 					success(trainsTime[indexTrainChecked].trip_id);
 				}else{
-					alert(response['message']);
+					alert('getTraintime:'+response['message']);
 				}
 			});
 		}
 		function getCarInFormation(tripID){
 			//Need: carID, car type
 			//Input: tripID: 1
-			//Output: { "code":"0", "message":"success", "data":[{"car_id":"1", "type":"B80", "status":"0"}, {"car_id":"2", "type":"B80L", "status":"1"}]}
+			//Output: { "code":"0", "message":"success", "data":[{"car_id":"1", "type":"B80", "state":"0"}, {"car_id":"2", "type":"B80L", "ordinal":"1", "state":"1"}]}
 			//Car was sorted DESC by num_seat
-			//Car status
+			//Car state
 	        //0: available
 	        //1: unavailable
 	        //2: full seat
@@ -829,13 +829,14 @@
 						var carID = 'car-'+cars[i].car_id;
 						var carLabel = 'car-'+cars[i].car_id+'-label';
 						var type = cars[i].type;
-						var status = cars[i].status;
-						var image = getCarImage(status);
-						currentCars[carID] = {"type": type, "status": status};
+						var ordinal = cars[i].ordinal;
+						var state = cars[i].state;
+						var image = getCarImage(state);
+						currentCars[carID] = {"type": type, "state": state};
 
 						htmlCars += '<div id="'+carID+'" class="train-car '+type+'">'+
 								'<img src="'+image+'">'+
-								'<div id="'+carLabel+'" class="car-label">'+(i+1)+'</div>'+
+								'<div id="'+carLabel+'" class="car-label">'+ordinal+'</div>'+
 							'</div>';
 					}
 					var trainNameID = 'trip-'+tripID+'-train-name';
@@ -853,12 +854,12 @@
 						addCarClick(carID);
 					}
 				}else{
-					alert(response['message']);
+					alert('getCars:'+response['message']);
 				}
 			});
 		}
-		function getCarImage(carStatus){
-			switch(carStatus){
+		function getCarImage(carstate){
+			switch(carstate){
 				case '0':
 					return './images/tc-blue.png';
 				case '1':
@@ -879,8 +880,8 @@
 		function getSeat(carID, tripID, onSuccess){
 			//Need: ticket_id, ordinal ticket on train
 	        //Input: carID, tripId, stationIDLeave, stationIDArrive
-	        //Output: { "code":"0", "message":"success", "data":[{"ticket_id":"1", "ordinal":"1", "status":"A"}, {"ticket_id":"2", "ordinal":"2", "status":"U"}]}
-	        //status:
+	        //Output: { "code":"0", "message":"success", "data":[{"ticket_id":"1", "ordinal":"1", "state":"A"}, {"ticket_id":"2", "ordinal":"2", "state":"U"}]}
+	        //state:
 	        // U: unavailble
 	        // S: sold
 	        // W: wait
@@ -908,7 +909,7 @@
 			});
 		}
 		function showSeat( carID, type, seats, onSuccess){
-			//status:
+			//state:
 	        // U: unavailble
 	        // S: sold
 	        // W: wait
@@ -975,8 +976,8 @@
 				for(i = 0; i < 40; i++){
 					var seatID = 'seat-'+seats[i].ticket_id;
 					var ordinal = seats[i].ordinal;
-					var onclickStr = getOnclick(seats[i].status);
-					var bgSeat = getBGSeat(seats[i].status);
+					var onclickStr = getOnclick(seats[i].state);
+					var bgSeat = getBGSeat(seats[i].state);
 					if(i%2==0){
 						html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="seat seat-80">'+
 									'<div class="sit-side">'+
@@ -1007,8 +1008,8 @@
 				for(i = 40; i < 80; i++){
 					var seatID = 'seat-'+seats[i].ticket_id;
 					var ordinal = seats[i].ordinal;
-					var onclickStr = getOnclick(seats[i].status);
-					var bgSeat = getBGSeat(seats[i].status);
+					var onclickStr = getOnclick(seats[i].state);
+					var bgSeat = getBGSeat(seats[i].state);
 					if(i%2==0){
 						html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="seat seat-80">'+
 									'<div class="sit-side">'+
@@ -1042,8 +1043,8 @@
 				for(i = 0; i < 32; i++){
 					var seatID = 'seat-'+seats[i].ticket_id;
 					var ordinal = seats[i].ordinal;
-					var onclickStr = getOnclick(seats[i].status);
-					var bgSeat = getBGSeat(seats[i].status);
+					var onclickStr = getOnclick(seats[i].state);
+					var bgSeat = getBGSeat(seats[i].state);
 
 					html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="seat seat-64">'+
 								'<div class="sit-side">'+
@@ -1069,8 +1070,8 @@
 				for(i = 32; i < 64; i++){
 					var seatID = 'seat-'+seats[i].ticket_id;
 					var ordinal = seats[i].ordinal;
-					var onclickStr = getOnclick(seats[i].status);
-					var bgSeat = getBGSeat(seats[i].status);
+					var onclickStr = getOnclick(seats[i].state);
+					var bgSeat = getBGSeat(seats[i].state);
 
 					html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="seat seat-64">'+
 								'<div class="sit sit-right">'+
@@ -1124,8 +1125,8 @@
 
 	  				var seatID = 'seat-'+seats[i].ticket_id;
 					var ordinal = seats[i].ordinal;
-					var onclickStr = getOnclick(seats[i].status);
-					var bgSeat = getBGSeat(seats[i].status);
+					var onclickStr = getOnclick(seats[i].state);
+					var bgSeat = getBGSeat(seats[i].state);
 
 	  				if(i%2==0){
 	  					html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="bed">'+
@@ -1212,8 +1213,8 @@
 
 	  				var seatID = 'seat-'+seats[i].ticket_id;
 					var ordinal = seats[i].ordinal;
-					var onclickStr = getOnclick(seats[i].status);
-					var bgSeat = getBGSeat(seats[i].status);
+					var onclickStr = getOnclick(seats[i].state);
+					var bgSeat = getBGSeat(seats[i].state);
 
 	  				if(i%2==0){
 	  					html += '<div id="'+seatID+'" onclick="'+onclickStr+'" class="bed">'+
@@ -1310,19 +1311,21 @@
 				return ret;
 		}
 		function pickSeat(tripID, seatID){
+
 			$.post('pick-seat',{
 				tripID: tripID,
 				seatID: seatID,
 				stationIDLeave: stationIDLeave,
 				stationIDArrive: stationIDArrive
 			},function(data, status){
+
 				if(status != 'success'){ alert('pick seat: failed!'); return;}
 				
 				var response = JSON.parse(data);
 				if(response['code'] != '0'){
 					var ticketInfo = response['data'];
-					var status = ticketInfo.status;
-					var bgSeat = getBGSeat(status);
+					var state = ticketInfo.state;
+					var bgSeat = getBGSeat(state);
 
 					$('#seat-'+seatID+'-bg').removeClass('sit-color-white').addClass(bgSeat);
 					$('#seat-'+seatID).removeAttr('onclick');
@@ -1390,7 +1393,7 @@
 		}
 		function changeCarUI(carID){
 			if(currentCarID){
-				var image = getCarImage(currentCars[currentCarID].status);
+				var image = getCarImage(currentCars[currentCarID].state);
 				$('#'+currentCarID+' img').attr('src', image);
 			}
 			var image = getCarImage('3');
@@ -1554,9 +1557,13 @@
 			});
 		}
 		function onSeatTapped(e){
-			var seatID = e.id.split('-')[1];
-			var tripID = currentTripID.split('-')[1];
-			pickSeat(tripID, seatID);
+			if(user === undefined){
+				alert('Vui lòng đăng nhập để mua vé');
+			}else{
+				var seatID = e.id.split('-')[1];
+				var tripID = currentTripID.split('-')[1];
+				pickSeat(tripID, seatID);
+			}
 		}
 		//Utils
 		function formatTimeStampToDMHM(timeStamp){

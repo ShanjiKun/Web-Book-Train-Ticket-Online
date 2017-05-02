@@ -27,9 +27,61 @@
 						
 					</div> <!-- banner-left-logo -->
 					<div class="banner-left-time">
-						Thứ Bảy, 01/04/2017
+						Thứ Bảy, 13/05/2017
 					</div> <!-- banner-left-time -->
 				</div> <!-- banner-left -->
+				<div class="banner-right">
+					<div id='user-area' class="row">
+
+					</div>
+					<script type="text/javascript">
+						var user;
+
+						var pathname = window.location.pathname;
+						if(pathname == '/Web-Book-Train-Ticket-Online/search' || pathname == '/Web-Book-Train-Ticket-Online/') {
+
+							var xhttp = new XMLHttpRequest();
+							xhttp.onreadystatechange = function() {
+								if (this.readyState == 4 && this.status == 200) {
+									var response = JSON.parse(this.responseText);
+									if(response.code == 0){
+										user = response.data;
+										showUserInfo();
+									}else{
+										showBtns();
+									}
+								}
+							};
+							xhttp.open("POST", "getUser", true);
+							xhttp.send();
+
+						}
+
+						function showUserInfo(){
+							var html = '<div class="user-info">'+
+											'<p>'+user.username+'</p>'+
+											'<p> | </p>'+
+											'<a href="logout">Sign out</a>'+
+										'</div>';
+							document.getElementById("user-area").innerHTML = html;
+						}
+						function showBtns(){
+							var html = '<div class="col-lg-6">'+
+											'<div onclick="signin();" class="btn-1">Sign in</div>'+
+										'</div>'+
+										'<div class="col-lg-6">'+
+											'<div onclick="signout();" class="btn-1">Sign up</div>'+
+										'</div>';
+							document.getElementById("user-area").innerHTML = html;
+						}
+						function signin(){
+							window.location.href = 'login';
+						}
+						function signout(){
+							window.location.href = 'login';
+						}
+					</script>
+				</div>
 			</div> <!-- banner-container -->
 		</div> <!-- banner -->
 

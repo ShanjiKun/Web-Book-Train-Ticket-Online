@@ -14,10 +14,11 @@ class CreateBILLTable extends Migration
     public function up()
     {
         Schema::create('BILL', function (Blueprint $table) {
-            $table->string('bill_id', 20)->primary();
-            $table->string('card_id', 20);
+            $table->increments('bill_id');
+            $table->unsignedInteger('user_id');
+            $table->string('transaction_id', 10)->nullable()->unique();
             $table->float('sum_fare', 8, 2);
-            $table->foreign('card_id')->references('card_id')->on('PASSENGER');
+            $table->foreign('user_id')->references('user_id')->on('users');
         });
     }
 
