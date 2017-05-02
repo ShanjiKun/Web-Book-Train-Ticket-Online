@@ -19,6 +19,7 @@ class CreateSTATIONTable extends Migration
             $table->string('city')->nullable();
             $table->string('address');
             $table->float('distance', 8, 2);
+            $table->string('state', 1)->default('E'); //E: exist, D: delete
         });
     }
 

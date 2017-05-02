@@ -736,7 +736,7 @@
 					}
 					success()
 				}else{
-					alert(response['message']);
+					alert('getTrainName:'+response['message']);
 				}
 			});
 		}
@@ -763,7 +763,7 @@
 					}
 					success();
 				}else{
-					alert(response['message']);
+					alert('getTrainSeat:'+response['message']);
 				}
 			});
 		}
@@ -802,14 +802,14 @@
 					}
 					success(trainsTime[indexTrainChecked].trip_id);
 				}else{
-					alert(response['message']);
+					alert('getTraintime:'+response['message']);
 				}
 			});
 		}
 		function getCarInFormation(tripID){
 			//Need: carID, car type
 			//Input: tripID: 1
-			//Output: { "code":"0", "message":"success", "data":[{"car_id":"1", "type":"B80", "state":"0"}, {"car_id":"2", "type":"B80L", "state":"1"}]}
+			//Output: { "code":"0", "message":"success", "data":[{"car_id":"1", "type":"B80", "state":"0"}, {"car_id":"2", "type":"B80L", "ordinal":"1", "state":"1"}]}
 			//Car was sorted DESC by num_seat
 			//Car state
 	        //0: available
@@ -829,13 +829,14 @@
 						var carID = 'car-'+cars[i].car_id;
 						var carLabel = 'car-'+cars[i].car_id+'-label';
 						var type = cars[i].type;
+						var ordinal = cars[i].ordinal;
 						var state = cars[i].state;
 						var image = getCarImage(state);
 						currentCars[carID] = {"type": type, "state": state};
 
 						htmlCars += '<div id="'+carID+'" class="train-car '+type+'">'+
 								'<img src="'+image+'">'+
-								'<div id="'+carLabel+'" class="car-label">'+(i+1)+'</div>'+
+								'<div id="'+carLabel+'" class="car-label">'+ordinal+'</div>'+
 							'</div>';
 					}
 					var trainNameID = 'trip-'+tripID+'-train-name';
@@ -853,7 +854,7 @@
 						addCarClick(carID);
 					}
 				}else{
-					alert(response['message']);
+					alert('getCars:'+response['message']);
 				}
 			});
 		}

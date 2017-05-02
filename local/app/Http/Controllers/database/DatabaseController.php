@@ -19,7 +19,7 @@ class DatabaseController extends Controller
         $timeLeave = $request->input('timeLeave'); //string time H:i
         $timeRound = $request->input('timeRound'); //string time H:i 
 
-        $query = "SELECT sl.trip_id FROM STATION_STOP sl inner join (SELECT ss.trip_id, ss.station_id, ss.date_arrive FROM STATION_STOP ss WHERE date_format(ss.date_arrive, '%Y-%m-%d') >= str_to_date('".$dateLeave."', '%Y-%m-%d') AND ss.station_id = '".$stationArrive."') as sa ON sl.trip_id = sa.trip_id WHERE date_format(sl.date_leave, '%Y-%m-%d') = str_to_date('".$dateLeave."', '%Y-%m-%d') AND sl.station_id = '".$stationLeave."' AND sl.date_leave < sa.date_arrive ORDER BY sl.date_leave";
+        $query = "SELECT * FROM trip t inner join(SELECT sl.trip_id FROM STATION_STOP sl inner join (SELECT ss.trip_id, ss.station_id, ss.date_arrive FROM STATION_STOP ss WHERE date_format(ss.date_arrive, '%Y-%m-%d') >= str_to_date('".$dateLeave."', '%Y-%m-%d') AND ss.station_id = '".$stationArrive."') as sa ON sl.trip_id = sa.trip_id WHERE date_format(sl.date_leave, '%Y-%m-%d') = str_to_date('".$dateLeave."', '%Y-%m-%d') AND sl.station_id = '".$stationLeave."' AND sl.date_leave < sa.date_arrive ORDER BY sl.date_leave) as at on at.trip_id = t.trip_id WHERE t.state = 'E'";
         $tripsLeave = DB::select($query);
 
         if($tripsLeave){
@@ -104,7 +104,7 @@ class DatabaseController extends Controller
 
         //Query get number of seat in trip
         // $query = "SELECT tc.trip_id, SUM(c.num_seat) as number_seat FROM `trip_car` tc INNER JOIN car c on tc.car_id = c.car_id where ".$conditions1." GROUP BY tc.trip_id";
-        $query = "SELECT tt.trip_id, SUM(c.num_seat) as number_seat FROM car c INNER JOIN (SELECT trip_id, train_id FROM TRIP WHERE ".$conditions2.") tt on c.train_id = tt.train_id GROUP BY tt.train_id";
+        $query = "SELECT tt.trip_id, SUM(c.num_seat) as number_seat FROM car c INNER JOIN (SELECT trip_id, train_id FROM TRIP WHERE ".$conditions2.") tt on c.train_id = tt.train_id WHERE c.state = 'E' GROUP BY tt.trip_id";
         $numberSeats = DB::select($query);
 
         if(!$numberSeats) return Utils::createResponse( 1, '{}');
@@ -154,12 +154,12 @@ class DatabaseController extends Controller
     }
     public function getCars(Request $request){
         //Input: tripId, stationIDLeave, stationIDArrive
-        //Output: { "code":"0", "message":"success", "data":[{"car_id":"1", "type":"B80", "state":"0"}, {"car_id":"2", "type":"B80L", "state":"1"}]}
+        //Output: { "code":"0", "message":"success", "data":[{"car_id":"1", "type":"B80", "state":"0"}, {"car_id":"2", "type":"B80L", ordinal="1", "state":"1"}]}
         $tripID = $request->tripID;
         $stationIDLeave = $request->stationIDLeave;
         $stationIDArrive = $request->stationIDArrive;
 
-        $query = "SELECT c.car_id, c.type_seat_id as type FROM car c inner JOIN (SELECT train_id FROM trip WHERE trip_id = :tripID) tc on c.train_id = tc.train_id ORDER BY `c`.`num_seat` DESC";
+        $query = "SELECT c.car_id, c.type_seat_id as type, c.ordinal FROM car c inner JOIN (SELECT train_id FROM trip WHERE trip_id = :tripID) tc on c.train_id = tc.train_id WHERE c.state = 'E' ORDER BY `c`.`num_seat` DESC";
         $cars = DB::select($query, ['tripID' => $tripID]);
 
         //Car state
@@ -202,7 +202,7 @@ class DatabaseController extends Controller
                         $state = '0';
                     }
                 }
-                $json .= '{"car_id":"'.$car->car_id.'", "type":"'.$car->type.'", "state":"'.$state.'"}';
+                $json .= '{"car_id":"'.$car->car_id.'", "type":"'.$car->type.'", "ordinal":"'.$car->ordinal.'", "state":"'.$state.'"}';
                 if($car!=end($cars)){
                     $json .= ', ';
                 }
