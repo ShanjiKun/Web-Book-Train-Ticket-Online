@@ -22,8 +22,8 @@
             <td class="list_td aligncenter"><span style="color: blue; font-weight: bold;">{!! $item["num_seat"]!!}</span></td>
             <td class="list_td aligncenter"><span style="color: blue; font-weight: bold;">{!! $item["type_seat_id"]!!}</span></td>
             <td class="list_td aligncenter">
-                <a href=""><img src="/Web-Book-Train-Ticket-Online/images/edit.png" /></a>&nbsp;&nbsp;&nbsp;
-                <a href=""><img src="/Web-Book-Train-Ticket-Online/images/delete.png" /></a>
+                <a href="{!! $url = route('getCarEdit', ['id' => $item["car_id"]])!!}"><img src="/Web-Book-Train-Ticket-Online/images/edit.png" /></a>&nbsp;&nbsp;&nbsp;
+                <a href="{!! $url = route('getCarDelete', ['id' => $item["car_id"]])!!}"><img src="/Web-Book-Train-Ticket-Online/images/delete.png" /></a>
             </td>
         </tr>
     @endforeach
