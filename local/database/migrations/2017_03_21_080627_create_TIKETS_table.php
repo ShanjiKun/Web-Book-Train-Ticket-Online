@@ -17,6 +17,7 @@ class CreateTIKETSTable extends Migration
             $table->increments('ticket_id');
             $table->unsignedInteger('car_id');
             $table->unsignedInteger('ordinal');
+            $table->string('state', 1)->default('E'); //E: exist, D: delete
             $table->foreign('car_id')->references('car_id')->on('CAR');
         });
     }

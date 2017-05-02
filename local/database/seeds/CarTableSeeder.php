@@ -15,42 +15,66 @@ class CarTableSeeder extends Seeder
         DB::table('car')->insert([
         	'name' => 'C1',
         	'num_seat' => 80,
-        	'type_seat_id' => 'B80'
+            'train_id' => 1,
+        	'type_seat_id' => 'B80',
+            'ordinal' => 1,
+            'state' => 'E'
         ]);
         DB::table('car')->insert([
         	'name' => 'C2',
         	'num_seat' => 42,
-        	'type_seat_id' => 'Bn42L'
+            'train_id' => 1,
+        	'type_seat_id' => 'Bn42L',
+            'ordinal' => 2,
+            'state' => 'E'
         ]);
         DB::table('car')->insert([
         	'name' => 'C3',
         	'num_seat' => 80,
-        	'type_seat_id' => 'B80L'
+            'train_id' => 2,
+        	'type_seat_id' => 'B80L',
+            'ordinal' => 1,
+            'state' => 'E'
         ]);
         DB::table('car')->insert([
         	'name' => 'C4',
         	'num_seat' => 28,
-        	'type_seat_id' => 'An28L'
+            'train_id' => 2,
+        	'type_seat_id' => 'An28L',
+            'ordinal' => 2,
+            'state' => 'E'
         ]);
         DB::table('car')->insert([
         	'name' => 'C5',
         	'num_seat' => 80,
-        	'type_seat_id' => 'B80'
+            'train_id' => 3,
+        	'type_seat_id' => 'B80',
+            'ordinal' => 1,
+            'state' => 'E'
         ]);
         DB::table('car')->insert([
         	'name' => 'C6',
         	'num_seat' => 64,
-        	'type_seat_id' => 'A64L'
+            'train_id' => 3,
+        	'type_seat_id' => 'A64L',
+            'ordinal' => 2,
+            'state' => 'E'
         ]);
         DB::table('car')->insert([
         	'name' => 'C7',
         	'num_seat' => 80,
-        	'type_seat_id' => 'B80L'
+            'train_id' => 4,
+        	'type_seat_id' => 'B80L',
+            'ordinal' => 1,
+            'state' => 'E'
         ]);
         DB::table('car')->insert([
         	'name' => 'C8',
         	'num_seat' => 42,
-        	'type_seat_id' => 'Bn42L'
+            'train_id' => 4,
+        	'type_seat_id' => 'Bn42L',
+            'ordinal' => 2,
+            'state' => 'E'
         ]);
     }
 }

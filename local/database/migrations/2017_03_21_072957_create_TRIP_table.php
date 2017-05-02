@@ -22,6 +22,7 @@ class CreateTRIPTable extends Migration
             $table->datetime('date_leave');
             $table->datetime('date_arrive');
             $table->datetime('date_sell');
+            $table->string('state', 1)->default('E'); //E: exist, D: delete
             $table->foreign('train_id')->references('train_id')->on('TRAIN');
             $table->foreign('station_leave_id')->references('station_id')->on('STATION');
             $table->foreign('station_arrive_id')->references('station_id')->on('STATION');

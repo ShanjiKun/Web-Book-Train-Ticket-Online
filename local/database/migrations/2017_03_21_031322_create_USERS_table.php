@@ -20,7 +20,7 @@ class CreateUSERSTable extends Migration
             $table->string('username', 20)->unique();
             $table->string('email', 100)->unique();
             $table->unsignedInteger('level'); //0: normal user, 1:admin, 2:superadmin
-            $table->string('state', 1); //E: exist, D: deleted
+            $table->string('state', 1)->default('E'); //E: exist, D: deleted
             $table->rememberToken();
         });
     }
