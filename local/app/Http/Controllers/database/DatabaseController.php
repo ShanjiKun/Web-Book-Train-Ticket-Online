@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Utils\Utils;
+use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class DatabaseController extends Controller
 {
@@ -310,13 +312,16 @@ class DatabaseController extends Controller
         $json .= ']';
         return Utils::createResponse( 0, $json);
     }
+    public function getCost(Request $request){
+        return Utils::createResponse(0, '{"cost": "500"}');
+    }
     public function pickSeat(Request $request){
         $tripID = $request->tripID;
         $ticketID = $request->seatID;
         $stationIDLeave = $request->stationIDLeave;
         $stationIDArrive = $request->stationIDArrive;
 
-        $query = "SELECT * FROM ticket_sold WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID;
+        $query = "";
         //Select seat in ticket sold inorder to find seat that is not free
         //Fixed
         $greater = '>';
@@ -333,10 +338,184 @@ class DatabaseController extends Controller
 
         $result = DB::select($query);
         if(count($result) == 0){
+            //state:
+            // U: unavailble
+            // S: sold
+            // W: wait
+            // A: available
+            $userID = Auth::User()->user_id;
+            $ownTime = 5;
+            DB::table('ticket_sold')->insert([
+                'ticket_id' => $ticketID,
+                'trip_id' => $tripID,
+                'user_id' => $userID,
+                'station_leave_id' => $stationIDLeave,
+                'station_arrive_id' => $stationIDArrive,
+                'state' => 'W',
+                'own_time' => $ownTime,
+            ]);
             return Utils::createResponse( 0,  '{}'); //Success
         }else{
             $json = json_encode($result[0]);
             return Utils::createResponse( 1, $json);
         }
+    }
+    public function unpickSeat(Request $request){
+        $tripID = $request->tripID;
+        $ticketID = $request->seatID;
+        $stationIDLeave = $request->stationIDLeave;
+        $stationIDArrive = $request->stationIDArrive;
+
+        $this->deleteTicketSold($tripID, $ticketID, $stationIDLeave, $stationIDArrive);
+        return Utils::createResponse(0, '{"seatID": "'.$ticketID.'"}');
+    }
+    public function postOwnTime(Request $request){
+        $tripID = $request->tripID;
+        $ticketID = $request->seatID;
+        $stationIDLeave = $request->stationIDLeave;
+        $stationIDArrive = $request->stationIDArrive;
+        
+        $query = "SELECT own_time FROM ticket_sold WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND station_leave_id = ".$stationIDLeave." AND station_arrive_id=".$stationIDArrive;
+        $ownTime = DB::select($query);
+
+        if(count($ownTime)==0) return Utils::createResponse(0, '{"ownTime": "0"}');
+
+        $time = $ownTime[0]->own_time;
+        while($time > 0){
+            sleep(1);
+
+            //Check have sold
+            $query = "SELECT state FROM ticket_sold WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND station_leave_id = ".$stationIDLeave." AND station_arrive_id=".$stationIDArrive;
+            $states = DB::select($query);
+            if(count($states)==0 || $states[0]->state == 'S'){
+                break;
+            }
+
+            //Minus own time
+            $query = "UPDATE ticket_sold SET own_time = ".$time." WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND station_leave_id = ".$stationIDLeave." AND station_arrive_id=".$stationIDArrive;
+            $ownTime = DB::select($query);
+            $time--;
+        }
+
+        if($time==0){
+            $this->deleteTicketSold($tripID, $ticketID, $stationIDLeave, $stationIDArrive);
+        }
+
+        return Utils::createResponse(0, '{"mes": "done"}'); 
+    }
+    public function getOwnTime(Request $request){
+        $tripID = $request->tripID;
+        $ticketID = $request->ticketID;
+        $stationIDLeave = $request->stationIDLeave;
+        $stationIDArrive = $request->stationIDArrive;
+
+        $query = "SELECT * FROM ticket_sold WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID;
+        //Select seat in ticket sold inorder to find seat that is not free
+        //Fixed
+        $greater = '>';
+        $greaterEqual = '>=';
+        $less = '<';
+        $lessEqual = '<=';
+        if($stationIDArrive < $stationIDLeave){
+            //Heading is NS
+            $query = "SELECT own_time FROM ticket_sold  WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND NOT ((station_leave_id ".$less." ".$stationIDLeave." AND station_leave_id ".$lessEqual." ".$stationIDArrive.") OR (station_arrive_id ".$greaterEqual." ".$stationIDLeave." AND station_arrive_id ".$greater." ".$stationIDArrive."))";
+        }else{
+            //Heading is SN
+            $query = "SELECT own_time FROM ticket_sold WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND NOT ((station_leave_id ".$greater." ".$stationIDLeave." AND station_leave_id ".$greaterEqual." ".$stationIDArrive.") OR (station_arrive_id ".$lessEqual." ".$stationIDLeave." AND station_arrive_id ".$less." ".$stationIDArrive."))";
+        }
+
+        $result = DB::select($query);
+        if(count($result)>0) return $result[0]->own_time;
+        return 0;
+    }
+    public function getWaitSeats(){
+        //Output
+        //[{"trainName": "SE1", "slName": "Ha Noi", "saName": "Sai Gon", "dateLeave": "01/05 08:00", "typeSeat": "NCL", "carOrdinal": "1", "seatOrdinal": "1", "ticketID": "1", "ownTime": "123", "tripID": "1", "stationIDLeave": "1", "stationIDArrive": "3"}]
+        $userID = Auth::User()->user_id;
+        $query = 'SELECT ticket_id, trip_id, station_leave_id, station_arrive_id, own_time FROM ticket_sold WHERE user_id = '.$userID.' AND state = "W"';
+        $result = DB::select($query);
+
+        $json = '[';
+        foreach ($result as $ts) {
+
+            $trainName = '';
+            $slName = '';
+            $saName = '';
+            $dateLeave = '';
+            $typeSeat = 'NCL';
+            $carOrdinal = '';
+            $seatOrdinal = '';
+
+            //TrainName
+            $query = 'SELECT name FROM train a inner join(SELECT train_id FROM trip WHERE trip_id = '.$ts->trip_id.' ) i on i.train_id = a.train_id';
+            $name = DB::select($query);
+            if(count($name)==0){
+                $trainName = 'No Name';
+            }
+            else{
+                $trainName = $name[0]->name;
+            }
+
+            //slName
+            $query = 'SELECT name FROM station WHERE station_id = '.$ts->station_leave_id;
+            $name = DB::select($query);
+            if(count($name)==0){
+                $slName = 'No Name';
+            }
+            else{
+                $slName = $name[0]->name;
+            }
+
+            //saName
+            $query = 'SELECT name FROM station WHERE station_id = '.$ts->station_arrive_id;
+            $name = DB::select($query);
+            if(count($name)==0){
+                $saName = 'No Name';
+            }
+            else{
+                $saName = $name[0]->name;
+            }
+
+            //dateLeave
+            $query = 'SELECT date_format(date_leave, "%d/%m %H:%i") as date_leave FROM station_stop WHERE station_id= '.$ts->station_leave_id.' AND trip_id= '.$ts->trip_id;
+            $date = DB::select($query);
+            if(count($date)==0){
+                $dateLeave = 'No Date';
+            }
+            else{
+                $dateLeave = $date[0]->date_leave;
+            }
+
+            //carOrdinal
+            $query = 'SELECT ordinal FROM car c inner join(SELECT car_id FROM tickets WHERE ticket_id = '.$ts->ticket_id.') t on t.car_id = c.car_id';
+            $ordinal = DB::select($query);
+            if(count($ordinal)==0){
+                $carOrdinal = 'No Ordinal';
+            }
+            else{
+                $carOrdinal = $ordinal[0]->ordinal;
+            }
+
+            //seatOrdinal
+            $query = 'SELECT ordinal FROM tickets WHERE ticket_id = '.$ts->ticket_id;
+            $ordinal = DB::select($query);
+            if(count($ordinal)==0){
+                $seatOrdinal = 'No Ordinal';
+            }
+            else{
+                $seatOrdinal = $ordinal[0]->ordinal;
+            }
+
+            $json .= '{"trainName": "'.$trainName.'", "slName": "'.$slName.'", "saName": "'.$saName.'", "dateLeave": "'.$dateLeave.'", "typeSeat": "'.$typeSeat.'", "carOrdinal": "'.$carOrdinal.'", "seatOrdinal": "'.$seatOrdinal.'", "ownTime": "'.$ts->own_time.'", "ticketID": "'.$ts->ticket_id.'", "tripID": "'.$ts->trip_id.'", "stationIDLeave": "'.$ts->station_leave_id.'", "stationIDArrive": "'.$ts->station_arrive_id.'"}';
+            if($ts!=end($result)){
+                    $json .= ', ';
+            }
+        }
+        $json .= ']';
+        return Utils::createResponse(0, $json);
+    }
+    function deleteTicketSold($tripID, $ticketID, $SIL, $SIA){
+        $query = "DELETE FROM ticket_sold WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND station_leave_id = ".$SIL." AND station_arrive_id=".$SIA;
+        DB::select($query);
     }
 }

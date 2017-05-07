@@ -19,6 +19,8 @@ class VerifyCsrfToken extends BaseVerifier
         'get-cars',
         'get-seat',
         'pick-seat',
+        'unpickSeat',
+        'postOwnTime',
         'getUser'
     ];
 }

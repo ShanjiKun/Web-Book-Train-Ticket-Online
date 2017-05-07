@@ -508,7 +508,7 @@
 								</div> ticket-heading -->
 							</div> <!-- ticket-container -->
 							<div class="buy-ticket">
-								<a href="" class="btn-1">Mua vé</a>
+								<a href="passenger-information" class="btn-1">Mua vé</a>
 							</div> <!-- buy-ticket -->
 						</div>
 					</div> <!-- num-ticket-area -->
@@ -596,10 +596,10 @@
 		var currentTripID;
 		var currentCarID;
 		var currentCars = {}; //key: car-1, value: ["type":"B80", "state":"1"]
-
+		var currentCost;
 		var stationIDLeave, stationIDArrive;
 
-		var pickedTickets = {}; // key:trip-1 value:{key: car-1(carID) value:{Key: 1(ticketID), value: seat-1(id off div)}}
+		var clocks = {}; //{"1234Clock": CLOCK}
 
 		$(document).ready(function(){
 			//tripsLeave: [{'trip_id':1}, {'trip_id':2}]
@@ -871,13 +871,7 @@
 			}
 		}
 		//Hanlde seat
-		function handleSeat(carID){
-			//CarID car-1
-			//RealID 1
-			getSeat(carID, currentTripID.split('-')[1]);
-			updatePicketSeatsUI(pickedTickets);
-		}
-		function getSeat(carID, tripID, onSuccess){
+		function getSeat(carID, tripID){
 			//Need: ticket_id, ordinal ticket on train
 	        //Input: carID, tripId, stationIDLeave, stationIDArrive
 	        //Output: { "code":"0", "message":"success", "data":[{"ticket_id":"1", "ordinal":"1", "state":"A"}, {"ticket_id":"2", "ordinal":"2", "state":"U"}]}
@@ -900,12 +894,34 @@
 				var response = JSON.parse(data);
 				if(response['code']=='0'){
 					// alert(response['data']);
-					showSeat( carID, currentCars[carID].type, response['data'], function(){
-						onSuccess();
+					getCost(function(){
+						showSeat( carID, currentCars[carID].type, response['data'], function(){
+							getWaitSeats();
+						});
 					});
 				}else{
 					alert(response['message']);
 				}
+			});
+		}
+		function getCost(onSuccess){
+			var realTripID = currentTripID.split('-')[1];
+			var realCarID = currentCarID.split('-')[1];
+			$.get('getCost?tripID='+realTripID+'&carID='+realCarID+'&stationIDLeave='+stationIDLeave+'&stationIDArrive='+stationIDArrive, function(data, status){
+				if(status != 'success'){
+					alert('Get Cost failed!');
+					onSuccess();
+					return;
+				}
+
+				var response = JSON.parse(data);
+				if(response.code == 0){
+					var cost = response.data.cost;
+					currentCost = parseFloat(cost)*1000;
+				}else{
+					alert(response.message);
+				}
+				onSuccess();
 			});
 		}
 		function showSeat( carID, type, seats, onSuccess){
@@ -968,8 +984,9 @@
 
 			$('.car-name').html(carName);
 			$('.car-floor').html(html);
-			onSuccess();
-			refreshSeatUI();
+			refreshSeatUI(seats, function(){
+				onSuccess();
+			});
 
 			function show80Type(seats){
 				var html = '<div class="container-seat">';
@@ -1289,6 +1306,77 @@
 				return ret;
 			}
 		}
+		function getWaitSeats(){
+			$.get('getWaitSeats', function(data, status){
+				if(status != 'success'){
+					alert('Get wait seats failed!');
+					return;
+				}
+				var response = JSON.parse(data);
+				if(response.code == 0){
+
+					//waitSeats
+        			//[{"trainName": "SE1", "slName": "Ha Noi", "saName": "Sai Gon", "dateLeave": "01/05 08:00", "typeSeat": "NCL", "carOrdinal": "1", "seatOrdinal": "1", "ownTime": "123", "ticketID": "1", "tripID": "1", "stationIDLeave": "1", "stationIDArrive": "3"}]
+					var waitSeats = response.data;
+
+					if(waitSeats.length == 0) return;
+						
+					var	html = '<div class="ticket-heading text-center">'+
+										'<p style="color: #317eac;">Chiều đi</p>'+
+								'</div>'+
+								'<div class="ticket-heading text-center">';
+
+					for(var i in waitSeats){
+						var wSeat = waitSeats[i];
+						//Change seat layout
+						if(wSeat.tripID == currentTripID.split('-')[1]){
+							var curSIL = parseInt(stationIDLeave);
+							var curSIA = parseInt(stationIDArrive);
+							var tSIL = parseInt(wSeat.stationIDLeave);
+							var tSIA = parseInt(wSeat.stationIDArrive);
+
+							if(curSIA==tSIA&&curSIL==tSIL){
+								updatePicketSeatUI(wSeat.ticketID);
+							}
+						}
+
+						//Create ticket
+
+						var trainName = wSeat.trainName;
+						var stationLeave = wSeat.slName;
+						var stationArrive = wSeat.saName;
+
+						var timeLeave = wSeat.dateLeave;
+
+						var typeSeat = wSeat.typeSeat;
+						var carNumber = wSeat.carOrdinal;
+						var seatNumber = wSeat.seatOrdinal;
+						
+						var clockID = wSeat.ticketID+wSeat.tripID+wSeat.stationIDLeave+wSeat.stationIDArrive+'Clock';
+
+						html += '<div id="ticket-'+wSeat.ticketID+'" class="ticket">'+
+									'<div class="col-md-9">'+
+										'<div>'+trainName+' '+ stationLeave+'-'+stationArrive+'</div>'+
+										'<div>'+timeLeave+'</div>'+
+										'<div>'+typeSeat+' toa '+carNumber+' chỗ '+seatNumber+'</div>'+
+									'</div>'+
+									'<div class="col-md-3" style="padding: 0px 5px;">'+
+										'<div class="trash-ticket" onclick="deleteTicket('+wSeat.ticketID+', '+wSeat.tripID+', '+wSeat.stationIDLeave+', '+wSeat.stationIDArrive+')">'+
+											'<p id="'+clockID+'">'+wSeat.ownTime+'</p>'+
+											'<img src="http://dsvn.vn/images/del30.png" width="32px" height="24px">'+
+										'</div>'+
+									'</div>'+
+									'<div class="line"></div>'+
+								'</div>';
+						newClock(clockID, parseInt(wSeat.ownTime));
+					}
+					html += '</div>';
+					$('#ticket-container').html(html);
+				}else{
+					alert(response.message);
+				}
+			});
+		}
 		function getBGSeat(type){
 				var ret;
 				switch(type){
@@ -1331,52 +1419,108 @@
 					$('#seat-'+seatID).removeAttr('onclick');
 					return;
 				}
-
-				//Change seat layout
-				updatePicketSeatUI(seatID);
-
-				//Create ticket
-				if(pickedTickets[currentTripID] === undefined) pickedTickets[currentTripID] = {};
-				if(pickedTickets[currentTripID][currentCarID] === undefined) pickedTickets[currentTripID][currentCarID] = {};
-				pickedTickets[currentTripID][currentCarID][seatID] = 'seat-'+seatID;
-
-				var trainName = $('#'+currentTripID+'-train-name').html();
-				var stationLeave = $('#station-leave').val();
-				var stationArrive = $('#station-arrive').val();
-
-				var timeLeave = $('#'+currentTripID+'-time-leave').html();
-
-				var typeSeat = 'NCL';
-				var carNumber = $('#'+currentCarID+'-label').html();
-				var seatNumber = $('#seat-'+seatID+'-ordinal').html();
-				
-				var html='';
-				//Make login--------------------------------
-				if(Object.keys(pickedTickets[currentTripID][currentCarID]).length == 1){
-					html = '<div class="ticket-heading text-center">'+
-									'<p style="color: #317eac;">Chiều đi</p>'+
-							'</div>';
-					$('#ticket-container').html(html);
-				}
-				html = '<div id="ticket-'+seatID+'" class="ticket">'+
-							'<div class="col-md-9">'+
-								'<div>'+trainName+' '+ stationLeave+'-'+stationArrive+'</div>'+
-								'<div>'+timeLeave+'</div>'+
-								'<div>'+typeSeat+' toa '+carNumber+' chỗ '+seatNumber+'</div>'+
-							'</div>'+
-							'<div class="col-md-3" style="padding: 0px 5px;">'+
-								'<div class="trash-ticket" onclick="deleteTicket('+seatID+')">'+
-									'<p>123</p>'+
-									'<img src="http://dsvn.vn/images/del30.png" width="32px" height="24px">'+
-								'</div>'+
-							'</div>'+
-							'<div class="line"></div>'+
-						'</div>';
-				html = $('.ticket-heading').append(html);
+				postOwnTime(tripID, seatID, stationIDLeave, stationIDArrive);
+				getWaitSeats();
 			});
 		}
-		function deleteTicket(seatID){
-			$('#ticket-'+seatID).remove();
+		function deleteTicket(seatID, tripID, sIL, sIA){
+
+			$.post('unpickSeat',{
+				tripID: tripID,
+				seatID: seatID,
+				stationIDLeave: sIL,
+				stationIDArrive: sIA
+			}, function(data, status){
+				var response = JSON.parse(data);
+				if(response.code == 0){
+					var seatID = response.data.seatID;
+					//Change seat layout
+					if(tripID == currentTripID.split('-')[1]){
+
+						var curSIL = parseInt(stationIDLeave);
+						var curSIA = parseInt(stationIDArrive);
+						var tSIL = parseInt(sIL);
+						var tSIA = parseInt(sIA);
+
+						if(curSIA==tSIA&&curSIL==tSIL){
+							$('#seat-'+seatID+'-bg').removeClass('sit-color-green').addClass('sit-color-white');
+							$('#seat-'+seatID).attr('onclick', 'onSeatTapped(this)');
+
+							$('#seat-'+seatID).unbind('mouseenter mouseleave');
+							$('#seat-'+seatID).hover(function(){
+								$('#medium-pop-up-header').html("Chỗ trống(Mã số vé: "+seatID+")");
+								$('#medium-pop-up-header').css('color', '#3d86b1');
+								$('#medium-pop-up-content').html("Giá: "+currentCost+" VNĐ");
+								showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
+							},function(){
+								hideSmallPopup($('#medium-pop-up'));
+							});
+						}
+					}
+					var clockID = seatID+tripID+sIL+sIA+'Clock';
+					var clock = clocks[clockID];
+					clock.pause();
+					$('#ticket-'+seatID).remove();
+				}else{
+					alert(response.message);
+				}
+			});
+		}
+		function getOwnTime(seatID, onSuccess){
+			var realTripID = currentTripID.split('-')[1];
+			$.get('getOwnTime?tripID='+realTripID+'&ticketID='+seatID+'&stationIDLeave='+stationIDLeave+'&stationIDArrive='+stationIDArrive,function(ownTime, status){
+				onSuccess(ownTime);
+			});
+		}
+		function postOwnTime(tripID, seatID, SIL, SIA){
+			$.post('postOwnTime',{
+				tripID: tripID,
+				seatID: seatID,
+				stationIDLeave: stationIDLeave,
+				stationIDArrive: stationIDArrive
+			},function(data, status){
+
+				if(status != 'success'){ alert('pick seat: failed!'); return;}
+				
+				var response = JSON.parse(data);
+				if(response['code'] != '0'){
+					var ticketInfo = response['data'];
+					var state = ticketInfo.state;
+					var bgSeat = getBGSeat(state);
+
+					$('#seat-'+seatID+'-bg').removeClass('sit-color-white').addClass(bgSeat);
+					$('#seat-'+seatID).removeAttr('onclick');
+					return;
+				}
+				console.log(response.data.mes);
+			});
+		}
+		function newClock(eID, time){
+			var Clock = {
+				totalSeconds: time,
+				start: function () {
+				    var self = this;
+				    function pad(val) { return val > 9 ? val : "0" + val; }
+				    this.interval = setInterval(function () {
+				        self.totalSeconds--;
+				        $('#'+eID).html(self.totalSeconds);
+				        if(self.totalSeconds==0){
+				        	self.pause();
+				        	$('#'+eID).html('!');
+				        }
+				    }, 1000);
+				},
+				pause: function () {
+				    clearInterval(this.interval);
+				    delete this.interval;
+				},
+				resume: function () {
+				    if (!this.interval) this.start();
+				}
+			};
+			if(clocks[eID] !== undefined) clocks[eID].pause();
+			clocks[eID] = Clock;
+			Clock.start();
 		}
 		//Handle UI
 		function changeTrainUI(tripID){
@@ -1450,49 +1594,67 @@
 				hideSmallPopup($('#small-pop-up'));
 			});
 		}
-		function refreshSeatUI(){
+		function refreshSeatUI(seats, onSuccess){
 			//Pop-up handle
 			//Medium popup
-			$('.sit-color-white').hover(function(){
-				$('#medium-pop-up-header').html("Chỗ trống(Mã số vé: 12345)");
-				$('#medium-pop-up-header').css('color', '#3d86b1');
-				$('#medium-pop-up-content').html("Giá: 123,000 VNĐ");
-				showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
-			},function(){
-				hideSmallPopup($('#medium-pop-up'));
-			});
-			$('.sit-color-green').hover(function(){
-				$('#medium-pop-up-header').html("Trong giỏ vé(Thời gian giữ vé: 10 phút)(Mã số vé: 12345)");
-				$('#medium-pop-up-header').css('color', '#3d86b1');
-				$('#medium-pop-up-content').html("Giá: 123,000 VNĐ");
-				showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
-			},function(){
-				hideSmallPopup($('#medium-pop-up'));
-			});
-			$('.sit-color-yellow').hover(function(){
-				$('#medium-pop-up-header').html("Đang GD(Thời gian giữ vé: 4 phút)(Mã số vé: 12345)");
-				$('#medium-pop-up-header').css('color', '#fec306');
-				$('#medium-pop-up-content').html("Giá: 123,000 VNĐ");
-				showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
-			},function(){
-				hideSmallPopup($('#medium-pop-up'));
-			});
-			$('.sit-color-orange').hover(function(){
-				$('#medium-pop-up-header').html("Chưa khả dụng");
-				$('#medium-pop-up-header').css('color', '#df5327');
-				$('#medium-pop-up-content').html("Chỗ chưa khả dụng");
-				showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
-			},function(){
-				hideSmallPopup($('#medium-pop-up'));
-			});
-			$('.sit-color-gray').hover(function(){
-				$('#medium-pop-up-header').html("Không bán(Mã số vé: 12345)");
-				$('#medium-pop-up-header').css('color', '#3d86b1');
-				$('#medium-pop-up-content').html("Bán vé viết tay");
-				showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
-			},function(){
-				hideSmallPopup($('#medium-pop-up'));
-			});
+			for(var i in seats){
+				var seatID = '#seat-'+seats[i].ticket_id;
+				var state = seats[i].state;
+				switch(state){
+					case 'A':
+						$(seatID).hover(function(){
+							var seatID = $(this).attr("id").split('-')[1];
+							$('#medium-pop-up-header').html("Chỗ trống(Mã số vé: "+seatID+")");
+							$('#medium-pop-up-header').css('color', '#3d86b1');
+							$('#medium-pop-up-content').html("Giá: "+currentCost+" VNĐ");
+							showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
+						},function(){
+							hideSmallPopup($('#medium-pop-up'));
+						});
+						break;
+					case 'W':
+						$(seatID).hover(function(){
+							var seatID = $(this).attr("id").split('-')[1];
+							var e = $(this);
+							getOwnTime(seatID, function(ownTime){
+								var min = parseInt(ownTime/60);
+								var sec = ownTime%60;
+								$('#medium-pop-up-header').html("Đang GD(Thời gian giữ vé: "+min+" phút "+sec+" giây)(Mã số vé: "+seatID+")");
+								$('#medium-pop-up-header').css('color', '#fec306');
+								$('#medium-pop-up-content').html("Giá: "+currentCost+" VNĐ");
+								showSmallPopup(e, $('#medium-pop-up'), $('#medium-pop-up-triangle'));
+							});
+							
+						},function(){
+							hideSmallPopup($('#medium-pop-up'));
+						});
+						break;
+					case 'S':
+						$(seatID).hover(function(){
+							$('#medium-pop-up-header').html("Chưa khả dụng");
+							$('#medium-pop-up-header').css('color', '#df5327');
+							$('#medium-pop-up-content').html("Chỗ chưa khả dụng");
+							showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
+						},function(){
+							hideSmallPopup($('#medium-pop-up'));
+						});
+						break;
+					case 'U':
+						$(seatID).hover(function(){
+							var seatID = $(this).attr("id").split('-')[1];
+							$('#medium-pop-up-header').html("Không bán(Mã số vé: "+seatID+")");
+							$('#medium-pop-up-header').css('color', '#3d86b1');
+							$('#medium-pop-up-content').html("Bán vé viết tay");
+							showSmallPopup($(this), $('#medium-pop-up'), $('#medium-pop-up-triangle'));
+						},function(){
+							hideSmallPopup($('#medium-pop-up'));
+						});
+						break;
+					default:
+						alert('Function get onclick unknow type: ' + state);
+						ret = '';
+				}
+			}
 			$('.sit-color-violet').hover(function(){
 				$('#medium-pop-up-header').html("Chỗ chặn dài hơn là sao nhỉ ???");
 				$('#medium-pop-up-header').css('color', '#3d86b1');
@@ -1501,15 +1663,27 @@
 			},function(){
 				hideSmallPopup($('#medium-pop-up'));
 			});
+			onSuccess();
 		}
 		function updatePicketSeatUI(seatID){
-			$('#seat-'+seatID+'-bg').removeClass('sit-color-white').addClass('sit-color-green');
+			$('#seat-'+seatID+'-bg').removeClass('sit-color-white sit-color-yellow').addClass('sit-color-green');
 			$('#seat-'+seatID).removeAttr('onclick');
-		}
-		function updatePicketSeatsUI(seatIDs){
-			for(var seatID in seatIDs){
-				updatePicketSeatUI(seatID);
-			}
+
+			$('#seat-'+seatID).unbind('mouseenter mouseleave');
+			$('#seat-'+seatID).hover(function(){
+				var seatID = $(this).attr("id").split('-')[1];
+				var e = $(this);
+				getOwnTime(seatID, function(ownTime){
+					var min = parseInt(ownTime/60);
+					var sec = ownTime%60;
+					$('#medium-pop-up-header').html("Trong giỏ vé(Thời gian giữ vé: "+min+" phút "+sec+" giây)(Mã số vé: "+seatID+")");
+					$('#medium-pop-up-header').css('color', '#3d86b1');
+					$('#medium-pop-up-content').html("Giá: "+currentCost+" VNĐ");
+					showSmallPopup(e, $('#medium-pop-up'), $('#medium-pop-up-triangle'));
+				});
+			},function(){
+				hideSmallPopup($('#medium-pop-up'));
+			});
 		}
 		//Handle popup
 		function showSmallPopup(e, popup, popup_triangle) {
@@ -1551,10 +1725,7 @@
 			//realID is 1
 
 			changeCarUI(carID);
-			getSeat(carID, currentTripID.split('-')[1], function(){
-				if(pickedTickets[currentTripID] === undefined || pickedTickets[currentTripID][currentCarID] === undefined) return;
-				updatePicketSeatsUI(pickedTickets[currentTripID][currentCarID]);
-			});
+			getSeat(carID, currentTripID.split('-')[1]);
 		}
 		function onSeatTapped(e){
 			if(user === undefined){
