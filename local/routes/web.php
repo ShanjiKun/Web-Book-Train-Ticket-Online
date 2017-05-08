@@ -140,7 +140,7 @@ Route::get('getCost', 'database\DatabaseController@getCost');
 Route::get('getOwnTime', 'database\DatabaseController@getOwnTime');
 Route::get('getWaitSeats', 'database\DatabaseController@getWaitSeats');
 Route::get('passenger-information', function(){
-	return 'Passenger information';
+	return view('passenger-information\passenger-information');
 });
 //Database request
 //Normal user
