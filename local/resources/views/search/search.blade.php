@@ -1373,7 +1373,8 @@
 					html += '</div>';
 					$('#ticket-container').html(html);
 				}else{
-					alert(response.message);
+					// alert(response.message);
+					console.log(response.message);
 				}
 			});
 		}
@@ -1410,17 +1411,22 @@
 				if(status != 'success'){ alert('pick seat: failed!'); return;}
 				
 				var response = JSON.parse(data);
-				if(response['code'] != '0'){
+
+				if(response.code == '0'){
+					postOwnTime(tripID, seatID, stationIDLeave, stationIDArrive);
+					getWaitSeats();
+				}else if(response.code == '3'){
 					var ticketInfo = response['data'];
 					var state = ticketInfo.state;
 					var bgSeat = getBGSeat(state);
 
 					$('#seat-'+seatID+'-bg').removeClass('sit-color-white').addClass(bgSeat);
 					$('#seat-'+seatID).removeAttr('onclick');
-					return;
+
+					alert(response.message);
+				}else if(response.code == '4'){
+					alert(response.message);
 				}
-				postOwnTime(tripID, seatID, stationIDLeave, stationIDArrive);
-				getWaitSeats();
 			});
 		}
 		function deleteTicket(seatID, tripID, sIL, sIA){
@@ -1484,12 +1490,12 @@
 				
 				var response = JSON.parse(data);
 				if(response['code'] != '0'){
-					var ticketInfo = response['data'];
-					var state = ticketInfo.state;
-					var bgSeat = getBGSeat(state);
+					// var ticketInfo = response['data'];
+					// var state = ticketInfo.state;
+					// var bgSeat = getBGSeat(state);
 
-					$('#seat-'+seatID+'-bg').removeClass('sit-color-white').addClass(bgSeat);
-					$('#seat-'+seatID).removeAttr('onclick');
+					// $('#seat-'+seatID+'-bg').removeClass('sit-color-white').addClass(bgSeat);
+					// $('#seat-'+seatID).removeAttr('onclick');
 					return;
 				}
 				console.log(response.data.mes);

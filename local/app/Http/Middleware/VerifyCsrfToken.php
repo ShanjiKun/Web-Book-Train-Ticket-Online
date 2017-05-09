@@ -21,6 +21,8 @@ class VerifyCsrfToken extends BaseVerifier
         'pick-seat',
         'unpickSeat',
         'postOwnTime',
-        'getUser'
+        'postOwnTime24H',
+        'getUser',
+        'updatePassengerInfo'
     ];
 }

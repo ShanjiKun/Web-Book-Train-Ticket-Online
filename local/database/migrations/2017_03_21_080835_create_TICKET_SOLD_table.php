@@ -16,7 +16,7 @@ class CreateTICKETSOLDTable extends Migration
         Schema::create('TICKET_SOLD', function (Blueprint $table) {
             $table->unsignedInteger('ticket_id');
             $table->unsignedInteger('trip_id');
-            $table->unsignedInteger('ticket_cart_id')->nullable();
+            $table->string('ticket_cart_id', 20)->nullable()->unique();
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('station_leave_id');
             $table->unsignedInteger('station_arrive_id');

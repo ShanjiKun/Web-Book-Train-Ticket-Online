@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfDPUTzRzRJvZuqaMIcz3U1mrJnHJsEQ9BxPs0LGetcgpw6Hl6">
-
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<link rel="stylesheet" type="text/css" href="{{ asset('/css/passenger-information/passenger-information.css') }}">
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -118,6 +118,38 @@
 		}
 		/*footer*/
 	</style>
+	<script type="text/javascript">
+		var clocks = {}; //{"1234Clock": CLOCK}
+		function newClock(eID, time){
+			var Clock = {
+				totalSeconds: time,
+				start: function () {
+				    var self = this;
+				    function pad(val) { return val > 9 ? val : "0" + val; }
+				    this.interval = setInterval(function () {
+				        self.totalSeconds--;
+				        $('#'+eID).html(self.totalSeconds);
+				        if(self.totalSeconds==0){
+				        	self.pause();
+				        	$('#'+eID).html('!');
+				        }
+				    }, 1000);
+				},
+				pause: function () {
+				    clearInterval(this.interval);
+				    delete this.interval;
+				},
+				resume: function () {
+				    if (!this.interval) this.start();
+				}
+			};
+			if(clocks[eID] !== undefined) clocks[eID].pause();
+			clocks[eID] = Clock;
+			Clock.start();
+		}
+
+		var seatsInfo = []; //[{ticketID: 12, fullName: NVA, ID: 123456789, typePass: HSSV}]	
+	</script>
 </head>
 <body>
 	<div class="banner">
@@ -155,87 +187,61 @@
 					<tr style="background-color: #eee;">
 						<th style="width: 180px">Họ tên</th>
 						<th>Số CMND/ Hộ chiếu/ Ngày tháng năm sinh trẻ em</th>
-						<th style="width: 110px">Đối tượng</th>
-						<th style="width: 170px">Thông tin chỗ</th>
+						<th style="width: 130px">Đối tượng</th>
+						<th style="width: 150px">Thông tin chỗ</th>
 						<th style="width: 76px">Giá vé</th>
 						<th style="width: 84px">Giảm đối tượng</th>
 						<th style="width: 100px">Thành tiền</th>
 						<th style="width: 25px"></th>
 					</tr>
-					<tr>
+					@foreach($waitSeats as $ws)
+					<script type="text/javascript">
+						<?php $seatInfoID = $ws->ticketID.'-'.$ws->tripID.'-'.$ws->stationIDLeave.'-'.$ws->stationIDArrive?>
+						seatsInfo[seatsInfo.length] = {'seatInfoID': '{{$seatInfoID}}', 'fullName': '', 'ID': '', 'typePass': ''};
+					</script>
+					<?php $trID = $ws->ticketID.$ws->tripID.$ws->stationIDLeave.$ws->stationIDArrive.'trID'?>
+					<tr id="{{$trID}}">
 						<td>
-							<input type="text" class="form-control" name="" placeholder="Họ tên">
+							<input id="{{$seatInfoID}}-name" type="text" class="form-control" name="" placeholder="Họ tên">
 						</td>
 						<td>
-							<input type="text" class="form-control" name="" placeholder="Số CMND/ Hộ chiếu/ Ngày tháng năm sinh trẻ em">
+							<input id="{{$seatInfoID}}-ID" type="text" class="form-control" name="" placeholder="Số CMND/ Hộ chiếu/ Ngày tháng năm sinh trẻ em">
 						</td>
 						<td>
-							<select class="form-control">
-								<option value="NL">Người lớn</option>
-								<option value="TE">Trẻ em</option>
-								<option value="HSSV">Sinh viên</option>
+							<select id="{{$seatInfoID}}-select" onchange="selectChange(this)" class="form-control">
+								@foreach($typePassenger as $tp)
+									<option value="{{$tp->type_passenger_id}}">{{$tp->name}}</option>
+								@endforeach
 							</select>
 						</td>
 						<td>
 							<div class="seat-info">
-								<div>SE7 Quang Ngai-Da</div>
-								<div>05/05/2015 05:55</div>
-								<div>NCL toa 5 cho 55</div>
+								<div>{{$ws->trainName}} {{$ws->slName}}-{{$ws->saName}}</div>
+								<div>{{$ws->dateLeave}}</div>
+								<div>{{$ws->typeSeat}} toa {{$ws->carOrdinal}} cho {{$ws->seatOrdinal}}</div>
 							</div>
 						</td>
 						<td>
-							<p>550,000</p>
+							<p id="{{$seatInfoID}}-select-price">{{$ws->price}},000</p>
 						</td>
 						<td>
-							<p>0</p>
+							<p id="{{$seatInfoID}}-select-discount">0</p>
 						</td>
 						<td>
-							<p>550,000</p>
+							<p id="{{$seatInfoID}}-select-cost">0</p>
 						</td>
 						<td>
-							<div class="trash-ticket">
-								<p>123</p>
+							<div class="trash-ticket" onclick="deleteTicket('{{$ws->ticketID}}', '{{$ws->tripID}}', '{{$ws->stationIDLeave}}', '{{$ws->stationIDArrive}}');">
+								<?php $clockID = $ws->ticketID.$ws->tripID.$ws->stationIDLeave.$ws->stationIDArrive.'Clock'?>
+								<p id="{{$clockID}}">{{$ws->ownTime}}</p>
 								<img src="http://dsvn.vn/images/del30.png" width="32px" height="24px">
+								<script type="text/javascript">
+									newClock('{{$clockID}}', parseInt('{{$ws->ownTime}}'));
+								</script>
 							</div>
 						</td>
 					</tr>
-					<tr>
-						<td>
-							<input type="text" class="form-control" name="" placeholder="Họ tên">
-						</td>
-						<td>
-							<input type="text" class="form-control" name="" placeholder="Số CMND/ Hộ chiếu/ Ngày tháng năm sinh trẻ em">
-						</td>
-						<td>
-							<select class="form-control">
-								<option value="NL">Người lớn</option>
-								<option value="TE">Trẻ em</option>
-								<option value="HS">Học sinh</option>
-							</select>
-						</td>
-						<td>
-							<div class="seat-info">
-								<div>SE7 Quang Ngai-Da</div>
-								<div>05/05/2015 05:55</div>
-								<div>NCL toa 5 cho 55</div>
-							</div>
-						</td>
-						<td>
-							<p>550,000</p>
-						</td>
-						<td>
-							<p>0</p>
-						</td>
-						<td>
-							<p>550,000</p>
-						</td>
-						<td>
-							<div class="trash-ticket">
-								<p>123</p>
-								<img src="http://dsvn.vn/images/del30.png" width="32px" height="24px">
-							</div>
-						</td>
-					</tr>
+					@endforeach
 					<tr style="background-color: #d9edf7;">
 						<td style="border: none;"></td>
 						<td style="border: none;"></td>
@@ -246,7 +252,7 @@
 							<p style="font-weight: bold;">Tổng tiền</p>
 						</td>
 						<td>
-							<p style="font-weight: bold;">1,100,000</p>
+							<p id="total-cost" style="font-weight: bold;">1,100,000</p>
 						</td>
 						<td></td>
 					</tr>
@@ -265,12 +271,12 @@
 					</div>
 				</div>
 				<div class="col-md-12 form-group">
-					<input type="checkbox" name="agree-term">
+					<input id="cb-agree-term" type="checkbox" name="agree-term">
 					<span>Tôi đã đọc kỹ và đồng ý tuân thủ tất cả các <a href="">quy định mua vé trực tuyến</a>, <a href="">các chương trình khuyến mại</a> của Tổng công ty đường sắt Việt Nam và chịu trách nhiệm về tính xác thực của các thông tin trên.</span>
 				</div>
 				<div class="col-md-12">
-					<a style="float: right;" class="btn" onclick="">Tiếp theo>></a>
-					<a href="search" style="float: left;" class="btn" onclick=""><< Quay lại</a>
+					<a style="float: right;" class="btn" onclick="onContinue();">Tiếp theo>></a>
+					<a href="search" style="float: left;" class="btn"><< Quay lại</a>
 				</div>
 			</div>
 		</div>
@@ -292,5 +298,182 @@
 	        </div>
 	    </div>
 	</div>
+	<script type="text/javascript">
+		function onContinue(){
+			var isEmpty = false;
+			for(var i in seatsInfo){
+				var si = seatsInfo[i];
+
+				var eName = $('#'+si.seatInfoID+'-name');
+				var eID = $('#'+si.seatInfoID+'-ID');
+				var eTypePass = $('#'+si.seatInfoID+'-select');
+
+				stopWarning(eName);
+				if(eName.val().length==0){
+					startWarning(eName);
+					isEmpty = true;
+				}else{
+					si.fullName = eName.val();
+				}
+				stopWarning(eID);
+				if(eID.val().length==0){
+					startWarning(eID);
+					isEmpty = true;
+				}else{
+					si.ID = eID.val();
+				}
+				si.typePass = eTypePass.val();
+			}
+			if (isEmpty){
+				alert('Vui lòng điền đầy đủ thông tin!');
+				return;
+			}
+
+			var payment = document.querySelector('input[name="payment-radio"]:checked').value;
+
+			var agreeTerm = document.getElementById('cb-agree-term').checked;
+			if(!agreeTerm){
+				alert('Vui lòng đọc kỹ và đồng ý tuân thủ tất cả các quy định mua vé trực tuyến, các chương trình khuyến mại của Tổng công ty đường sắt Việt Nam và chịu trách nhiệm về tính xác thực của các thông tin trên.');
+				return;
+			}
+
+			//{"seatsInfo":[{"seatInfoID":"13-1-1-5","fullName":"s","ID":"s","typePass":"HSSV"},{"seatInfoID":"14-1-1-5","fullName":"s","ID":"s","typePass":"NL"},{"seatInfoID":"15-1-1-5","fullName":"s","ID":"s","typePass":"TE"}],"payment":"1"}
+			var requestData = {"seatsInfo": seatsInfo, "payment": payment};
+			// var json = JSON.stringify(requestData);
+			// console.log(json);
+			updatePassengerInfo(requestData);
+		}
+
+		function updatePassengerInfo(requestData){
+			$.post('updatePassengerInfo',{
+				data: JSON.stringify(requestData)
+			},function(data, status){
+				if(status != 'success'){
+					aler('Request update passenger information failed!');
+				}
+				console.log(data);
+				var response = JSON.parse(data);
+				switch(response.code){
+					case '0':
+						// postOwnTime24H();
+						for(var i in requestData.seatsInfo){
+							var seatInfo = requestData.seatsInfo[i];
+							var ids = seatInfo.seatInfoID.split('-');
+							var seatID = ids[0];
+							var tripID = ids[1];
+							var stationIDLeave = ids[2];
+							var stationIDArrive = ids[3];
+
+							postOwnTime24H(tripID, seatID, stationIDLeave, stationIDArrive);
+						}
+						window.location.href = 'verify-info?payType='+requestData.payment;
+					break;
+					default:
+						alert(response.message);
+				}
+			});
+		}
+
+		function postOwnTime24H(tripID, seatID, SIL, SIA){
+			$.post('postOwnTime24H',{
+				tripID: tripID,
+				seatID: seatID,
+				stationIDLeave: SIL,
+				stationIDArrive: SIA
+			},function(data, status){
+
+				if(status != 'success'){ alert('pick seat: failed!'); return;}
+				
+				var response = JSON.parse(data);
+				if(response['code'] != '0'){
+					
+					return;
+				}
+				console.log(response.data.mes);
+			});
+		}
+
+		function startWarning(e){
+			e.css('border-color', 'red');
+		}
+		function stopWarning(e){
+			e.css('border-color', '#ccc');
+		}
+	</script>
+	<script type="text/javascript">
+
+		var passengerDiscount = {};
+		@foreach($typePassenger as $tp)
+			passengerDiscount['{{$tp->type_passenger_id}}'] = {{$tp->discount}};
+		@endforeach
+
+		for(var i in seatsInfo){
+
+			var seatInfo = seatsInfo[i];
+			var e = document.getElementById(seatInfo.seatInfoID+'-select');
+			selectChange(e);
+		}	
+
+		simTotalCost();
+
+		function selectChange(e){
+
+			var cost = parseInt($('#'+e.id+'-price').html()) - passengerDiscount[e.value];
+			$('#'+e.id+'-discount').html(passengerDiscount[e.value]+',000');
+			$('#'+e.id+'-cost').html(cost+',000');
+			simTotalCost();
+		}
+
+		function simTotalCost(){
+			var sum = 0;
+			for(var i in seatsInfo){
+
+				var seatInfo = seatsInfo[i];
+				var costString = $('#'+seatInfo.seatInfoID+'-select-cost').html();
+				if(costString === undefined) continue;
+
+				var cost = parseInt(costString);
+				sum+=cost;
+			}
+			$('#total-cost').html(sum+',000');
+		}
+
+		function deleteTicket(seatID, tripID, sIL, sIA){
+
+			$.post('unpickSeat',{
+				tripID: tripID,
+				seatID: seatID,
+				stationIDLeave: sIL,
+				stationIDArrive: sIA
+			}, function(data, status){
+				var response = JSON.parse(data);
+				if(response.code == 0){
+					// var seatID = response.data.seatID;
+					//Change seat layout
+					
+					var clockID = seatID+tripID+sIL+sIA+'Clock';
+					var clock = clocks[clockID];
+					clock.pause();
+
+					var trID = seatID+tripID+sIL+sIA+'trID';
+					$('#'+trID).remove();
+					removeSeatInSeatsInfo(seatID+'-'+tripID+'-'+sIL+'-'+sIA);
+					simTotalCost();
+				}else{
+					alert(response.message);
+				}
+			});
+		}
+
+		function removeSeatInSeatsInfo(seatInfoID){
+			for(var i in seatsInfo){
+				var seatInfo = seatsInfo[i];
+				if(seatInfo.seatInfoID == seatInfoID){
+					seatsInfo.splice(i, 1);	
+				}
+			}
+			if(seatsInfo.length == 0) window.location.href = 'search';
+		}
+	</script>
 </body>
 </html>

@@ -13,6 +13,12 @@ class Utils{
 			case 2:
 				$message = 'Json wrong';
 				break;
+			case 3:
+				$message = 'Ghế bạn chọn đã không khả dụng!';
+				break;
+			case 4:
+				$message = 'Vui lòng đăng nhập để tiếp tục!';
+				break;
 			default:
 				$message = 'Server error';
 				break;
