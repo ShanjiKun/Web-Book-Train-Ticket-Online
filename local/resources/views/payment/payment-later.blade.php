@@ -9,7 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('/css/passenger-information/passenger-information.css') }}">
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<title>Xác nhận thông tin</title>
+	<title>Nhập thông tin khác hàng</title>
 	<style type="text/css">
 		body{
 			background: #F0F1F3 !important;
@@ -63,7 +63,7 @@
 		    margin-left: 15px;
 		    color: #fff;
 		    font-family: Verdana;
-		    width: 500px;
+		    width: 300px;
 		    margin-bottom: 15px;
 		}
 		.alert{
@@ -147,7 +147,7 @@
 			if(clocks[eID] !== undefined) clocks[eID].pause();
 			clocks[eID] = Clock;
 			Clock.start();
-		}
+		}	
 	</script>
 </head>
 <body>
@@ -171,76 +171,69 @@
 	<div class="contents">
 		<div class="container-fluid">
 			<div class="head1">
-				XÁC NHẬN THÔNG TIN ĐĂT MUA VÉ TÀU
+				ĐẶT MUA VÉ THÀNH CÔNG
 			</div>
 			<div class="alert">
-				<p class="alert-p1">
-					Các vé có biểu tượng <span style="color: red;">!</span> là các vé bị hết thời gian tạm giữ. Quý khách vui lòng chọn vé khác.
+				<p class="alert-p2">
+					Cám ơn quý khách đã sử dụng dịch vụ vận chuyển hành khách của Tổng công ty Đường sắt Việt Nam. Quý khách đã thực hiện đặt vé thành công.
+				</p>
+				<p class="alert-p2">
+					Mã thanh toán: <span style="font-size: 16px; font-weight: bold;">{{$bill}}</span>
+				</p>
+				<p class="alert-p2">
+					Quý khách vui lòng sử dụng mã thanh toán <span style="font-size: 16px; font-weight: bold;">{{$bill}}</span> để thực hiện giao dịch thanh toán tại các đại lý thu tiền ủy quyền của Tổng công ty đường sắt Việt Nam.
 				</p>
 			</div>
 			<div class="tickets-information">
+				<h6 style=" color: #e55a05; font-weight: 700;">Thông tin vé</h6>
 				<table class="table">
 					<tr style="background-color: #eee;">
-						<th style="width: 80px">STT</th>
-						<th>Thông tin mua vé</th>
-						<th style="width: 130px">Thời gian giữ vé</th>
-						<th style="width: 120px">Giá (VNĐ)</th>
+						<th style="width: 150px">Mã vé</th>
+						<th style="width: 150px">Họ tên</th>
+						<th>Số CMND/ Hộ chiếu/ Ngày tháng năm sinh trẻ em</th>
+						<th style="width: 130px">Đối tượng</th>
+						<th style="width: 150px">Thông tin chỗ</th>
+						<th style="width: 84px">Trạng thái</th>
+						<th style="width: 100px">Thành tiền</th>
 					</tr>
-				<?php $i = 0; $totalCost = 0;?>
+				<?php $cost = 0; ?>
 				@foreach($data as $item)
-					<?php $i++; $totalCost+=$item->cost;?>
 					<tr>
-						<td>{{$i}}</td>
+						<td>{{$item->tcID}}</td>
+						<td>{{$item->name}}</td>
+						<td>{{$item->id}}</td>
+						<td>{{$item->typePass}}</td>
 						<td>
-							<div class="row" style="font-size: 14px;">
-								<div class="col-md-4" style="text-align: left;">
-									Họ tên: {{$item->name}}
-								</div>
-								<div class="col-md-4" style="text-align: left;">
-									Đối tượng: {{$item->typePass}}
-								</div>
-								<div class="col-md-4" style="text-align: left;">
-									Số giấy tờ: {{$item->id}}
-								</div>
-								<div class="col-md-12" style="text-align: left; margin-top: 4px;">
-									Hành trình: {{$item->info}}
-								</div>
-							</div>
+							<p>{{$item->info}}</p>
+							<p>{{$item->typeSeat}}</p>
 						</td>
-						<td>
-							<p id="{{$item->tcID}}-normal" style="color: #3a87ad;">Còn <span id="{{$item->tcID}}" style="color: red; font-size: 16px;">{{$item->ownTime}}</span> giây</p>
-							<p id="{{$item->tcID}}-warning" style="display: none; color: #3a87ad;"><span style="color: red; font-size: 16px;">!</span> Hết TG giữ vé</p>
-							<script type="text/javascript">
-								newClock('{{$item->tcID}}', {{$item->ownTime}});
-							</script>
-						</td>
-						<td>
-							<p style="text-align: right">{{$item->cost}},000</p>
-						</td>
+						<td>{{$item->state}}</td>
+						<td>{{$item->cost}}</td>
 					</tr>
+					<?php $cost+= $item->cost;?>
 				@endforeach
-					<tr style="background-color: #eee; text-align: right; font-weight: bold; font-size: 14px">
-						<td colspan="3" style="text-align: right;">
-							Tổng tiền
+					<tr style="background-color: #d9edf7;">
+						<td colspan="6" style="border: none;">
+							<p style="font-weight: bold; text-align: right;">Tổng tiền</p>
 						</td>
-						<td style="text-align: right;"">
-							{{$totalCost}},000
+						<td>
+							<p id="total-cost" style="font-weight: bold;">{{$cost}},000</p>
 						</td>
 					</tr>
 				</table>
 			</div>
-			<div class="" style="padding: 0px 15px;">
-				<h5 style=" color: #e55a05; font-weight: 700;">Phương thức thanh toán: {{$payType}}</h5>
-			</div>
 			<div class="alert">
-				<p class="alert-p1">
-					Quý khách vui lòng kiểm tra kỹ và xác nhận các thông tin đã nhập trước khi thực hiện giao dịch mua vé. Sau khi thực hiện giao dịch thanh toán ở trang tiếp theo quý khách sẽ không thể thay đổi được thông tin mua vé trên.
+				<p id="clock-normal" class="alert-p2">
+					Vé của quý khách đã được tạm khóa trong vòng 24 tiếng(<span id="clock" style="color: red; font-size: 16px;">{{$ownTime}}</span> giây). Quý khách vui lòng thanh toán trước thời hạn.
 				</p>
+				<p id="clock-warning" style="display: none; color: #3a87ad;"><span style="color: red; font-size: 16px;">!</span> Hết TG giữ vé</p>
+				<script type="text/javascript">
+					newClock('clock', {{$ownTime}});
+				</script>
 			</div>
 			<div class="payment">
 				<div class="col-md-12">
-					<a style="float: right;" class="btn" onclick="onContinue({{$payTypeID}});">Tiếp theo>></a>
-					<a style="float: left;" class="btn" onclick="onBack();"><< Quay lại</a>
+					<a style="float: right;" class="btn" href="Web-Book-Train-Ticket-Online/">Trang chủ >></a>
 				</div>
 			</div>
 		</div>
@@ -262,82 +255,5 @@
 	        </div>
 	    </div>
 	</div>
-	<script type="text/javascript">
-		function onContinue(payType){
-			if(payType == 2){
-				$.get('accepted-payment-later', function(data, status){
-					var response = JSON.parse(data);
-					if(response.code == "0"){
-						var billID = response.data.billID;
-						postBillOwnTime(billID);
-						window.location.href = "payment-later?billID="+billID;
-					}else{
-						alert(response.message);
-					}
-				});
-			}else{
-				window.location.href = "payment-online";
-			}
-		}
-
-		function onBack(){
-			$.get("backToPassengetInfo", function(data, status){
-				if(status != 'success') return;
-
-				var response = JSON.parse(data);
-				if(response.code == 0){
-					var ticketCartIDs = response.data;
-					// for(var i in ticketCartIDs){
-					// 	var tcID = ticketCartIDs[i].split('-');
-					// 	var seatID = tcID[0];
-					// 	var tripID = tcID[1];
-					// 	var sIL = tcID[2];
-					// 	var sIA = tcID[3];
-					// 	postOwnTime(tripID, seatID, sIL, sIA);
-					// }
-					window.location.href = 'passenger-information';
-				}else{
-					alert(response.message);
-				}
-			});
-		}
-		function postBillOwnTime(billID){
-			$.post('postBillOwnTime',{
-				billID: billID
-			},function(data, status){
-
-				if(status != 'success'){ alert('pick seat: failed!'); return;}
-				
-				var response = JSON.parse(data);
-				if(response['code'] != '0'){
-					return;
-				}
-				console.log(response.data.mes);
-			});
-		}
-		function postOwnTime(tripID, seatID, sIL, sIA){
-			$.post('postOwnTime',{
-				tripID: tripID,
-				seatID: seatID,
-				stationIDLeave: sIL,
-				stationIDArrive: sIA
-			},function(data, status){
-
-				if(status != 'success'){ alert('pick seat: failed!'); return;}
-				
-				var response = JSON.parse(data);
-				if(response['code'] != '0'){
-					// var ticketInfo = response['data'];
-					// var state = ticketInfo.state;
-					// var bgSeat = getBGSeat(state);
-
-					// $('#seat-'+seatID+'-bg').removeClass('sit-color-white').addClass(bgSeat);
-					// $('#seat-'+seatID).removeAttr('onclick');
-					return;
-				}
-				console.log(response.data.mes);
-			});
-		}
-	</script>
 </body>
 </html>

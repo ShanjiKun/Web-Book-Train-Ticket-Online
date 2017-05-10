@@ -18,6 +18,7 @@ class CreateBILLTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('transaction_id', 10)->nullable()->unique();
             $table->float('sum_fare', 8, 2);
+            $table->unsignedInteger('own_time');
             $table->foreign('user_id')->references('user_id')->on('users');
         });
     }

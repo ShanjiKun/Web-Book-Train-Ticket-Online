@@ -145,9 +145,13 @@ Route::post('updatePassengerInfo', 'payment\PaymentController@updatePassengerInf
 
 Route::get('verify-info', 'payment\PaymentController@getVerifyInfo');
 Route::get('backToPassengetInfo', 'payment\PaymentController@backToPassengetInfo');
+
+Route::get('accepted-payment-later', 'payment\PaymentController@handlePaymentLater');
+Route::get('payment-later', 'payment\PaymentController@getPaymentLater');
 //
 Route::post('postOwnTime', 'database\DatabaseController@postOwnTime');
 Route::post('postOwnTime24H', 'database\DatabaseController@postOwnTime24H');
+Route::post('postBillOwnTime', 'database\DatabaseController@postBillOwnTime');
 //
 //Database request
 //Normal user

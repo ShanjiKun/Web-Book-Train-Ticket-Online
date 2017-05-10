@@ -356,16 +356,16 @@
 				switch(response.code){
 					case '0':
 						// postOwnTime24H();
-						for(var i in requestData.seatsInfo){
-							var seatInfo = requestData.seatsInfo[i];
-							var ids = seatInfo.seatInfoID.split('-');
-							var seatID = ids[0];
-							var tripID = ids[1];
-							var stationIDLeave = ids[2];
-							var stationIDArrive = ids[3];
+						// for(var i in requestData.seatsInfo){
+						// 	var seatInfo = requestData.seatsInfo[i];
+						// 	var ids = seatInfo.seatInfoID.split('-');
+						// 	var seatID = ids[0];
+						// 	var tripID = ids[1];
+						// 	var stationIDLeave = ids[2];
+						// 	var stationIDArrive = ids[3];
 
-							postOwnTime24H(tripID, seatID, stationIDLeave, stationIDArrive);
-						}
+						// 	postOwnTime24H(tripID, seatID, stationIDLeave, stationIDArrive);
+						// }
 						window.location.href = 'verify-info?payType='+requestData.payment;
 					break;
 					default:

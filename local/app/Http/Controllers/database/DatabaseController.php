@@ -411,6 +411,47 @@ class DatabaseController extends Controller
 
         return Utils::createResponse(0, '{"mes": "post-time-done"}'); 
     }
+    public function postBillOwnTime(Request $request){
+        $billID = $request->billID;
+        
+        $query = "SELECT own_time FROM bill WHERE bill_id = ".$billID;
+        $ownTime = DB::select($query);
+
+        if(count($ownTime)==0) return Utils::createResponse(0, '{"mes": "post-bill-time-done"}');
+
+        $time = $ownTime[0]->own_time;
+        while($time > 0){
+            sleep(1);
+
+            //Check have sold
+            $query = "SELECT own_time FROM bill WHERE bill_id = ".$billID;
+            $states = DB::select($query);
+            if(count($states)==0 || $states[0]->own_time == 0){
+                break;
+            }
+
+            //Minus own time
+            $query = "UPDATE bill SET own_time = ".$time." WHERE bill_id = ".$billID;
+            $ownTime = DB::select($query);
+            $time--;
+        }
+
+        if($time==0){
+            $ts = DB::select("SELECT ticket_cart_id FROM ticket_cart WHERE bill_id = ".$billID);
+            if(count($ts) > 0){
+                foreach ($ts as $item) {
+                    $query = "DELETE FROM ticket_sold WHERE ticket_cart_id = '".$item->ticket_cart_id."'";
+                    DB::select($query);
+                    $query = "DELETE FROM ticket_cart WHERE ticket_cart_id = '".$item->ticket_cart_id."'";
+                    DB::select($query);
+                }
+            }
+            $query = "DELETE FROM bill WHERE bill_id = ".$billID;
+            DB::select($query);
+        }
+
+        return Utils::createResponse(0, '{"mes": "post-bill-time-done"}'); 
+    }
     public function postOwnTime24H(Request $request){
         $tripID = $request->tripID;
         $ticketID = $request->seatID;
@@ -500,7 +541,7 @@ class DatabaseController extends Controller
     }
     public static function getWaitSeatsInfo(){
         $userID = Auth::User()->user_id;
-        $query = 'SELECT ticket_id, trip_id, station_leave_id, station_arrive_id, own_time FROM ticket_sold WHERE user_id = '.$userID.' AND state = "W"';
+        $query = 'SELECT ticket_id, trip_id, station_leave_id, station_arrive_id, own_time FROM ticket_sold WHERE user_id = '.$userID.' AND state = "W" AND ticket_cart_id IS NULL';
         $result = DB::select($query);
 
         $json = '[';
