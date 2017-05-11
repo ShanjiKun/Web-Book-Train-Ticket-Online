@@ -23,12 +23,12 @@ class StationController extends Controller
     	return redirect()-> route('getStationList')->with(['flash_level' => 'result_msg','flash_message' => 'Thêm ga tàu thành công']);
     }
     public function getStationList(){
-    	$data = Station::select('station_id','name','city','address','distance')->get()->toArray();
+    	$data = Station::select('station_id','name','city','address','distance')->where ('state','E')->get()->toArray();
     	return view('admin/station/station-list',['data' => $data]);
     }
     public function getStationDelete($id){
     	$station = Station::find($id);
-    	$station->delete($id);
+    	$station->where('station_id', $id)->update(array('state' => 'D')); 
     	return redirect()-> route('getStationList')->with(['flash_level' => 'result_msg','flash_message' => 'Xóa ga tàu thành công']);
     }
     public function getStationEdit($id){

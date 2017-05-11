@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TripAddRequest extends FormRequest
+class TripEditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,7 +29,6 @@ class TripAddRequest extends FormRequest
             'sltStationArrive' => 'required',
             'txtDateLeave' => 'required',
             'txtTimeLeave' => 'required',
-            
         ];
     }
     public function messages(){
