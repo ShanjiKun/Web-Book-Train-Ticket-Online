@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Trip extends Model
+class Station_Stop extends Model
 {
-    protected $table = 'trip';
+    protected $table = 'station_stop';
     protected $guarded = [];
-    protected $primaryKey = 'trip_id';
+    protected $primaryKey = ['trip_id','station_id'];
     public $timestamps = false;
 }

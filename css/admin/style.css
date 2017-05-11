@@ -37,6 +37,7 @@ legend {
 input, select {
     padding: 3px;
     outline: none;
+    width: 292px;
 }
 textarea {
     width: 100%;

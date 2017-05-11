@@ -89,6 +89,8 @@ Route::get('employee_list',['as' => 'getEmployeeList' , 'uses' => 'EmployeeContr
 Route::get('employee_update/{id}',['as' => 'getEmployeeDelete' , 'uses' => 'EmployeeController@getEmployeeDelete']);
 Route::get('employee-edit/{id}',['as' => 'getEmployeeEdit' , 'uses' => 'EmployeeController@getEmployeeEdit']);
 Route::post('employee-edit/{id}',['as' => 'postEmployeeEdit' , 'uses' => 'EmployeeController@postEmployeeEdit']);
+Route::get('user_list',['as' => 'getUserList' , 'uses' => 'EmployeeController@getUserList']);
+Route::get('user_update/{id}',['as' => 'getUserDelete' , 'uses' => 'EmployeeController@getUserDelete']);
 //Employee
 Route::get('train-add',['as' => 'getTrainAdd' , 'uses' => 'TrainController@getTrainAdd']);
 Route::post('train-add',['as' => 'postTrainAdd' , 'uses' => 'TrainController@postTrainAdd']);
@@ -107,6 +109,9 @@ Route::post('station-edit/{id}',['as' => 'postStationEdit' , 'uses' => 'StationC
 Route::get('trip-add',['as' => 'getTripAdd' , 'uses' => 'TripController@getTripAdd']);
 Route::post('trip-add',['as' => 'postTripAdd' , 'uses' => 'TripController@postTripAdd']);
 Route::get('trip-list',['as' => 'getTripList' , 'uses' => 'TripController@getTripList']);
+Route::get('trip-update/{id}',['as' => 'getTripDelete' , 'uses' => 'TripController@getTripDelete']);
+Route::get('trip-edit/{id}',['as' => 'getTripEdit' , 'uses' => 'TripController@getTripEdit']);
+Route::post('trip-edit/{id}',['as' => 'postTripEdit' , 'uses' => 'TripController@postTripEdit']);
 // Trip
 Route::get('car-add',['as' => 'getCarAdd' , 'uses' => 'CarController@getCarAdd']);
 Route::post('car-add',['as' => 'postCarAdd' , 'uses' => 'CarController@postCarAdd']);

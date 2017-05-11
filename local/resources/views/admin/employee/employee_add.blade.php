@@ -15,6 +15,10 @@
 		<span class="form_item">
 			<input type="text" name="txtUser" class="textbox" value="{!! old('txtUser')!!}"/>
 		</span><br />
+		<span class="form_label">Email:</span>
+		<span class="form_item">
+			<input type="email" name="email" class="textbox" value="{!! old('email')!!}"/>
+		</span><br />
 		<span class="form_label">Password:</span>
 		<span class="form_item">
 			<input type="password" name="txtPass" class="textbox" />

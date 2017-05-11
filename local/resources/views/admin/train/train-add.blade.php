@@ -11,6 +11,10 @@
 		<span class="form_item">
 			<input type="text" name="txtTrainName" class="textbox" value="{!! old('txtTrainName')!!}"/>
 		</span><br />
+		<span class="form_label">Giá:</span>
+		<span class="form_item">
+			<input type="text" name="txtFare" class="textbox" value="{!! old('txtFare')!!}"/>
+		</span><br />
 		<span class="form_label"></span>
 		<span class="form_item">
 			<input type="submit" name="btnTrainAdd" value="Thêm Tàu" class="button"/>

@@ -6,6 +6,13 @@
     <!-- <link rel="stylesheet" href="{{ asset('/css/admin/style.css') }}"> -->
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/admin/style.css') }}">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/home/home.css') }}">
+    <script type="text/javascript" src="{{ asset('/js/home/home.js') }}"></script>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/lib/pickmeup.css') }}" />
+    <script type="text/javascript" src="{{ asset('/js/lib/pickmeup.min.js') }}"></script>
+
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/lib/jquery.timepicker.css') }}" />
     <script type="text/javascript" src="{{ asset('/js/lib/jquery.timepicker.min.js') }}"></script>
     

@@ -13,4 +13,7 @@ class Car extends Model
     public function type_seat(){
     	return $this->belongsTo('App\Type_Seat');
     }
+    public function Tickets(){
+    	return $this->hasMany('App\Tickets');
+    }
 }

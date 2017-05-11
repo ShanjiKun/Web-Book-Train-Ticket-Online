@@ -27,7 +27,9 @@ class CarEditRequest extends FormRequest
             'txtCarName' => 'required|unique:car,name',
             'txtCarName' => 'required',
             'txtNumSeat' => 'required',
+            'sltTrain' => 'required',
             'sltCar' => 'required',
+            'txtOr' => 'required',
         ];
     }
     public function messages(){
@@ -35,8 +37,9 @@ class CarEditRequest extends FormRequest
             'txtCarName.required' => 'Vui lòng nhập tên Toa Tàu',
             'txtCarName.unique' => 'Tên Toa này đã tồn tại',
             'txtNumSeat.required' => 'Vui lòng nhập số lượng chỗ ngồi',
+            'sltTrain.required' => 'Vui lòng nhập Tên Tàu',
             'sltCar.required' => 'Vui lòng nhập loại chỗ ngồi',
-            
+            'txtOr.required' => 'Vui lòng nhập số toa',
         ];
     }
 }
