@@ -146,12 +146,20 @@ Route::post('updatePassengerInfo', 'payment\PaymentController@updatePassengerInf
 Route::get('verify-info', 'payment\PaymentController@getVerifyInfo');
 Route::get('backToPassengetInfo', 'payment\PaymentController@backToPassengetInfo');
 
-Route::get('accepted-payment-later', 'payment\PaymentController@handlePaymentLater');
+Route::get('accepted-payment', 'payment\PaymentController@handlePayment');
 Route::get('payment-later', 'payment\PaymentController@getPaymentLater');
+Route::get('payment-online', 'payment\PaymentController@getPaymentOnline');
+Route::post('payment-online', 'payment\PaymentController@postPaymentOnline');
+Route::get('payment-success', 'payment\PaymentController@getPaymentSuccess');
+
+Route::get('download-ticket', 'payment\PaymentController@downloadTicket');
 //
 Route::post('postOwnTime', 'database\DatabaseController@postOwnTime');
 Route::post('postOwnTime24H', 'database\DatabaseController@postOwnTime24H');
 Route::post('postBillOwnTime', 'database\DatabaseController@postBillOwnTime');
+Route::get('test', function(){
+	return 'success';
+});
 //
 //Database request
 //Normal user

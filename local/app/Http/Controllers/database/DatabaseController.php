@@ -377,114 +377,6 @@ class DatabaseController extends Controller
         $this->deleteTicketSold($tripID, $ticketID, $stationIDLeave, $stationIDArrive);
         return Utils::createResponse(0, '{"seatID": "'.$ticketID.'"}');
     }
-    public function postOwnTime(Request $request){
-        $tripID = $request->tripID;
-        $ticketID = $request->seatID;
-        $stationIDLeave = $request->stationIDLeave;
-        $stationIDArrive = $request->stationIDArrive;
-        
-        $query = "SELECT own_time FROM ticket_sold WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND station_leave_id = ".$stationIDLeave." AND station_arrive_id=".$stationIDArrive;
-        $ownTime = DB::select($query);
-
-        if(count($ownTime)==0) return Utils::createResponse(0, '{"mes": "post-time-done"}');
-
-        $time = $ownTime[0]->own_time;
-        while($time > 0){
-            sleep(1);
-
-            //Check have sold
-            $query = "SELECT state, own_time FROM ticket_sold WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND station_leave_id = ".$stationIDLeave." AND station_arrive_id=".$stationIDArrive;
-            $states = DB::select($query);
-            if(count($states)==0 || $states[0]->state == 'S' || $states[0]->own_time == 0){
-                break;
-            }
-
-            //Minus own time
-            $query = "UPDATE ticket_sold SET own_time = ".$time." WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND station_leave_id = ".$stationIDLeave." AND station_arrive_id=".$stationIDArrive;
-            $ownTime = DB::select($query);
-            $time--;
-        }
-
-        if($time==0){
-            $this->deleteTicketSold($tripID, $ticketID, $stationIDLeave, $stationIDArrive);
-        }
-
-        return Utils::createResponse(0, '{"mes": "post-time-done"}'); 
-    }
-    public function postBillOwnTime(Request $request){
-        $billID = $request->billID;
-        
-        $query = "SELECT own_time FROM bill WHERE bill_id = ".$billID;
-        $ownTime = DB::select($query);
-
-        if(count($ownTime)==0) return Utils::createResponse(0, '{"mes": "post-bill-time-done"}');
-
-        $time = $ownTime[0]->own_time;
-        while($time > 0){
-            sleep(1);
-
-            //Check have sold
-            $query = "SELECT own_time FROM bill WHERE bill_id = ".$billID;
-            $states = DB::select($query);
-            if(count($states)==0 || $states[0]->own_time == 0){
-                break;
-            }
-
-            //Minus own time
-            $query = "UPDATE bill SET own_time = ".$time." WHERE bill_id = ".$billID;
-            $ownTime = DB::select($query);
-            $time--;
-        }
-
-        if($time==0){
-            $ts = DB::select("SELECT ticket_cart_id FROM ticket_cart WHERE bill_id = ".$billID);
-            if(count($ts) > 0){
-                foreach ($ts as $item) {
-                    $query = "DELETE FROM ticket_sold WHERE ticket_cart_id = '".$item->ticket_cart_id."'";
-                    DB::select($query);
-                    $query = "DELETE FROM ticket_cart WHERE ticket_cart_id = '".$item->ticket_cart_id."'";
-                    DB::select($query);
-                }
-            }
-            $query = "DELETE FROM bill WHERE bill_id = ".$billID;
-            DB::select($query);
-        }
-
-        return Utils::createResponse(0, '{"mes": "post-bill-time-done"}'); 
-    }
-    public function postOwnTime24H(Request $request){
-        $tripID = $request->tripID;
-        $ticketID = $request->seatID;
-        $stationIDLeave = $request->stationIDLeave;
-        $stationIDArrive = $request->stationIDArrive;
-        
-        $query = "SELECT own_time FROM ticket_sold WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND station_leave_id = ".$stationIDLeave." AND station_arrive_id=".$stationIDArrive;
-        $ownTime = DB::select($query);
-
-        if(count($ownTime)==0) return Utils::createResponse(0, '{"mes": "post24H-Done"}');
-
-        $time = $ownTime[0]->own_time;
-        while($time > 0){
-            sleep(1);
-
-            //Check have sold
-            $query = "SELECT state, own_time FROM ticket_sold WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND station_leave_id = ".$stationIDLeave." AND station_arrive_id=".$stationIDArrive;
-            $states = DB::select($query);
-            if(count($states)==0 || $states[0]->state == 'W' || $states[0]->own_time==0){
-                break;
-            }
-
-            //Minus own time
-            $query = "UPDATE ticket_sold SET own_time = ".$time." WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND station_leave_id = ".$stationIDLeave." AND station_arrive_id=".$stationIDArrive;
-            $ownTime = DB::select($query);
-            $time--;
-        }
-        if($time==0){
-           $this->deleteTicketSold($tripID, $ticketID, $stationIDLeave, $stationIDArrive);
-        }
-
-        return Utils::createResponse(0, '{"mes": "post24H-Done"}'); 
-    }
     public function getOwnTime(Request $request){
         $tripID = $request->tripID;
         $ticketID = $request->ticketID;
@@ -622,5 +514,115 @@ class DatabaseController extends Controller
         }
         $json .= ']';
         return $json;
+    }
+
+    //Post time
+    public function postOwnTime(Request $request){
+        $tripID = $request->tripID;
+        $ticketID = $request->seatID;
+        $stationIDLeave = $request->stationIDLeave;
+        $stationIDArrive = $request->stationIDArrive;
+        
+        $query = "SELECT own_time FROM ticket_sold WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND station_leave_id = ".$stationIDLeave." AND station_arrive_id=".$stationIDArrive;
+        $ownTime = DB::select($query);
+
+        if(count($ownTime)==0) return Utils::createResponse(0, '{"mes": "post-time-done"}');
+
+        $time = $ownTime[0]->own_time;
+        while($time > 0){
+            sleep(1);
+
+            //Check have sold
+            $query = "SELECT state, own_time FROM ticket_sold WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND station_leave_id = ".$stationIDLeave." AND station_arrive_id=".$stationIDArrive;
+            $states = DB::select($query);
+            if(count($states)==0 || $states[0]->state == 'S' || $states[0]->own_time == 0){
+                break;
+            }
+
+            //Minus own time
+            $query = "UPDATE ticket_sold SET own_time = ".$time." WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND station_leave_id = ".$stationIDLeave." AND station_arrive_id=".$stationIDArrive;
+            $ownTime = DB::select($query);
+            $time--;
+        }
+
+        if($time==0){
+            $this->deleteTicketSold($tripID, $ticketID, $stationIDLeave, $stationIDArrive);
+        }
+
+        return Utils::createResponse(0, '{"mes": "post-time-done"}'); 
+    }
+    public function postBillOwnTime(Request $request){
+        $billID = $request->billID;
+        
+        $query = "SELECT own_time FROM bill WHERE bill_id = ".$billID;
+        $ownTime = DB::select($query);
+
+        if(count($ownTime)==0) return Utils::createResponse(0, '{"mes": "post-bill-time-done"}');
+
+        $time = $ownTime[0]->own_time;
+        while($time > 0){
+            sleep(1);
+
+            //Check have sold
+            $query = "SELECT own_time FROM bill WHERE bill_id = ".$billID;
+            $states = DB::select($query);
+            if(count($states)==0 || $states[0]->own_time == 0){
+                break;
+            }
+
+            //Minus own time
+            $query = "UPDATE bill SET own_time = ".$time." WHERE bill_id = ".$billID;
+            $ownTime = DB::select($query);
+            $time--;
+        }
+
+        if($time==0){
+            $ts = DB::select("SELECT ticket_cart_id FROM ticket_cart WHERE bill_id = ".$billID);
+            if(count($ts) > 0){
+                foreach ($ts as $item) {
+                    $query = "DELETE FROM ticket_sold WHERE ticket_cart_id = '".$item->ticket_cart_id."'";
+                    DB::select($query);
+                    $query = "DELETE FROM ticket_cart WHERE ticket_cart_id = '".$item->ticket_cart_id."'";
+                    DB::select($query);
+                }
+            }
+            $query = "DELETE FROM bill WHERE bill_id = ".$billID;
+            DB::select($query);
+        }
+
+        return Utils::createResponse(0, '{"mes": "post-bill-time-done"}'); 
+    }
+    public function postOwnTime24H(Request $request){
+        $tripID = $request->tripID;
+        $ticketID = $request->seatID;
+        $stationIDLeave = $request->stationIDLeave;
+        $stationIDArrive = $request->stationIDArrive;
+        
+        $query = "SELECT own_time FROM ticket_sold WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND station_leave_id = ".$stationIDLeave." AND station_arrive_id=".$stationIDArrive;
+        $ownTime = DB::select($query);
+
+        if(count($ownTime)==0) return Utils::createResponse(0, '{"mes": "post24H-Done"}');
+
+        $time = $ownTime[0]->own_time;
+        while($time > 0){
+            sleep(1);
+
+            //Check have sold
+            $query = "SELECT state, own_time FROM ticket_sold WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND station_leave_id = ".$stationIDLeave." AND station_arrive_id=".$stationIDArrive;
+            $states = DB::select($query);
+            if(count($states)==0 || $states[0]->state == 'W' || $states[0]->own_time==0){
+                break;
+            }
+
+            //Minus own time
+            $query = "UPDATE ticket_sold SET own_time = ".$time." WHERE trip_id = ".$tripID." AND ticket_id = ".$ticketID." AND station_leave_id = ".$stationIDLeave." AND station_arrive_id=".$stationIDArrive;
+            $ownTime = DB::select($query);
+            $time--;
+        }
+        if($time==0){
+           $this->deleteTicketSold($tripID, $ticketID, $stationIDLeave, $stationIDArrive);
+        }
+
+        return Utils::createResponse(0, '{"mes": "post24H-Done"}'); 
     }
 }

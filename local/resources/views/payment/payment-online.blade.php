@@ -9,7 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('/css/passenger-information/passenger-information.css') }}">
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<title>Xác nhận thông tin</title>
+	<title>Nhập thông tin khác hàng</title>
 	<style type="text/css">
 		body{
 			background: #F0F1F3 !important;
@@ -63,17 +63,23 @@
 		    margin-left: 15px;
 		    color: #fff;
 		    font-family: Verdana;
-		    width: 500px;
-		    margin-bottom: 15px;
+		    width: 300px;
+		    margin-bottom: 30px;
 		}
 		.alert{
-			margin: 0px 15px 20px 15px;
+			margin: 0px 15px 0px 15px;
 			padding: 15px;
 			background-color: #d9edf7;
 		    border-color: #bce8f1;
 		    color: #3a87ad;		    
 		    border: 1px solid transparent;
 		    border-radius: 4px;
+		}
+		.alert-p1{
+			text-align: right;
+		}
+		.alert-p2{
+			font-weight: bold;
 		}
 		.tickets-information{
 			padding: 0px 15px;
@@ -131,8 +137,9 @@
 				        $('#'+eID).html(self.totalSeconds);
 				        if(self.totalSeconds==0){
 				        	self.pause();
-				        	$('#'+eID+'-normal').css('display', 'none');
-				        	$('#'+eID+'-warning').css('display', 'block');
+				        	$('#warning').css('display', 'block');
+				        	$('#btns-CA').css('display', 'none');
+				        	$('#btn-home').css('display', 'block');
 				        }
 				    }, 1000);
 				},
@@ -147,7 +154,7 @@
 			if(clocks[eID] !== undefined) clocks[eID].pause();
 			clocks[eID] = Clock;
 			Clock.start();
-		}
+		}	
 	</script>
 </head>
 <body>
@@ -171,77 +178,99 @@
 	<div class="contents">
 		<div class="container-fluid">
 			<div class="head1">
-				XÁC NHẬN THÔNG TIN ĐĂT MUA VÉ TÀU
+				THANH TOÁN ĐƠN HÀNG
 			</div>
-			<div class="alert">
-				<p class="alert-p1">
-					Các vé có biểu tượng <span style="color: red;">!</span> là các vé bị hết thời gian tạm giữ. Quý khách vui lòng chọn vé khác.
+			<div id="warning" class="alert form-group" style="margin-bottom: 10px; display: none;" >
+				<p>
+					Thời gian thanh toán đã kết thúc, đơn hàng sẽ bị hủy, quý khác đã hết thời gian tạm giữ vé. Xin vui lòng quay lại <a href="">Trang chủ</a> để đặt vé.
 				</p>
 			</div>
-			<div class="tickets-information">
-				<table class="table">
-					<tr style="background-color: #eee;">
-						<th style="width: 80px">STT</th>
-						<th>Thông tin mua vé</th>
-						<th style="width: 130px">Thời gian giữ vé</th>
-						<th style="width: 120px">Giá (VNĐ)</th>
-					</tr>
-				<?php $i = 0; $totalCost = 0;?>
-				@foreach($data as $item)
-					<?php $i++; $totalCost+=$item->cost;?>
-					<tr>
-						<td>{{$i}}</td>
-						<td>
-							<div class="row" style="font-size: 14px;">
-								<div class="col-md-4" style="text-align: left;">
-									Họ tên: {{$item->name}}
-								</div>
-								<div class="col-md-4" style="text-align: left;">
-									Đối tượng: {{$item->typePass}}
-								</div>
-								<div class="col-md-4" style="text-align: left;">
-									Số giấy tờ: {{$item->id}}
-								</div>
-								<div class="col-md-12" style="text-align: left; margin-top: 4px;">
-									Hành trình: {{$item->info}}
-								</div>
-							</div>
-						</td>
-						<td>
-							<p id="{{$item->tcID}}-normal" style="color: #3a87ad;">Còn <span id="{{$item->tcID}}" style="color: red; font-size: 16px;">{{$item->ownTime}}</span> giây</p>
-							<p id="{{$item->tcID}}-warning" style="display: none; color: #3a87ad;"><span style="color: red; font-size: 16px;">!</span> Hết TG giữ vé</p>
-							<script type="text/javascript">
-								newClock('{{$item->tcID}}', {{$item->ownTime}});
-							</script>
-						</td>
-						<td>
-							<p style="text-align: right">{{$item->cost}},000</p>
-						</td>
-					</tr>
-				@endforeach
-					<tr style="background-color: #eee; text-align: right; font-weight: bold; font-size: 14px">
-						<td colspan="3" style="text-align: right;">
-							Tổng tiền
-						</td>
-						<td style="text-align: right;"">
-							{{$totalCost}},000
-						</td>
-					</tr>
-				</table>
+			<div class="col-md-12">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+					<h5 style=" color: #3a87ad; text-align: right; font-weight: 700;">Thời gian thanh toán <span id='clock' style="font-weight: bold; color: red;">{{$payTime}}</span> giây</h5>
+					<script type="text/javascript">
+						newClock('clock', {{$payTime}});
+					</script>
+				</div>
+				<div class="col-md-3"></div>
 			</div>
-			<div class="" style="padding: 0px 15px;">
-				<h5 style=" color: #e55a05; font-weight: 700;">Phương thức thanh toán: {{$payType}}</h5>
+			<div class="col-md-12" style="margin-bottom: 10px;">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+					<h5 style=" color: #e55a05; font-weight: 700; padding-left: 15px;">Thông tin đơn hàng</h5>
+					<div class="col-md-12 alert">
+						<div class="col-md-6">
+							<p class="alert-p1">
+								Đơn hàng:
+							</p>
+						</div>
+						<div class="col-md-6">
+							<p class="alert-p2">
+								{{$billID}}
+							</p>
+						</div>
+						<div class="col-md-6">
+							<p class="alert-p1">
+								Giá trị thanh toán:
+							</p>
+						</div>
+						<div class="col-md-6">
+							<p class="alert-p2">
+								{{$sumFare}},000 VND
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3"></div>
 			</div>
-			<div class="alert">
-				<p class="alert-p1">
-					Quý khách vui lòng kiểm tra kỹ và xác nhận các thông tin đã nhập trước khi thực hiện giao dịch mua vé. Sau khi thực hiện giao dịch thanh toán ở trang tiếp theo quý khách sẽ không thể thay đổi được thông tin mua vé trên.
-				</p>
+			<div class="col-md-12" style="margin-bottom: 20px;">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+					<h5 style=" color: #e55a05; font-weight: 700; padding-left: 15px;">Nhập thông tin thẻ ATM</h5>
+					<div class="col-md-12 alert">
+						<div class="col-md-6">
+							<p class="alert-p1">
+								Chọn ngân hàng:
+							</p>
+						</div>
+						<div class="col-md-6" style="margin-bottom: 15px;">
+							<select id="bankID">
+							@foreach($banks as $bank)
+								<option value="{{$bank->bankID}}">{{$bank->name}}</option>
+							@endforeach
+							</select>
+						</div>
+						<div class="col-md-6">
+							<p class="alert-p1">
+								Nhập tên chủ thẻ:
+							</p>
+						</div>
+						<div class="col-md-6">
+							<input id="accountHolder" type="text" class="form-group" name="">
+						</div>
+						<div class="col-md-6">
+							<p class="alert-p1">
+								Nhập số thẻ:
+							</p>
+						</div>
+						<div class="col-md-6">
+							<input id="cardID" type="text" class="form-group" name="">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3"></div>
 			</div>
 			<div class="payment">
-				<div class="col-md-12">
-					<a style="float: right;" class="btn" onclick="onContinue({{$payTypeID}});">Tiếp theo>></a>
-					<a style="float: left;" class="btn" onclick="onBack();"><< Quay lại</a>
+				<div class="col-md-5"></div>
+				<div id='btns-CA' class="col-md-3">
+					<a style="float: left;" class="btn" onclick="onCancel();">Hủy</a>
+					<a style="float: right;" class="btn" onclick="onAccept();">Chấp nhận</a>
 				</div>
+				<div id='btn-home' style="display: none;" class="col-md-3">
+					<a class="btn" href="Web-Book-Train-Ticket-Online/">Trang chủ</a>
+				</div>
+				<div class="col-md-4"></div>
 			</div>
 		</div>
 	</div>
@@ -263,81 +292,51 @@
 	    </div>
 	</div>
 	<script type="text/javascript">
-		function onContinue(payType){
-			
-			$.get('accepted-payment?payType='+payType, function(data, status){
-				var response = JSON.parse(data);
-				if(response.code == "0"){
-					var billID = response.data.billID;
-					postBillOwnTime(billID);
-					if(payType == 2){
-						window.location.href = "payment-later?billID="+billID;
-					}else{
-						window.location.href = "payment-online?billID="+billID;
-					}
-				}else{
-					alert(response.message);
-				}
-			});
-		}
+		var billID = {{$billID}};
+		function onCancel(){
 
-		function onBack(){
-			$.get("backToPassengetInfo", function(data, status){
+		}
+		function onAccept(){
+			var bankID = $('#bankID').val();
+			var accountHolder = $('#accountHolder').val();
+			var cardID = $('#cardID').val();
+
+			if(!validate(bankID, accountHolder, cardID)) return;
+
+			$.post('payment-online',{
+				billID: billID,
+				bankID: bankID,
+				accountHolder: accountHolder,
+				cardID: cardID
+			},function(data, status){
 				if(status != 'success') return;
 
 				var response = JSON.parse(data);
-				if(response.code == 0){
-					var ticketCartIDs = response.data;
-					// for(var i in ticketCartIDs){
-					// 	var tcID = ticketCartIDs[i].split('-');
-					// 	var seatID = tcID[0];
-					// 	var tripID = tcID[1];
-					// 	var sIL = tcID[2];
-					// 	var sIA = tcID[3];
-					// 	postOwnTime(tripID, seatID, sIL, sIA);
-					// }
-					window.location.href = 'passenger-information';
-				}else{
-					alert(response.message);
+				switch(parseInt(response.code)){
+					case 0:
+						window.location.href = 'payment-success?billID='+response.data.billID;
+						break;
+					case 4:
+						alert(response.message);
+						break;
+					case 6:
+						alert(response.message);
+						break;
+					case 7:
+						alert(response.message);
+						break;
+					default:
+						alert(response.message);
+						break;
 				}
 			});
 		}
-		function postBillOwnTime(billID){
-			$.post('postBillOwnTime',{
-				billID: billID
-			},function(data, status){
-
-				if(status != 'success'){ alert('pick seat: failed!'); return;}
-				
-				var response = JSON.parse(data);
-				if(response['code'] != '0'){
-					return;
-				}
-				console.log(response.data.mes);
-			});
-		}
-		function postOwnTime(tripID, seatID, sIL, sIA){
-			$.post('postOwnTime',{
-				tripID: tripID,
-				seatID: seatID,
-				stationIDLeave: sIL,
-				stationIDArrive: sIA
-			},function(data, status){
-
-				if(status != 'success'){ alert('pick seat: failed!'); return;}
-				
-				var response = JSON.parse(data);
-				if(response['code'] != '0'){
-					// var ticketInfo = response['data'];
-					// var state = ticketInfo.state;
-					// var bgSeat = getBGSeat(state);
-
-					// $('#seat-'+seatID+'-bg').removeClass('sit-color-white').addClass(bgSeat);
-					// $('#seat-'+seatID).removeAttr('onclick');
-					return;
-				}
-				console.log(response.data.mes);
-			});
+		function validate(bankID, accountHolder, cardID){
+			if(bankID.length == 0 || accountHolder.length == 0 || cardID.length == 0){
+				alert('Vui lòng điền đầy đủ thông tin!');
+				return false;
+			}
+			return true;
 		}
 	</script>
 </body>

@@ -102,8 +102,6 @@
 		                </li>
 		                <li><a href="/Web-Book-Train-Ticket-Online/thongtindatcho">THÔNG TIN ĐẶT CHỖ</a>
 		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/kiemtrave">KIỂM TRA VÉ</a>
-		                </li>
 		                <li><a href="/Web-Book-Train-Ticket-Online/giotau">GIỜ TÀU</a>
 		                </li>
 		                <li><a href="/Web-Book-Train-Ticket-Online/khuyenmai">KHUYẾN MÃI</a>
