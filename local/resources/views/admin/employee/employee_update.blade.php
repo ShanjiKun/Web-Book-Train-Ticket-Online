@@ -15,6 +15,10 @@
 		<span class="form_item">
 			<input type="text" name="txtUser" class="textbox" value="{!! old('txtUser',isset($data["username"]) ? $data["username"] : null)!!}"/>
 		</span><br />
+		<span class="form_label">Email:</span>
+		<span class="form_item">
+			<input type="email" name="email" class="textbox" value="{!! old('email')!!}"/>
+		</span><br />
 		<span class="form_label">Password:</span>
 		<span class="form_item">
 			<input type="password" name="txtPass" class="textbox" />
@@ -23,7 +27,7 @@
 		<span class="form_item">
 			<input type="password" name="txtRepass" class="textbox" />
 		</span><br />
-		@if( Auth::User()->employee_id != $data["employee_id"])
+		@if( Auth::User()->user_id != $data["user_id"])
 		<span class="form_label">Level:</span>
 		<span class="form_item">
 			<input type="radio" name="rdoLevel" value="1" 

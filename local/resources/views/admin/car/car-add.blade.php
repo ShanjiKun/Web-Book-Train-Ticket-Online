@@ -15,6 +15,15 @@
 		<span class="form_item">
 			<input type="text" name="txtNumSeat" class="textbox" value="{!! old('txtNumSeat')!!}"/>
 		</span><br />
+		<span class="form_label">Tàu:</span>
+		<span class="form_item">
+			<select name="sltTrain" class="select">
+				@foreach($data1 as $value){
+					<option value="{!! $value["train_id"]!!}">{!! $value["name"]!!}</option>
+				}
+				@endforeach
+			</select>
+		</span><br />
 		<span class="form_label">Loại Chỗ:</span>
 		<span class="form_item">
 			<select name="sltCar" class="select">
@@ -23,6 +32,10 @@
 				}
 				@endforeach
 			</select>
+		</span><br />
+		<span class="form_label">Số Toa:</span>
+		<span class="form_item">
+			<input type="text" name="txtOr" class="textbox" value="{!! old('txtOr')!!}"/>
 		</span><br />
 		<span class="form_label"></span>
 		<span class="form_item">

@@ -25,8 +25,11 @@ class EmployeeAddRequest extends FormRequest
     {
         return [
             'txtName' => 'required',
-            'txtUser' => 'required|unique:employee,username',
+            'txtUser' => 'required|unique:users,username',
+            
             'txtUser' => 'required',
+            'email' => 'required',
+            'email' => 'required|unique:users,email',
             'txtPass' => 'required',
             'txtRepass' => 'required|same:txtPass'
         ];
@@ -36,6 +39,8 @@ class EmployeeAddRequest extends FormRequest
             'txtName.required' => 'Vui lòng nhập họ & tên',
             'txtUser.required' => 'Vui lòng nhập Username',
             'txtUser.unique' => 'Username này đã tồn tại',
+            'email.required' => 'Vui lòng nhập email',
+            'email.unique' => 'Email này đã tồn tại',
             'txtPass.required' => 'Vui lòng nhập Password',
             'txtRepass.required' => 'Vui lòng nhập lại Password',
             'txtRepass.same' => 'Mật khẩu không trùng'

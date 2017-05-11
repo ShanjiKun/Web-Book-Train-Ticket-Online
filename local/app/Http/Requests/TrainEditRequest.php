@@ -24,12 +24,14 @@ class TrainEditRequest extends FormRequest
     public function rules()
     {
         return [
-            'txtTrainName' => 'required'
+            'txtTrainName' => 'required',
+            'txtFare' => 'required'
         ];
     }
     public function messages(){
         return[
-            'txtTrainName.required' => 'Vui lòng nhập tên tàu'
+            'txtTrainName.required' => 'Vui lòng nhập tên tàu',
+            'txtFare.required' => 'Vui lòng nhập Giá tàu'
             
         ];
     }

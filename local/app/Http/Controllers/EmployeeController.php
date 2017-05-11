@@ -17,18 +17,20 @@ class EmployeeController extends Controller
     	$user = new User;
     	$user->name = $requests->txtName;
     	$user->username = $requests->txtUser;
+        $user->email = $requests->email;
     	$user->password = Hash::make($requests->txtPass);
         $user->level = $requests ->rdoLevel;
     	$user->save();
     	return redirect()->route('getEmployeeList')->with(['flash_level'=> 'result_msg', 'flash_message'=> 'Thêm nhân viên thành công']);
     }
     public function getEmployeeList(){
-        $data = User::select('employee_id','name')->get()->toArray();
+        $data = User::select('user_id','name','email','level')->where([['state', 'E'],['level', '<>', '0']])->get()->toArray();
+        
         return view('admin\employee\employee_list',['data' => $data]);
     }
     public function getEmployeeDelete($id){
         $user = User::find($id);
-        $user->delete($id);
+        $user->where('user_id', $id)->update(array('state' => 'D')); 
         return redirect()-> route('getEmployeeList')->with(['flash_level' => 'result_msg','flash_message' => 'Xóa nhân viên thành công']);
     }
     public function getEmployeeEdit($id){
@@ -39,8 +41,19 @@ class EmployeeController extends Controller
         $user = User::find($id);
         $user->name = $requests->txtName;
         $user->username = $requests->txtUser;
+        $user->email = $requests->email;
         $user->password = Hash::make($requests->txtPass);
         $user->save();
         return redirect()->route('getEmployeeList')->with(['flash_level'=> 'result_msg', 'flash_message'=> 'Sửa nhân viên thành công']);
+    }
+    public function getUserList(){
+        $data = User::select('user_id','name','email')->where([['state', 'E'],['level', '0']])->get()->toArray();
+        
+        return view('admin\employee\user_list',['data' => $data]);
+    }
+    public function getUserDelete($id){
+        $user = User::find($id);
+        $user->where('user_id', $id)->update(array('state' => 'D')); 
+        return redirect()-> route('getUserList')->with(['flash_level' => 'result_msg','flash_message' => 'Xóa hành khách thành công']);
     }
 }

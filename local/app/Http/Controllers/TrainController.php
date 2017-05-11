@@ -14,16 +14,17 @@ class TrainController extends Controller
     public function postTrainAdd(TrainAddRequest $request){
     	$train = new Train;
     	$train -> name = $request -> txtTrainName;
+        $train -> fare = $request -> txtFare;
     	$train -> save();
     	return redirect()-> route('getTrainList')->with(['flash_level' => 'result_msg','flash_message' => 'Thêm tàu thành công']);
     }
     public function getTrainList(){
-    	$data = Train::select('train_id','name')->get()->toArray();
+    	$data = Train::select('train_id','name','fare')->where('state','E')->get()->toArray();
     	return view('admin/train/train-list',['data' => $data]);
     }
     public function getTrainDelete($id){
         $train = Train::find($id);
-        $train->delete($id);
+        $train->where('train_id', $id)->update(array('state' => 'D')); 
         return redirect()-> route('getTrainList')->with(['flash_level' => 'result_msg','flash_message' => 'Xóa tàu thành công']);
     }
     public function getTrainEdit($id){
@@ -34,6 +35,7 @@ class TrainController extends Controller
     public function postTrainEdit(TrainEditRequest $request, $id){
         $train = Train::find($id);
         $train -> name = $request -> txtTrainName;
+        $train -> fare = $request -> txtFare;
         $train -> save();
         return redirect()-> route('getTrainList')->with(['flash_level' => 'result_msg','flash_message' => 'Sửa tàu thành công']);
     }
