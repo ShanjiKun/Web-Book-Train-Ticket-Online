@@ -139,6 +139,33 @@ Route::post('get-number-seat', 'database\DatabaseController@getNumberSeat');
 Route::post('get-cars', 'database\DatabaseController@getCars');
 Route::post('get-seat', 'database\DatabaseController@getSeat');
 Route::post('pick-seat', 'database\DatabaseController@pickSeat');
+Route::post('unpickSeat', 'database\DatabaseController@unpickSeat');
+
+Route::get('getCost', 'database\DatabaseController@getCost');
+Route::get('getOwnTime', 'database\DatabaseController@getOwnTime');
+Route::get('getWaitSeats', 'database\DatabaseController@getWaitSeats');
+
+Route::get('passenger-information', 'payment\PaymentController@getPassengerInfo');
+Route::post('updatePassengerInfo', 'payment\PaymentController@updatePassengerInfo');
+
+Route::get('verify-info', 'payment\PaymentController@getVerifyInfo');
+Route::get('backToPassengetInfo', 'payment\PaymentController@backToPassengetInfo');
+
+Route::get('accepted-payment', 'payment\PaymentController@handlePayment');
+Route::get('payment-later', 'payment\PaymentController@getPaymentLater');
+Route::get('payment-online', 'payment\PaymentController@getPaymentOnline');
+Route::post('payment-online', 'payment\PaymentController@postPaymentOnline');
+Route::get('payment-success', 'payment\PaymentController@getPaymentSuccess');
+
+Route::get('download-ticket', 'payment\PaymentController@downloadTicket');
+//
+Route::post('postOwnTime', 'database\DatabaseController@postOwnTime');
+Route::post('postOwnTime24H', 'database\DatabaseController@postOwnTime24H');
+Route::post('postBillOwnTime', 'database\DatabaseController@postBillOwnTime');
+Route::get('test', function(){
+	return 'success';
+});
+//
 //Database request
 //Normal user
 Route::post('getUser', 'LoginController@getUser');

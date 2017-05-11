@@ -18,8 +18,8 @@ class TypePassengerTableSeeder extends Seeder
         	'discount' => 0
         ]);
         DB::table('type_passenger')->insert([
-        	'type_passenger_id' => 'HSSV',
-        	'name' => 'Học sinh sinh viên',
+        	'type_passenger_id' => 'SV',
+        	'name' => 'Sinh viên',
         	'discount' => 10
         ]);
         DB::table('type_passenger')->insert([
