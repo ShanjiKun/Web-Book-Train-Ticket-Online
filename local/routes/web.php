@@ -63,6 +63,8 @@ Route::group(['prefix'=>'admin'],function(){
 //
 Route::get('login',['as' => 'getLogin','uses' => 'LoginController@getLogin']);
 Route::post('login',['as' => 'postLogin','uses' => 'LoginController@postLogin']);
+Route::get('sign-up',['as' => 'getLogin','uses' => 'LoginController@getSignUp']);
+Route::post('sign-up',['as' => 'postLogin','uses' => 'LoginController@postSignUp']);
 Route::get('logout',['as' => 'getLogout','uses' => 'LoginController@getLogout']);
 Route::get('admin',['as' => 'admin', function(){
 	if(!Auth::check()){
@@ -151,6 +153,7 @@ Route::get('payment-later', 'payment\PaymentController@getPaymentLater');
 Route::get('payment-online', 'payment\PaymentController@getPaymentOnline');
 Route::post('payment-online', 'payment\PaymentController@postPaymentOnline');
 Route::get('payment-success', 'payment\PaymentController@getPaymentSuccess');
+Route::get('refund', 'payment\PaymentController@getRefund');
 
 Route::get('download-ticket', 'payment\PaymentController@downloadTicket');
 //

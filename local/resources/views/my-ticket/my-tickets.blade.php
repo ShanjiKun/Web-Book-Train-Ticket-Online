@@ -92,6 +92,7 @@
 			padding: 10px 30px 10px 30px;
 		}
 		.btn{
+			margin-bottom: 15px;
 			padding: 2px 10px;
 		    background-color: #0686b7;
 		    border: 1px solid #faf8f9;
@@ -100,6 +101,17 @@
 		    text-decoration: none;
 		    min-width: 40px;
 		    font-size: 16px;
+		}
+		.btn1{
+			/*margin-top: 10px;*/
+			padding: 2px 10px;
+		    background-color: #275f27;
+		    border: 1px solid #faf8f9;
+		    box-shadow: 1px 1px 1px 1px #d7d7d7;
+		    color: #fff;
+		    text-decoration: none;
+		    min-width: 40px;
+		    font-size: 14px;
 		}
 		/*footer*/
 		.footer {
@@ -139,6 +151,7 @@
 						<td>{{$item->cost}}</td>
 						<td>
 							<a class="btn" href="download-ticket?tcID={{$item->ticket_cart_id}}">Tải vé</a>
+							<a class="btn1" onclick="refund({{$item->bill_id}}, {{$item->payment_type}})">Trả vé</a>
 						</td>
 					</tr>
 				@endforeach
@@ -189,5 +202,22 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+		function refund(billID, payType) {
+
+			if(payType == 2){
+				alert('Vé mua với hình thức trả sau, quý khác vui lòng đến đến các đại lý để trả vé!');
+				return;
+			}
+
+			var isConfirm = confirm('Bạn chắc chắn muốn trả vé?');
+			if(!isConfirm) return;
+
+			$.get('refund?billID='+billID, function(data, status){
+				var res = JSON.parse(data);
+				if(res.code != 0) alert(res.message);
+
+				window.location.href = 'my-tickets';
+			});
+		}
 	</script>
 @stop

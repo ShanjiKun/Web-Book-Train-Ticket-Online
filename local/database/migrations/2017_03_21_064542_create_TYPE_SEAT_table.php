@@ -16,7 +16,7 @@ class CreateTYPESEATTable extends Migration
         Schema::create('TYPE_SEAT', function (Blueprint $table) {
             $table->string('type_seat_id', 20)->primary();
             $table->string('name', 50)->unique();
-            $table->float('fare', 8, 2);
+            $table->bigInteger('fare');
         });
     }
 
