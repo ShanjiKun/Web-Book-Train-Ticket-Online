@@ -286,6 +286,7 @@ class PaymentController extends Controller
 
         $sumFare = $results[0]->sum_fare;
 
+        $token = 'dsvn111111';
         $client = new Client();
         $response;
         try {
@@ -295,7 +296,8 @@ class PaymentController extends Controller
                 'cardID' => $cardID,
                 'accountHolder' => $accountHolder,
                 'billID' => $billID,
-                'charges' => $sumFare
+                'charges' => $sumFare,
+                'token' => $token
             ]
         ]);
         } catch (RequestException $e) {
