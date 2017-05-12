@@ -314,7 +314,17 @@ class DatabaseController extends Controller
     }
     public function getCost(Request $request){
         // return Utils::createResponse(0, '{"cost": "500"}');
-        $cost = DatabaseController::simCost();
+
+        $tripID = $request->tripID;
+        $carID = $request->carID;
+        $sIL = $request->stationIDLeave;
+        $sIA = $request->stationIDArrive;
+
+        $results = DB::SELECT('SELECT train_id FROM TRIP WHERE trip_id = '.$tripID);
+        if(count($results) == 0) return Utils::createResponse(0, '{"cost": "0"}');
+
+        $trainID = $results[0]->train_id;
+        $cost = DatabaseController::calPrice($trainID, $carID, $sIL, $sIA);
         return Utils::createResponse(0, '{"cost": "'.$cost.'"}');
     }
     public function pickSeat(Request $request){
@@ -428,8 +438,16 @@ class DatabaseController extends Controller
             DB::select($query);
         }
     }
-    public static function simCost(){
-        return "600";
+    public static function calPrice($trainID, $carID, $sIL, $sIA){
+
+        $trainFare = DB::SELECT('SELECT fare FROM train where train_id ='.$trainID)[0]->fare;
+        $dl = DB::SELECT('SELECT distance FROM STATION WHERE station_id = '.$sIL)[0]->distance;
+        $da = DB::SELECT('SELECT distance FROM STATION WHERE station_id = '.$sIA)[0]->distance;
+        $seatFare = DB::SELECT('SELECT fare FROM type_seat WHERE type_seat_id = (SELECT type_seat_id FROM car WHERE car_id = '.$carID.')')[0]->fare;
+
+        $price = abs($dl-$da)*$trainFare+$seatFare;
+
+        return $price;
     }
     public static function getWaitSeatsInfo(){
         $userID = Auth::User()->user_id;
@@ -447,14 +465,19 @@ class DatabaseController extends Controller
             $carOrdinal = '';
             $seatOrdinal = '';
 
+            $trainID = 1;
+            $carID = 1;
+            $sIL = $ts->station_leave_id;
+            $sIA = $ts->station_arrive_id;
             //TrainName
-            $query = 'SELECT name FROM train a inner join(SELECT train_id FROM trip WHERE trip_id = '.$ts->trip_id.' ) i on i.train_id = a.train_id';
+            $query = 'SELECT name, a.train_id FROM train a inner join(SELECT train_id FROM trip WHERE trip_id = '.$ts->trip_id.' ) i on i.train_id = a.train_id';
             $name = DB::select($query);
             if(count($name)==0){
                 $trainName = 'No Name';
             }
             else{
                 $trainName = $name[0]->name;
+                $trainID = $name[0]->train_id;
             }
 
             //slName
@@ -488,13 +511,14 @@ class DatabaseController extends Controller
             }
 
             //carOrdinal
-            $query = 'SELECT ordinal FROM car c inner join(SELECT car_id FROM tickets WHERE ticket_id = '.$ts->ticket_id.') t on t.car_id = c.car_id';
+            $query = 'SELECT ordinal, c.car_id FROM car c inner join(SELECT car_id FROM tickets WHERE ticket_id = '.$ts->ticket_id.') t on t.car_id = c.car_id';
             $ordinal = DB::select($query);
             if(count($ordinal)==0){
                 $carOrdinal = 'No Ordinal';
             }
             else{
                 $carOrdinal = $ordinal[0]->ordinal;
+                $carID = $ordinal[0]->car_id;
             }
 
             //seatOrdinal
@@ -507,7 +531,9 @@ class DatabaseController extends Controller
                 $seatOrdinal = $ordinal[0]->ordinal;
             }
 
-            $json .= '{"trainName": "'.$trainName.'", "slName": "'.$slName.'", "saName": "'.$saName.'", "dateLeave": "'.$dateLeave.'", "typeSeat": "'.$typeSeat.'", "carOrdinal": "'.$carOrdinal.'", "seatOrdinal": "'.$seatOrdinal.'", "ownTime": "'.$ts->own_time.'", "price": "500", "ticketID": "'.$ts->ticket_id.'", "tripID": "'.$ts->trip_id.'", "stationIDLeave": "'.$ts->station_leave_id.'", "stationIDArrive": "'.$ts->station_arrive_id.'"}';
+            $price = DatabaseController::calPrice($trainID, $carID, $sIL, $sIA);
+
+            $json .= '{"trainName": "'.$trainName.'", "slName": "'.$slName.'", "saName": "'.$saName.'", "dateLeave": "'.$dateLeave.'", "typeSeat": "'.$typeSeat.'", "carOrdinal": "'.$carOrdinal.'", "seatOrdinal": "'.$seatOrdinal.'", "ownTime": "'.$ts->own_time.'", "price": "'.$price.'", "ticketID": "'.$ts->ticket_id.'", "tripID": "'.$ts->trip_id.'", "stationIDLeave": "'.$ts->station_leave_id.'", "stationIDArrive": "'.$ts->station_arrive_id.'"}';
             if($ts!=end($result)){
                     $json .= ', ';
             }

@@ -20,12 +20,12 @@ class TypePassengerTableSeeder extends Seeder
         DB::table('type_passenger')->insert([
         	'type_passenger_id' => 'SV',
         	'name' => 'Sinh viên',
-        	'discount' => 10
+        	'discount' => 50000
         ]);
         DB::table('type_passenger')->insert([
         	'type_passenger_id' => 'TE',
         	'name' => 'Trẻ em',
-        	'discount' => 20
+        	'discount' => 100000
         ]);
     }
 }

@@ -13,12 +13,7 @@
 
 Route::get('/', ['as' => '/', 'uses' => 'home\HomeController@getHomeView']);
 Route::get('/search', ['as' => 'search', 'uses' => 'search\SearchController@getSearchView']);
-Route::get('/thongtindatcho', function(){
-	return view('booking-information/booking-information');
-});
-Route::get('/kiemtrave', function(){
-	return view('check-valid-ticket/check-valid-ticket');
-});
+
 Route::get('/giotau', function(){
 	return view('timetable/timetable');
 });
@@ -162,9 +157,9 @@ Route::get('download-ticket', 'payment\PaymentController@downloadTicket');
 Route::post('postOwnTime', 'database\DatabaseController@postOwnTime');
 Route::post('postOwnTime24H', 'database\DatabaseController@postOwnTime24H');
 Route::post('postBillOwnTime', 'database\DatabaseController@postBillOwnTime');
-Route::get('test', function(){
-	return 'success';
-});
+//
+//
+Route::get('my-tickets', 'user\MyTicketsController@getView');
 //
 //Database request
 //Normal user

@@ -181,10 +181,10 @@
 			<div class="tickets-information">
 				<table class="table">
 					<tr style="background-color: #eee;">
-						<th style="width: 80px">STT</th>
+						<th style="width: 8%">STT</th>
 						<th>Thông tin mua vé</th>
-						<th style="width: 130px">Thời gian giữ vé</th>
-						<th style="width: 120px">Giá (VNĐ)</th>
+						<th style="width: 13%">Thời gian giữ vé</th>
+						<th style="width: 12%">Giá (VNĐ)</th>
 					</tr>
 				<?php $i = 0; $totalCost = 0;?>
 				@foreach($data as $item)
@@ -215,7 +215,7 @@
 							</script>
 						</td>
 						<td>
-							<p style="text-align: right">{{$item->cost}},000</p>
+							<p style="text-align: right">{{$item->cost}}</p>
 						</td>
 					</tr>
 				@endforeach
@@ -224,7 +224,7 @@
 							Tổng tiền
 						</td>
 						<td style="text-align: right;"">
-							{{$totalCost}},000
+							{{$totalCost}}
 						</td>
 					</tr>
 				</table>

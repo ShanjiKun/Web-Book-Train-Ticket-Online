@@ -188,13 +188,13 @@
 				<h6 style=" color: #e55a05; font-weight: 700;">Thông tin vé</h6>
 				<table class="table">
 					<tr style="background-color: #eee;">
-						<th style="width: 150px">Mã vé</th>
-						<th style="width: 150px">Họ tên</th>
-						<th>Số CMND/ Hộ chiếu/ Ngày tháng năm sinh trẻ em</th>
-						<th style="width: 130px">Đối tượng</th>
-						<th style="width: 150px">Thông tin chỗ</th>
-						<th style="width: 84px">Trạng thái</th>
-						<th style="width: 100px">Thành tiền</th>
+						<th style="width: 15%">Mã vé</th>
+						<th style="width: 15%">Họ tên</th>
+						<th>Giấy tờ</th>
+						<th style="width: 13%">Đối tượng</th>
+						<th style="width: 15%">Thông tin chỗ</th>
+						<th style="width: 9%">Trạng thái</th>
+						<th style="width: 10%">Thành tiền</th>
 					</tr>
 				<?php $cost = 0; ?>
 				@foreach($data as $item)
@@ -217,7 +217,7 @@
 							<p style="font-weight: bold; text-align: right;">Tổng tiền</p>
 						</td>
 						<td>
-							<p id="total-cost" style="font-weight: bold;">{{$cost}},000</p>
+							<p id="total-cost" style="font-weight: bold;">{{$cost}}</p>
 						</td>
 					</tr>
 				</table>
@@ -233,6 +233,7 @@
 			</div>
 			<div class="payment">
 				<div class="col-md-12">
+				<a style="float: right;" class="btn" href="my-tickets">Vé của tôi >></a>
 					<a style="float: right;" class="btn" href="Web-Book-Train-Ticket-Online/">Trang chủ >></a>
 				</div>
 			</div>

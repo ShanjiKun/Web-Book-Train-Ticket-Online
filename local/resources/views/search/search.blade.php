@@ -916,8 +916,7 @@
 
 				var response = JSON.parse(data);
 				if(response.code == 0){
-					var cost = response.data.cost;
-					currentCost = parseFloat(cost)*1000;
+					currentCost = response.data.cost;
 				}else{
 					alert(response.message);
 				}

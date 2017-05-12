@@ -100,7 +100,7 @@
 		            <ul class="nav navbar-nav navbar-left">
 		                <li><a href="/Web-Book-Train-Ticket-Online/search">TÌM VÉ</a>
 		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/thongtindatcho">THÔNG TIN ĐẶT CHỖ</a>
+		                <li><a href="/Web-Book-Train-Ticket-Online/my-tickets">VÉ CỦA TÔI</a>
 		                </li>
 		                <li><a href="/Web-Book-Train-Ticket-Online/giotau">GIỜ TÀU</a>
 		                </li>

@@ -12,6 +12,7 @@ use App\Http\Controllers\database\DatabaseController;
 use App\Model\Bill;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use App;
 use Dompdf\Dompdf;
 
@@ -66,8 +67,8 @@ class PaymentController extends Controller
     		$discount = $typePassenger->discount;
 
     		$ticketInfo = $ws->trainName.' '.$ws->slName.'-'.$ws->saName.' '.$ws->dateLeave.' '.$ws->typeSeat.' toa '.$ws->carOrdinal.' cho  '.$ws->seatOrdinal;
-    		$price = DatabaseController::simCost();
-
+            
+    		$price = $ws->price;
     		$cost = $price - $discount;
     		$dateSell = date("Y-m-d");
 
@@ -106,6 +107,9 @@ class PaymentController extends Controller
     	}
 
     	$payTypeID = $request->payType;
+        $payType = '';
+        if($payTypeID == 1) $payType = "Trực tuyến";
+        else $payType = "Trả sau";
 
     	$userID = Auth::User()->user_id;
         $query = "SELECT ticket_cart_id, own_time FROM ticket_sold WHERE user_id = ".$userID." AND state = 'W' AND ticket_cart_id IS NOT NULL";
@@ -115,13 +119,9 @@ class PaymentController extends Controller
 
         if(count($result) == 0) return redirect()->route('search');
 
-        $payType = '';
         foreach ($result as $item) {
         	$tcID = $item->ticket_cart_id;
         	$tc = DB::SELECT('select ticket_cart_id as tcID, name, card_date_id as id, ticket_information as info, type_passenger as typePass, cost from ticket_cart where ticket_cart_id = "'.$tcID.'"')[0];
-
-        	if($payTypeID == 1) $payType = "Trực tuyến";
-        	else $payType = "Trả sau";
 
         	$tc->ownTime = $item->own_time;
         	$data[] = $tc;
@@ -287,7 +287,9 @@ class PaymentController extends Controller
         $sumFare = $results[0]->sum_fare;
 
         $client = new Client();
-        $response = $client->post('http://192.168.1.115/PaymentService/api/payment/'.$bankID, [
+        $response;
+        try {
+            $response = $client->post('http://192.168.1.117/PaymentService/api/payment/'.$bankID, [
             'form_params' => [
                 'spID' => 'dsvn',
                 'cardID' => $cardID,
@@ -296,6 +298,10 @@ class PaymentController extends Controller
                 'charges' => $sumFare
             ]
         ]);
+        } catch (RequestException $e) {
+
+            return Utils::createResponseMessage( 1, "Address of Payment api uncorrect!", '{}');
+        }
 
         $res = json_decode($response->getBody());
         if($res->code != 0) return Utils::createResponseMessage($res->code, $res->message, '{}');
