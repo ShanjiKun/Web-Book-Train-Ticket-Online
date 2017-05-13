@@ -13,7 +13,7 @@
         </span><br />
         <span class="form_label"></span>
         <span class="form_item">
-            <input type="submit" name="btnPay" value="Thanh Toan" class="button"/>
+            <input type="submit" name="btnPay" value="Thanh Toán" class="button"/>
         </span>
     </fieldset>
 </form>  

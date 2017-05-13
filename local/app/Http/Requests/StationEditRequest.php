@@ -25,19 +25,23 @@ class StationEditRequest extends FormRequest
     {
         return [
             'txtStationName' => 'required|unique:station,name',
-            'txtStationName' => 'required',
-            'txtCity' => 'required',
-            'txtAddress' => 'required',
-            'txtDistance' => 'required'
+            'txtStationName' => 'required|alpha',
+            'txtCity' => 'required|alpha',
+            'txtAddress' => 'required|alpha_num',
+            'txtDistance' => 'required|integer'
         ];
     }
     public function messages(){
         return[
             'txtStationName.required' => 'Vui lòng nhập Tên Ga',
             'txtStationName.unique'=>'Tên Ga đã tồn tại.'
+            'txtStationName.alpha'=>'Nhập kí tự là chữ. Vui lòng nhập lại'
             'txtCity.required' => 'Vui lòng nhập Tên Thành Phố',
+            'txtCity.alpha'=>'Nhập kí tự là chữ. Vui lòng nhập lại'
             'txtAddress.required' => 'Vui lòng nhập Địa Chỉ',
+            'txtAddress.alpha_num' => 'Nhập kí tự là chữ hoặc số. Vui lòng nhập lại Địa Chỉ',
             'txtDistance.required' => 'Vui lòng nhập Khoảng Cách'
+            'txtDistance.integer' => 'Nhập kí tự là số. Vui lòng nhập lại Khoảng Cách'
         ];
     }
 }

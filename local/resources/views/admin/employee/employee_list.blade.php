@@ -6,10 +6,10 @@
 <table class="list_table">
     <tr class="list_heading">
         <td class="id_col">STT</td>
-        <td>Mã Admin</td>
+        <td>Mã Nhân Viên</td>
         <td>Họ và Tên</td>
         <td>Email</td>
-        <td>Level</td>
+        <td>Chức Vụ</td>
         <td class="action_col">Cập Nhật</td>
     </tr>
     <?php $i =0 ?>

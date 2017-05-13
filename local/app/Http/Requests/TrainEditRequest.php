@@ -25,15 +25,18 @@ class TrainEditRequest extends FormRequest
     {
         return [
             'txtTrainName' => 'required|unique:train,name',
-            'txtTrainName' => 'required',
-            'txtFare' => 'required'
+            'txtTrainName' => 'required|alpha_num|min:3',
+            'txtFare' => 'required|integer'
         ];
     }
     public function messages(){
         return[
             'txtTrainName.required' => 'Vui lòng nhập tên tàu',
             'txtTrainName.unique' => 'Tên Tàu đã tồn tại',
-            'txtFare.required' => 'Vui lòng nhập Giá tàu'
+            'txtTrainName.alpha_num' => 'Nhập kí tự là chữ hoặc số. Vui lòng nhập lại Tên Tàu',
+            'txtTrainName.min' => 'Nhập ít nhất 3kí tự . Vui lòng nhập lại Tên Tàu',
+            'txtFare.required' => 'Vui lòng nhập Giá tàu',
+            'txtFare.integer' => 'Nhập kí tự là số. Vui lòng nhập lại Giá tàu'
             
         ];
     }

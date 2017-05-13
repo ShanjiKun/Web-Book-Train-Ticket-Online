@@ -1,7 +1,7 @@
 @extends('admin.admin-master')
 
-@section('title', 'Danh sách Users')
-@section('logo', 'Danh Sách Users')
+@section('title', 'Danh sách Hành Khách')
+@section('logo', 'Danh Sách Hành Khách')
 @section('content')
 <table class="list_table">
     <tr class="list_heading">

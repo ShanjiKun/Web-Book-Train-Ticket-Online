@@ -11,7 +11,7 @@
 	</tr>
 	<tr>
 		
-		<td class="function_item user_list"><a href="{!! route('getUserList')!!}">Quản Lý Users</a></td>
+		<td class="function_item user_list"><a href="{!! route('getUserList')!!}">Quản Lý Hành Khách</a></td>
 		<td class="function_item chart_list"><a href="admin\dashboard\chart">Thống kê</a></td>
 	</tr>
 	

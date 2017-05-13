@@ -26,7 +26,7 @@
             <div id="top">
                 <div class="banner-left-logo">
                     <div class="banner-right">
-                        Admin Area :: @yield('logo')
+                        Trang Admin :: @yield('logo')
                     </div>
                 </div>
             </div>
