@@ -290,7 +290,7 @@ class PaymentController extends Controller
         $client = new Client();
         $response;
         try {
-            $response = $client->post('http://192.168.1.117/PaymentService/api/payment/'.$bankID, [
+            $response = $client->post('http://localhost/PaymentService/api/payment/'.$bankID, [
             'form_params' => [
                 'spID' => 'dsvn',
                 'cardID' => $cardID,
@@ -377,7 +377,7 @@ class PaymentController extends Controller
         $client = new Client();
         $response;
         try {
-            $response = $client->post('http://192.168.1.117/PaymentService/api/payment/refund', [
+            $response = $client->post('http://localhost/PaymentService/api/payment/refund', [
             'form_params' => [
                 'spID' => 'dsvn',
                 'token' => $token,
