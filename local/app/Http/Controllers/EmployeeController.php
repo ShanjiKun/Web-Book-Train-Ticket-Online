@@ -20,7 +20,26 @@ class EmployeeController extends Controller
         $user->email = $requests->email;
     	$user->password = Hash::make($requests->txtPass);
         $user->level = $requests ->rdoLevel;
-    	$user->save();
+        // var letters = /^[A-Za-z]+$/;  
+        //    if(inputtxt.value.match(letters))  
+        //      {  
+        //       return true;  
+        //      }  
+        //    else  
+        //      {  
+        //      alert("message");  
+        //      return false;  
+        //      }
+
+    	try {
+            
+            $user->save();
+        } catch (\Exception $e) {
+            $errorCode = $e->getCode();
+            if($errorCode == 23000)
+                return redirect()->back()->withErrors(['error' => 'Username đã tồn tại!']);
+            return redirect()->back()->withErrors(['error' => 'Something went wrong!']);
+        }
     	return redirect()->route('getEmployeeList')->with(['flash_level'=> 'result_msg', 'flash_message'=> 'Thêm nhân viên thành công']);
     }
     public function getEmployeeList(){
@@ -43,7 +62,15 @@ class EmployeeController extends Controller
         $user->username = $requests->txtUser;
         $user->email = $requests->email;
         $user->password = Hash::make($requests->txtPass);
-        $user->save();
+        try {
+            
+            $user->save();
+        } catch (\Exception $e) {
+            $errorCode = $e->getCode();
+            if($errorCode == 23000)
+                return redirect()->back()->withErrors(['error' => 'Username đã tồn tại!']);
+            return redirect()->back()->withErrors(['error' => 'Something went wrong!']);
+        }
         return redirect()->route('getEmployeeList')->with(['flash_level'=> 'result_msg', 'flash_message'=> 'Sửa nhân viên thành công']);
     }
     public function getUserList(){

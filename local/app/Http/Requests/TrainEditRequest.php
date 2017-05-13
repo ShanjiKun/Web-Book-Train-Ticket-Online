@@ -24,6 +24,7 @@ class TrainEditRequest extends FormRequest
     public function rules()
     {
         return [
+            'txtTrainName' => 'required|unique:train,name',
             'txtTrainName' => 'required',
             'txtFare' => 'required'
         ];
@@ -31,6 +32,7 @@ class TrainEditRequest extends FormRequest
     public function messages(){
         return[
             'txtTrainName.required' => 'Vui lòng nhập tên tàu',
+            'txtTrainName.unique' => 'Tên Tàu đã tồn tại',
             'txtFare.required' => 'Vui lòng nhập Giá tàu'
             
         ];

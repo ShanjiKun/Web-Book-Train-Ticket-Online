@@ -26,7 +26,6 @@ class EmployeeAddRequest extends FormRequest
         return [
             'txtName' => 'required',
             'txtUser' => 'required|unique:users,username',
-            
             'txtUser' => 'required',
             'email' => 'required',
             'email' => 'required|unique:users,email',
