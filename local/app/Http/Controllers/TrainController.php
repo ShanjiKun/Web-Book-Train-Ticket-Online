@@ -15,7 +15,15 @@ class TrainController extends Controller
     	$train = new Train;
     	$train -> name = $request -> txtTrainName;
         $train -> fare = $request -> txtFare;
-    	$train -> save();
+    	try {
+            
+            $train->save();
+        } catch (\Exception $e) {
+            $errorCode = $e->getCode();
+            if($errorCode == 23000)
+                return redirect()->back()->withErrors(['error' => 'Tên Tàu đã tồn tại!']);
+            return redirect()->back()->withErrors(['error' => 'Something went wrong!']);
+        }
     	return redirect()-> route('getTrainList')->with(['flash_level' => 'result_msg','flash_message' => 'Thêm tàu thành công']);
     }
     public function getTrainList(){
@@ -36,7 +44,15 @@ class TrainController extends Controller
         $train = Train::find($id);
         $train -> name = $request -> txtTrainName;
         $train -> fare = $request -> txtFare;
-        $train -> save();
+        try {
+            
+            $train->save();
+        } catch (\Exception $e) {
+            $errorCode = $e->getCode();
+            if($errorCode == 23000)
+                return redirect()->back()->withErrors(['error' => 'Tên Tàu đã tồn tại!']);
+            return redirect()->back()->withErrors(['error' => 'Something went wrong!']);
+        }
         return redirect()-> route('getTrainList')->with(['flash_level' => 'result_msg','flash_message' => 'Sửa tàu thành công']);
     }
 }

@@ -19,7 +19,15 @@ class StationController extends Controller
     	$station -> city = $request -> txtCity;
     	$station -> address = $request -> txtAddress;
     	$station -> distance = $request -> txtDistance;
-    	$station -> save();
+    	try {
+            
+            $station->save();
+        } catch (\Exception $e) {
+            $errorCode = $e->getCode();
+            if($errorCode == 23000)
+                return redirect()->back()->withErrors(['error' => 'Tên Ga đã tồn tại!']);
+            return redirect()->back()->withErrors(['error' => 'Something went wrong!']);
+        }
     	return redirect()-> route('getStationList')->with(['flash_level' => 'result_msg','flash_message' => 'Thêm ga tàu thành công']);
     }
     public function getStationList(){
@@ -42,7 +50,15 @@ class StationController extends Controller
         $station -> city = $request -> txtCity;
         $station -> address = $request -> txtAddress;
         $station -> distance = $request -> txtDistance;
-        $station -> save();
+        try {
+            
+            $station->save();
+        } catch (\Exception $e) {
+            $errorCode = $e->getCode();
+            if($errorCode == 23000)
+                return redirect()->back()->withErrors(['error' => 'Tên Ga đã tồn tại!']);
+            return redirect()->back()->withErrors(['error' => 'Something went wrong!']);
+        }
         return redirect()-> route('getStationList')->with(['flash_level' => 'result_msg','flash_message' => 'Sửa ga tàu thành công']);
     }
 }

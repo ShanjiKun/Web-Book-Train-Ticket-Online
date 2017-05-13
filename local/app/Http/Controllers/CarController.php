@@ -20,13 +20,22 @@ class CarController extends Controller
         return view('admin\car\car-add',['data' => $data , 'data1'=>$data1]);
     }
     public function postCarAdd(CarAddRequest $requests){
+       
     	$car = new Car;
     	$car->name = $requests->txtCarName;
     	$car->num_seat = $requests->txtNumSeat;
         $car->train_id = $requests->sltTrain;
     	$car->type_seat_id = $requests->sltCar;
         $car->ordinal = $requests->txtOr;
-    	$car->save();
+        try {
+            
+            $car->save();
+        } catch (\Exception $e) {
+            $errorCode = $e->getCode();
+            if($errorCode == 23000)
+                return redirect()->back()->withErrors(['error' => 'Tên Toa đã tồn tại!']);
+            return redirect()->back()->withErrors(['error' => 'Something went wrong!']);
+        }
         
         for($i=1; $i<= $car->num_seat; $i++){
             DB::table('tickets')->insert(
@@ -68,7 +77,15 @@ class CarController extends Controller
         $car->train_id = $requests->sltTrain;
         $car->type_seat_id = $requests->sltCar;
         $car->ordinal = $requests->txtOr;
-        $car->save();
+        try {
+            
+            $car->save();
+        } catch (\Exception $e) {
+            $errorCode = $e->getCode();
+            if($errorCode == 23000)
+                return redirect()->back()->withErrors(['error' => 'Tên Toa đã tồn tại!']);
+            return redirect()->back()->withErrors(['error' => 'Something went wrong!']);
+        }
         $ticket->where('car_id', $id)->update(array('state' => 'D')); 
         for($i=1; $i<= $car->num_seat; $i++){
             DB::table('tickets')->insert(
