@@ -24,30 +24,22 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'txtUser' => 'required',
-            'txtPass' => 'required'
+            'txtUser' => 'required|alpha_num|min:6|max:12',
+            'txtPass' => 'required|alpha_num|min:6|max:12',
         ];
     }
     public function messages()
     {
         return [
-            'txtUser.required' => 'Vui lòng nhập Username',
-            'txtPass.required'  => 'Vui lòng nhập Password',
+            'txtUser.required' => 'Vui lòng nhập tên đăng nhập',
+            'txtUser.min' => 'Tên đăng nhập phải có ít nhất 6 kí tự. Vui lòng nhập lại',
+            'txtUser.max' => 'Tên đăng nhập phải có tối đa 12 kí tự. Vui lòng nhập lại',
+            'txtUser.alpha_num' => 'Chỉ nhập kí tự chữ và số. Vui lòng nhập lại',
+            'txtPass.required' => 'Vui lòng nhập mật khẩu',
+            'txtPass.max' => 'Mật khẩu chỉ có tối đa 12 kí tự.Vui lòng nhập lại mật khẩu',
+            'txtPass.min' => 'Mật khẩu  phải có ít nhất 6 kí tự. Vui lòng nhập lại mật khẩu',
+            'txtPass.alpha_num' => 'Chỉ nhập kí tự chữ và số. Vui lòng nhập lại',
         ];
     }
-    // public function store(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'title' => 'required|unique:posts|max:255',
-    //         'body' => 'required',
-    //     ]);
-
-    //     if ($validator->fails()) {
-    //         return redirect('post/create')
-    //                     ->withErrors($validator)
-    //                     ->withInput();
-    //     }
-
-    //     // Store the blog post...
-    // }
+    
 }

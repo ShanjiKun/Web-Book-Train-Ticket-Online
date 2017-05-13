@@ -24,12 +24,13 @@ class PaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            'txtId' => 'required'
+            'txtId' => 'required|numeric'
         ];
     }
     public function messages(){
         return[
-            'txtId.required' => 'Vui lòng nhập Mã thanh toán'
+            'txtId.required' => 'Vui lòng nhập Mã thanh toán',
+            'txtId.numeric' =>"Chỉ nhập kí tự là số"
         ];
     }
 }
