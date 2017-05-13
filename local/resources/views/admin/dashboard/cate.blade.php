@@ -18,8 +18,5 @@
 		<td class="function_item station_list"><a href="{!! route('getStationList')!!}">Quản Lý Ga Tàu</a></td>
 
 	</tr>
-	<tr>
-	 	<td class="function_item user_list"><a href="{!! route('getUserList')!!}">Quản Lý Users</a></td>
- 	</tr>
 </table>    
 @endsection

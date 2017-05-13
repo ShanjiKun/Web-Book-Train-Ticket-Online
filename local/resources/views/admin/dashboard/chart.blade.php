@@ -21,7 +21,27 @@ th {
 }
 </style>
 @section('content')
-<h1 style="text-align:center; color:#0091d4">THỐNG KÊ</h1>
+<h2 style="text-align:center; color:#0091d4">THỐNG KÊ ADMIN</h2>
+
+<table>
+  <tr>
+    <th style="text-align:center">Level</th>
+    <th style="text-align:center">Số Lượng</th>
+  </tr>
+  <tr>
+    <td style="text-align:center">SupperAdmin</td>
+    <td style="text-align:center">{!!$user!!}</td>
+    
+  </tr>
+  <tr>
+    <td style="text-align:center">Admin</td>
+    <td style="text-align:center">{!!$user1!!}</td>
+    
+  </tr>
+  
+</table>
+
+<h2 style="text-align:center; color:#0091d4">THỐNG KÊ CÁC DANH MỤC</h2>
 
 <table>
   <tr>
@@ -29,8 +49,8 @@ th {
     <th style="text-align:center">Số Lượng</th>
   </tr>
   <tr>
-    <td style="text-align:center">Admin</td>
-    <td style="text-align:center">{!!$user!!}</td>
+    <td style="text-align:center">Chuyến Tàu</td>
+    <td style="text-align:center">{!!$trip!!}</td>
     
   </tr>
   <tr>
@@ -42,7 +62,37 @@ th {
     <td style="text-align:center">Ga Tàu</td>
     <td style="text-align:center">{!!$station!!}</td>
   </tr>
-  
+  <tr>
+    <td style="text-align:center">Toa Tàu</td>
+    <td style="text-align:center">{!!$car!!}</td>
+  </tr>
+  <tr>
+    <td style="text-align:center">Hành Khách</td>
+    <td style="text-align:center">{!!$user2!!}</td>
+    
+  </tr>
+</table>
+<h2 style="text-align:center; color:#0091d4">THỐNG KÊ HOẠT ĐỘNG BÁN VÉ</h2>
+
+<table>
+  <tr>
+    <th style="text-align:center">STT</th>
+    <th style="text-align:center">Loại Hành Khách</th>
+    <th style="text-align:center">Số Lượng</th>
+    <th style="text-align:center">Tổng Tiền</th>
+  </tr>
+  <tr>
+    <?php //echo json_encode($num_users) ?>
+    <?php $i = 0 ?>
+    @foreach($num_users as $item)
+        <?php $i++; ?>
+            <td style="text-align:center">{!! $i !!}</td>
+            <td style="text-align:center">{!! $item->type_passenger!!}</td>
+            <td style="text-align:center">{!! $item->total!!}</td>
+            <td style="text-align:center">{!! $item->totalCost!!}</td>
+    @endforeach
+    
+  </tr>
 </table>
 
 @endsection

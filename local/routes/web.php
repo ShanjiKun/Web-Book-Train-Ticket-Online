@@ -58,10 +58,30 @@ Route::group(['prefix'=>'admin'],function(){
 		return view('admin/dashboard/cate');
 	});
 	Route::get('dashboard/chart', function(){
-		$user = DB::table('employee')->count();
-		$station = DB::table('station')->count();
-		$train = DB::table('train')->count();
-		return view('admin/dashboard/chart',['user' => $user, 'station'=>$station, 'train'=>$train]);
+		$user = DB::table('users')->where ([['level',1],['state','E']])->count();
+		$user1 = DB::table('users')->where ([['level',2],['state','E']])->count();
+		$user2 = DB::table('users')->where ([['level',0],['state','E']])->count();
+		$station = DB::table('station')->where ('state','E')->count();
+		$train = DB::table('train')->where ('state','E')->count();
+		$trip = DB::table('trip')->where ('state','E')->count();
+		$car = DB::table('car')->where ('state','E')->count();
+   //      $num_users = DB::table('ticket_cart')
+   //              ->select('type_passenger',DB::raw('count(*) as total'))
+   //              ->groupBy('type_passenger')->get()->toArray();
+   //              //->pluck('total','type_passenger')->all();
+     
+ 		// $num_price = DB::table('ticket_cart')
+			// 	->groupBy('type_passenger')
+			// 	->selectRaw('sum(price) as sum,type_passenger')->get();
+	   			//->pluck('sum','type_passenger');
+
+		$num_users = DB::SELECT('SELECT type_passenger, count(type_passenger) as total, sum(cost) as totalCost FROM ticket_cart GROUP BY type_passenger');
+
+   		$num_ticket_sold = DB::table('ticket_sold')->where('state','S')->count();
+   		$num_ticket_wait = DB::table('ticket_sold')->where('state','W')->count();
+               // return $num_price;
+		return view('admin/dashboard/chart',['user' => $user, 'user1' => $user1,'user2' => $user2,'station'=>$station, 
+											'train'=>$train, 'trip'=> $trip,'car' => $car,'num_users' => $num_users]);
 	});
 });
 
@@ -80,7 +100,7 @@ Route::get('admin',['as' => 'admin', function(){
 	
 }]);
 Route::get('admin1',['as' => 'admin1', function(){
-	return view('admin/dashboard/cate');
+	return view('admin/dashboard/cate1');
 }]);
 //login
 Route::get('employee_add',['as' => 'getEmployeeAdd' , 'uses' => 'EmployeeController@getEmployeeAdd']);
@@ -120,6 +140,10 @@ Route::get('car-update/{id}',['as' => 'getCarDelete' , 'uses' => 'CarController@
 Route::get('car-edit/{id}',['as' => 'getCarEdit' , 'uses' => 'CarController@getCarEdit']);
 Route::post('car-edit/{id}',['as' => 'postCarEdit' , 'uses' => 'CarController@postCarEdit']);
 //Car
+Route::get('payment',['as' => 'getPayment' , 'uses' => 'PaymentController@getPayment']);
+Route::post('payment',['as' => 'postPayment' , 'uses' => 'PaymentController@postPayment']);
+Route::get('bill-list',['as' => 'getBillList' , 'uses' => 'PaymentController@getBillList']);
+//payment
 //*****
 // Route::group(['prefix' => 'admin'], function(){
 // 	Route::group(['prefix' => 'employee'],function(){

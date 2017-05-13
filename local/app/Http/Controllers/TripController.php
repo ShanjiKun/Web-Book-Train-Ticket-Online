@@ -172,6 +172,49 @@ class TripController extends Controller
         $trip -> date_sell = new DateTime();
         $trip -> user_id = Auth::User() -> user_id;
         $trip -> save();
+        DB::table('station_stop')->where('trip_id', '=', $trip ->trip_id)->delete();
+        if($trip -> station_leave_id < $trip -> station_arrive_id){
+            DB::table('station_stop')->insert(
+                                                ['trip_id' => $trip ->trip_id, 'station_id' => $trip -> station_leave_id,'date_arrive'=>$trip -> date_leave, 'date_leave'=>$trip -> date_leave]
+                                            );
+            for($i=$trip -> station_leave_id + 1; $i<=$trip -> station_arrive_id; $i++){
+                if($i != $trip -> station_arrive_id){
+                    DB::table('station_stop')->insert(
+                                                ['trip_id' => $trip ->trip_id, 'station_id' => $i,'date_arrive'=> $this->AddTime($i,$trip ->trip_id,$i-1),'date_leave'=> $this->AddTimeLeave($this->AddTime($i,$trip ->trip_id,$i-1))]
+                                            );
+                }
+                else{
+                    DB::table('station_stop')->insert(
+                                                ['trip_id' => $trip ->trip_id, 'station_id' => $i,'date_arrive'=> $this->AddTime($i,$trip ->trip_id,$i-1),'date_leave'=>$this->AddTime($i,$trip ->trip_id,$i-1)]
+                                            );
+                }
+
+            }
+            DB::table('trip')
+            ->where('trip_id', $trip ->trip_id)
+            ->update(['date_arrive' => $this->AddTime($trip -> station_arrive_id ,$trip ->trip_id,$trip -> station_arrive_id -1)]);
+        }
+        else{
+            DB::table('station_stop')->insert(
+                                                ['trip_id' => $trip ->trip_id, 'station_id' => $trip -> station_leave_id,'date_arrive'=>$trip -> date_leave, 'date_leave'=>$trip -> date_leave]
+                                            );
+            for($i=$trip -> station_leave_id - 1; $i>=$trip -> station_arrive_id; $i--){
+                if($i != $trip -> station_arrive_id){
+                    DB::table('station_stop')->insert(
+                                                ['trip_id' => $trip ->trip_id, 'station_id' => $i,'date_arrive'=> $this->AddTime($i,$trip ->trip_id,$i+1),'date_leave'=> $this->AddTimeLeave($this->AddTime($i,$trip ->trip_id,$i+1))]
+                                            );
+                }
+                else{
+                    DB::table('station_stop')->insert(
+                                                ['trip_id' => $trip ->trip_id, 'station_id' => $i,'date_arrive'=> $this->AddTime($i,$trip ->trip_id,$i+1),'date_leave'=>$this->AddTime($i,$trip ->trip_id,$i+1)]
+                                            );
+                }
+
+            }
+            DB::table('trip')
+            ->where('trip_id', $trip ->trip_id)
+            ->update(['date_arrive' => $this->AddTime($trip -> station_arrive_id ,$trip ->trip_id,$trip -> station_arrive_id +1)]);
+        }
         return redirect()->route('getTripList')->with(['flash_level'=> 'result_msg', 'flash_message'=> 'Sửa Chuyến Tàu thành công']);
     }
     
