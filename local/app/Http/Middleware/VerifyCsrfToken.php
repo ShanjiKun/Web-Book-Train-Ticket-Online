@@ -25,6 +25,7 @@ class VerifyCsrfToken extends BaseVerifier
         'postBillOwnTime',
         'getUser',
         'updatePassengerInfo',
-        'payment-online'
+        'payment-online',
+        'sign-up'
     ];
 }

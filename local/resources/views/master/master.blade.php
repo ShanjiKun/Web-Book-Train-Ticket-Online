@@ -38,7 +38,7 @@
 						var user;
 
 						var pathname = window.location.pathname;
-						if(pathname == '/Web-Book-Train-Ticket-Online/search' || pathname == '/Web-Book-Train-Ticket-Online/') {
+						if(pathname == '/Web-Book-Train-Ticket-Online/search' || pathname == '/Web-Book-Train-Ticket-Online/my-tickets' || pathname == '/Web-Book-Train-Ticket-Online/') {
 
 							var xhttp = new XMLHttpRequest();
 							xhttp.onreadystatechange = function() {
@@ -78,7 +78,7 @@
 							window.location.href = 'login';
 						}
 						function signout(){
-							window.location.href = 'login';
+							window.location.href = 'sign-up';
 						}
 					</script>
 				</div>
@@ -100,15 +100,11 @@
 		            <ul class="nav navbar-nav navbar-left">
 		                <li><a href="/Web-Book-Train-Ticket-Online/search">TÌM VÉ</a>
 		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/thongtindatcho">THÔNG TIN ĐẶT CHỖ</a>
+		                <li><a href="/Web-Book-Train-Ticket-Online/my-tickets">VÉ CỦA TÔI</a>
 		                </li>
 		                <li><a href="/Web-Book-Train-Ticket-Online/giotau">GIỜ TÀU</a>
 		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/khuyenmai">KHUYẾN MÃI</a>
-		                </li>
 		                <li><a href="/Web-Book-Train-Ticket-Online/quydinh">CÁC QUY ĐỊNH</a>
-		                </li>
-		                <li><a href="/Web-Book-Train-Ticket-Online/huongdan">HƯỚNG DẪN</a>
 		                </li>
 		                <li><a href="/Web-Book-Train-Ticket-Online/lienhe">LIỆN HỆ</a>
 		                </li>

@@ -12,6 +12,7 @@ use App\Http\Controllers\database\DatabaseController;
 use App\Model\Bill;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use App;
 use Dompdf\Dompdf;
 
@@ -66,8 +67,8 @@ class PaymentController extends Controller
     		$discount = $typePassenger->discount;
 
     		$ticketInfo = $ws->trainName.' '.$ws->slName.'-'.$ws->saName.' '.$ws->dateLeave.' '.$ws->typeSeat.' toa '.$ws->carOrdinal.' cho  '.$ws->seatOrdinal;
-    		$price = DatabaseController::simCost();
-
+            
+    		$price = $ws->price;
     		$cost = $price - $discount;
     		$dateSell = date("Y-m-d");
 
@@ -106,6 +107,9 @@ class PaymentController extends Controller
     	}
 
     	$payTypeID = $request->payType;
+        $payType = '';
+        if($payTypeID == 1) $payType = "Trực tuyến";
+        else $payType = "Trả sau";
 
     	$userID = Auth::User()->user_id;
         $query = "SELECT ticket_cart_id, own_time FROM ticket_sold WHERE user_id = ".$userID." AND state = 'W' AND ticket_cart_id IS NOT NULL";
@@ -115,13 +119,9 @@ class PaymentController extends Controller
 
         if(count($result) == 0) return redirect()->route('search');
 
-        $payType = '';
         foreach ($result as $item) {
         	$tcID = $item->ticket_cart_id;
         	$tc = DB::SELECT('select ticket_cart_id as tcID, name, card_date_id as id, ticket_information as info, type_passenger as typePass, cost from ticket_cart where ticket_cart_id = "'.$tcID.'"')[0];
-
-        	if($payTypeID == 1) $payType = "Trực tuyến";
-        	else $payType = "Trả sau";
 
         	$tc->ownTime = $item->own_time;
         	$data[] = $tc;
@@ -252,7 +252,7 @@ class PaymentController extends Controller
     		return redirect()->route('search');
     	}
 
-    	$results = DB::SELECT('SELECT sum_fare, own_time FROM bill WHERE bill_id='.$billID.' AND transaction_id IS NULL');
+    	$results = DB::SELECT('SELECT sum_fare, own_time FROM bill WHERE bill_id='.$billID.' AND transaction_id IS NULL AND state = "E"');
     	if(count($results)==0) return redirect()->route('search');
 
     	$sumFare = $results[0]->sum_fare;
@@ -286,16 +286,24 @@ class PaymentController extends Controller
 
         $sumFare = $results[0]->sum_fare;
 
+        $token = 'dsvn111111';
         $client = new Client();
-        $response = $client->post('http://192.168.1.115/PaymentService/api/payment/'.$bankID, [
+        $response;
+        try {
+            $response = $client->post('http://192.168.1.117/PaymentService/api/payment/'.$bankID, [
             'form_params' => [
                 'spID' => 'dsvn',
                 'cardID' => $cardID,
                 'accountHolder' => $accountHolder,
                 'billID' => $billID,
-                'charges' => $sumFare
+                'charges' => $sumFare,
+                'token' => $token
             ]
         ]);
+        } catch (RequestException $e) {
+
+            return Utils::createResponseMessage( 1, "Address of Payment api uncorrect!", '{}');
+        }
 
         $res = json_decode($response->getBody());
         if($res->code != 0) return Utils::createResponseMessage($res->code, $res->message, '{}');
@@ -314,7 +322,7 @@ class PaymentController extends Controller
 
         $billID = $request->billID;
 
-        $results = DB::SELECT('SELECT bill_id FROM bill WHERE bill_id = '.$billID.' AND transaction_id IS NOT NULL');
+        $results = DB::SELECT('SELECT bill_id FROM bill WHERE bill_id = '.$billID.' AND transaction_id IS NOT NULL AND state = "E"');
         if(count($results) == 0) return redirect()->route('search');
 
         $query = "SELECT ts.ticket_cart_id, ticket_id FROM ticket_sold ts INNER JOIN (SELECT ticket_cart_id FROM ticket_cart WHERE bill_id = ".$billID.") tc on ts.ticket_cart_id = tc.ticket_cart_id";
@@ -340,6 +348,65 @@ class PaymentController extends Controller
         if(count($data)==0) return redirect()->route('search');
 
         return view("payment\payment-success", ["data" => $data, "bill" => $billID]);
+    }
+
+    public function getRefund(Request $request){
+        $billID = $request->billID;
+
+        $res = DB::SELECT('SELECT transaction_id, state FROM bill WHERE bill_id = '.$billID);
+
+        if(count($res) == 0) return Utils::createResponse( 8, '{}');
+        if($res[0]->transaction_id == null) return Utils::createResponse( 9, '{}');
+        if($res[0]->state == 'C') return Utils::createResponse( 10, '{}');
+
+        $tc = DB::SELECT('SELECT ticket_cart_id FROM ticket_cart WHERE bill_id = '.$billID);
+        if(count($tc) == 0) return Utils::createResponse( 100, '{}');
+        foreach ($tc as $item) {
+            $tcID = $item->ticket_cart_id;
+            $tripID = explode('-', $tcID)[1];
+            $trip = DB::SELECT('SELECT UNIX_TIMESTAMP(date_leave) as sl FROM trip WHERE trip_id = '.$tripID)[0];
+            $sec = $trip->sl - time();
+            $h = $sec/60/60;
+            if($h < 48){
+                return Utils::createResponse( 11, '{}');
+            }
+        }
+
+        $tranID = $res[0]->transaction_id;
+        $token = 'dsvn111111';
+        $client = new Client();
+        $response;
+        try {
+            $response = $client->post('http://192.168.1.117/PaymentService/api/payment/refund', [
+            'form_params' => [
+                'spID' => 'dsvn',
+                'token' => $token,
+                'tranID' => $tranID,
+                'billID' => $billID,
+                
+            ]
+        ]);
+        } catch (RequestException $e) {
+
+            return Utils::createResponseMessage( 1, "Address of Payment api uncorrect!", '{}');
+        }
+
+        $res = json_decode($response->getBody());
+        if($res->code != 0) return Utils::createResponseMessage($res->code, $res->message, '{}');
+
+        $ts = DB::select("SELECT ticket_cart_id FROM ticket_cart WHERE bill_id = ".$billID);
+        if(count($ts) > 0){
+            foreach ($ts as $item) {
+                $query = "DELETE FROM ticket_sold WHERE ticket_cart_id = '".$item->ticket_cart_id."'";
+                DB::select($query);
+                $query = "DELETE FROM ticket_cart WHERE ticket_cart_id = '".$item->ticket_cart_id."'";
+                DB::select($query);
+            }
+        }
+        $query = "UPDATE bill SET state = 'C' WHERE bill_id = ".$billID;
+        DB::select($query);
+
+        return Utils::createResponse(0, '{}');
     }
 
     public function downloadTicket(Request $request){

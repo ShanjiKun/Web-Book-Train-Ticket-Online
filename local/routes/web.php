@@ -13,12 +13,7 @@
 
 Route::get('/', ['as' => '/', 'uses' => 'home\HomeController@getHomeView']);
 Route::get('/search', ['as' => 'search', 'uses' => 'search\SearchController@getSearchView']);
-Route::get('/thongtindatcho', function(){
-	return view('booking-information/booking-information');
-});
-Route::get('/kiemtrave', function(){
-	return view('check-valid-ticket/check-valid-ticket');
-});
+
 Route::get('/giotau', function(){
 	return view('timetable/timetable');
 });
@@ -88,6 +83,8 @@ Route::group(['prefix'=>'admin'],function(){
 //
 Route::get('login',['as' => 'getLogin','uses' => 'LoginController@getLogin']);
 Route::post('login',['as' => 'postLogin','uses' => 'LoginController@postLogin']);
+Route::get('sign-up',['as' => 'getLogin','uses' => 'LoginController@getSignUp']);
+Route::post('sign-up',['as' => 'postLogin','uses' => 'LoginController@postSignUp']);
 Route::get('logout',['as' => 'getLogout','uses' => 'LoginController@getLogout']);
 Route::get('admin',['as' => 'admin', function(){
 	if(!Auth::check()){
@@ -180,15 +177,16 @@ Route::get('payment-later', 'payment\PaymentController@getPaymentLater');
 Route::get('payment-online', 'payment\PaymentController@getPaymentOnline');
 Route::post('payment-online', 'payment\PaymentController@postPaymentOnline');
 Route::get('payment-success', 'payment\PaymentController@getPaymentSuccess');
+Route::get('refund', 'payment\PaymentController@getRefund');
 
 Route::get('download-ticket', 'payment\PaymentController@downloadTicket');
 //
 Route::post('postOwnTime', 'database\DatabaseController@postOwnTime');
 Route::post('postOwnTime24H', 'database\DatabaseController@postOwnTime24H');
 Route::post('postBillOwnTime', 'database\DatabaseController@postBillOwnTime');
-Route::get('test', function(){
-	return 'success';
-});
+//
+//
+Route::get('my-tickets', 'user\MyTicketsController@getView');
 //
 //Database request
 //Normal user

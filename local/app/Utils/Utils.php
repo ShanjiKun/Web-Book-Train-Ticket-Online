@@ -28,8 +28,20 @@ class Utils{
 			case 7:
 				$message = 'Đơn hàng hết hạn!';
 				break;
+			case 8:
+				$message = 'Đơn hàng không hợp lệ!';
+				break;
+			case 9:
+				$message = 'Đơn hàng Chưa thanh toán!';
+				break;
+			case 10:
+				$message = 'Đơn hàng đã hủy trước đó!';
+				break;
+			case 11:
+				$message = 'Thời gian trả vé cách thời gian tàu chạy 48 tiếng!';
+				break;
 			default:
-				$message = 'Server error';
+				$message = 'Something went wrong!';
 				break;
 		}
 		$ret = '{"code": "'.$code.'", "message": "'.$message.'", "data": '.$jsonData.'}';
