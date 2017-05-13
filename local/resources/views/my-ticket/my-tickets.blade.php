@@ -215,7 +215,7 @@
 			$.get('refund?billID='+billID, function(data, status){
 				var res = JSON.parse(data);
 				if(res.code != 0) alert(res.message);
-
+				alert('Trả vé thành công!');
 				window.location.href = 'my-tickets';
 			});
 		}

@@ -14,39 +14,20 @@ class UsersTableSeeder extends Seeder
 
 
         DB::table('users')->insert([
-        	'name' => 'Nguyễn Văn A',
+        	'name' => 'Bui Thi Huyen',
         	'password' => Hash::make('123456'),
-        	'username' => 'nva',
-            'email' => 'nva@gmail.com',
+        	'username' => 'huyenbui',
+            'email' => 'huyenbui@gmail.com',
             'state' => 'E', 
             'level' => 1 //admin
         ]);
         DB::table('users')->insert([
-        	'name' => 'Trần Văn B',
+        	'name' => 'Huynh Ton Vinh',
         	'password' => Hash::make('123456'),
-        	'username' => 'tvb',
-            'email' => 'tvb@gmail.com',
+        	'username' => 'vinhhuynh',
+            'email' => 'vinhhuynh@gmail.com',
             'state' => 'E',
             'level' => 2 //Super admin
         ]);
-
-        DB::table('users')->insert([
-            'name' => 'Trần Văn C',
-            'password' => Hash::make('123456'),
-            'username' => 'tvc',
-            'email' => 'tvc@gmail.com',
-            'state' => 'E',
-            'level' => 0 //normal user
-        ]);
-
-        DB::table('users')->insert([
-            'name' => 'Trần Văn D',
-            'password' => Hash::make('123456'),
-            'username' => 'tvd',
-            'email' => 'tvd@gmail.com',
-            'state' => 'E',
-            'level' => 0 //normal user
-        ]);
-
     }
 }

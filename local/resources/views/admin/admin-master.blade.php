@@ -34,7 +34,7 @@
         		<table width="100%">
         			<tr>
         				<td>
-        					<a href="{!! route('admin')!!}">Quản Lý Nhân Viên</a> | <a href="admin\dashboard\cate">Quản Lý Danh Mục</a> | <a href="{!! route('getPayment')!!}">Thanh Toán</a>
+        					<a href="{!! route('admin')!!}">Quản Lý Nhân Viên</a> | <a href="admin\dashboard\cate">Quản Lý Danh Mục</a> | <a href="{!! route('getPayment')!!}">Thanh Toán</a> | <a href="{!! route('getAdminRefund')!!}">Trả vé</a>
         				</td>
         				<td align="right">
         					Xin chào {!! Auth::User() -> username !!} | <a href="{!! url('logout')!!}">Logout</a>
