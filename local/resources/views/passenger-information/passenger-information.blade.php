@@ -185,14 +185,14 @@
 			<div class="tickets-information">
 				<table class="table">
 					<tr style="background-color: #eee;">
-						<th style="width: 180px">Họ tên</th>
+						<th style="width: 18%">Họ tên</th>
 						<th>Số CMND/ Hộ chiếu/ Ngày tháng năm sinh trẻ em</th>
-						<th style="width: 130px">Đối tượng</th>
-						<th style="width: 150px">Thông tin chỗ</th>
-						<th style="width: 76px">Giá vé</th>
-						<th style="width: 84px">Giảm đối tượng</th>
-						<th style="width: 100px">Thành tiền</th>
-						<th style="width: 25px"></th>
+						<th style="width: 13%">Đối tượng</th>
+						<th style="width: 15%">Thông tin chỗ</th>
+						<th style="width: 8%">Giá vé</th>
+						<th style="width: 9%">Giảm đối tượng</th>
+						<th style="width: 10%">Thành tiền</th>
+						<th style="width: 3%"></th>
 					</tr>
 					@foreach($waitSeats as $ws)
 					<script type="text/javascript">
@@ -222,7 +222,7 @@
 							</div>
 						</td>
 						<td>
-							<p id="{{$seatInfoID}}-select-price">{{$ws->price}},000</p>
+							<p id="{{$seatInfoID}}-select-price">{{$ws->price}}</p>
 						</td>
 						<td>
 							<p id="{{$seatInfoID}}-select-discount">0</p>
@@ -252,7 +252,7 @@
 							<p style="font-weight: bold;">Tổng tiền</p>
 						</td>
 						<td>
-							<p id="total-cost" style="font-weight: bold;">1,100,000</p>
+							<p id="total-cost" style="font-weight: bold;">0</p>
 						</td>
 						<td></td>
 					</tr>
@@ -419,8 +419,8 @@
 		function selectChange(e){
 
 			var cost = parseInt($('#'+e.id+'-price').html()) - passengerDiscount[e.value];
-			$('#'+e.id+'-discount').html(passengerDiscount[e.value]+',000');
-			$('#'+e.id+'-cost').html(cost+',000');
+			$('#'+e.id+'-discount').html(passengerDiscount[e.value]);
+			$('#'+e.id+'-cost').html(cost);
 			simTotalCost();
 		}
 
@@ -435,7 +435,7 @@
 				var cost = parseInt(costString);
 				sum+=cost;
 			}
-			$('#total-cost').html(sum+',000');
+			$('#total-cost').html(sum);
 		}
 
 		function deleteTicket(seatID, tripID, sIL, sIA){

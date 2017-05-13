@@ -5,7 +5,7 @@
 	<meta name="author" content="QuocTuan.Info" />
     <!-- <link rel="stylesheet" href="/Web-Book-Train-Ticket-Online/css/style.css" /> -->
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/admin/style.css') }}">
-	<title>Login</title>
+	<title>Sign up</title>
 </head>
 <body>
 <div id="layout">
@@ -17,7 +17,7 @@
         </div>
     </div>
     <div id="main">    
-		<form action="" method="POST" style="width: 650px; margin: 30px auto;">
+		<form action="sign-up" method="POST" style="width: 650px; margin: 30px auto;">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
             
             @if (count($errors) > 0)

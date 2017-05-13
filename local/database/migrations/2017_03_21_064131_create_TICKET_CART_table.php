@@ -19,9 +19,9 @@ class CreateTICKETCARTTable extends Migration
             $table->string('name', 50);
             $table->string('type_passenger', 20);
             $table->string('ticket_information');
-            $table->float('price', 8, 2);
-            $table->float('discount', 8, 2);
-            $table->float('cost', 8, 2);
+            $table->bigInteger('price');
+            $table->bigInteger('discount');
+            $table->bigInteger('cost');
             $table->datetime('date_sell');
             $table->unsignedInteger('payment_type')->nullable(); //1: online, 2: pay later
             $table->unsignedInteger('bill_id')->nullable();

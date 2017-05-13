@@ -217,7 +217,7 @@
 						</div>
 						<div class="col-md-6">
 							<p class="alert-p2">
-								{{$sumFare}},000 VND
+								{{$sumFare}} VND
 							</p>
 						</div>
 					</div>
@@ -292,11 +292,16 @@
 	    </div>
 	</div>
 	<script type="text/javascript">
+
+		var isClick = false;
 		var billID = {{$billID}};
 		function onCancel(){
-
+			window.location.href = 'my-tickets';
 		}
 		function onAccept(){
+
+			if(isClick) return;
+			isClick = true;
 			var bankID = $('#bankID').val();
 			var accountHolder = $('#accountHolder').val();
 			var cardID = $('#cardID').val();
@@ -318,15 +323,19 @@
 						break;
 					case 4:
 						alert(response.message);
+						isClick = false;
 						break;
 					case 6:
 						alert(response.message);
+						isClick = false;
 						break;
 					case 7:
 						alert(response.message);
+						isClick = false;
 						break;
 					default:
 						alert(response.message);
+						isClick = false;
 						break;
 				}
 			});
