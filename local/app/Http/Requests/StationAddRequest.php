@@ -24,6 +24,7 @@ class StationAddRequest extends FormRequest
     public function rules()
     {
         return [
+            'txtStationName' => 'required|unique:station,name',
             'txtStationName' => 'required',
             'txtCity' => 'required',
             'txtAddress' => 'required',
@@ -33,6 +34,7 @@ class StationAddRequest extends FormRequest
     public function messages(){
         return[
             'txtStationName.required' => 'Vui lòng nhập Tên Ga',
+            'txtStationName.unique'=>'Tên Ga đã tồn tại.'
             'txtCity.required' => 'Vui lòng nhập Tên Thành Phố',
             'txtAddress.required' => 'Vui lòng nhập Địa Chỉ',
             'txtDistance.required' => 'Vui lòng nhập Khoảng Cách'

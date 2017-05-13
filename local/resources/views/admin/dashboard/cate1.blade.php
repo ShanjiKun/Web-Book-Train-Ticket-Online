@@ -19,14 +19,14 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/lib/bootstrap-datepicker.css') }}" />
     <script type="text/javascript" src="{{ asset('/js/lib/bootstrap-datepicker.js') }}"></script>
 
-	<title>Admin Area :: @yield('title')</title>
+	<title>Admin Area :: Trang Danh Mục</title>
 </head> 
     <body>
         <div id="layout">
             <div id="top">
                 <div class="banner-left-logo">
                     <div class="banner-right">
-                        Admin Area :: @yield('logo')
+                        Admin Area :: Trang Danh Mục
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
         		<table width="100%">
         			<tr>
         				<td>
-        					<a href="{!! route('admin')!!}">Quản Lý Nhân Viên</a> | <a href="admin\dashboard\cate">Quản Lý Danh Mục</a> | <a href="{!! route('getPayment')!!}">Thanh Toán</a>
+        					<a href="admin\dashboard\cate">Quản Lý Danh Mục</a> | <a href="{!! route('getPayment')!!}">Thanh Toán</a>
         				</td>
         				<td align="right">
         					Xin chào {!! Auth::User() -> username !!} | <a href="{!! url('logout')!!}">Logout</a>
@@ -45,7 +45,24 @@
             <div id="main">
                 @include('admin\block\error')
                 @include('admin\block\flash')
-        		@yield('content')
+        		<table class="function_table" style="margin: 0px auto;">
+
+    <tr>
+        <td class="function_item trip_add"><a href="{!! route('getTripAdd')!!}">Thêm Chuyến Tàu</a></td>
+        <td class="function_item train_add"><a href="{!! route('getTrainAdd')!!} ">Thêm Tàu</a></td>
+        <td class="function_item car_add"><a href="{!! route('getCarAdd')!!} ">Thêm Toa Tàu</a></td>
+        <td class="function_item station_add"><a href="{!! route('getStationAdd')!!}">Thêm Ga Tàu</a></td>
+        <td class="function_item user_list"><a href="{!! route('getUserList')!!}">Quản Lý Users</a></td>
+        
+    </tr>   
+    <tr>
+        <td class="function_item trip_list"><a href="{!! route('getTripList')!!}">Quản Lý Chuyến Tàu</a></td>
+        <td class="function_item train_list"><a href="{!! route('getTrainList')!!} "> Quản Lý Tàu</a></td>
+        <td class="function_item car_list"><a href="{!! route('getCarList')!!} ">Quản Lý Toa Tàu</a></td>
+        <td class="function_item station_list"><a href="{!! route('getStationList')!!}">Quản Lý Ga Tàu</a></td>
+        <td class="function_item chart_list"><a href="admin\dashboard\chart">Thống kê</a></td>
+    </tr>
+</table>   
         	</div>
             <div id="bottom">
             	<div class="et-col-md-12 text-center" style="font-size: 10px; color: #999;">

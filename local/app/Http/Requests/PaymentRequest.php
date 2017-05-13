@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TrainAddRequest extends FormRequest
+class PaymentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,17 +24,12 @@ class TrainAddRequest extends FormRequest
     public function rules()
     {
         return [
-            'txtTrainName' => 'required|unique:train,name',
-            'txtTrainName' => 'required',
-            'txtFare' => 'required'
+            'txtId' => 'required'
         ];
     }
     public function messages(){
         return[
-            'txtTrainName.required' => 'Vui lòng nhập tên tàu',
-            'txtTrainName.unique' => 'Tên Tàu đã tồn tại',
-            'txtFare.required' => 'Vui lòng nhập Giá tàu'
-            
+            'txtId.required' => 'Vui lòng nhập Mã thanh toán'
         ];
     }
 }
