@@ -16,6 +16,7 @@ class PaymentController extends Controller
     	$billID = $requests ->txtId;
     	$transactionID = $billID.time();
 		$bill = Bill::find($billID);
+        if(empty($bill)) return redirect()->back()->withErrors(['error' => 'Mã thanh toán không hợp lệ!']);
         $bill->transaction_id = $transactionID;
         $bill->own_time = 0;
         $bill->save();

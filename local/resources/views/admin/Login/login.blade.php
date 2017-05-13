@@ -12,7 +12,7 @@
     <div id="top">
         <div class="banner-left-logo">
             <div class="banner-right">
-                Login
+                Đăng Nhập
             </div>
         </div>
     </div>
@@ -35,11 +35,11 @@
                     <tr>
                         <td class="login_img"></td>
                         <td>
-                            <span class="form_label">Username:</span>
+                            <span class="form_label">Tên Đăng Nhập:</span>
                             <span class="form_item">
                                 <input type="text" name="txtUser" placeholder="UserName" class="textbox" />
                             </span><br />
-                            <span class="form_label">Password:</span>
+                            <span class="form_label">Mật Khẩu:</span>
                             <span class="form_item">
                                 <input type="password" name="txtPass" placeholder="Password" class="textbox" />
                             </span><br />

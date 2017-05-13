@@ -25,7 +25,7 @@
 		</span><br />
 		<span class="form_label"></span>
 		<span class="form_item">
-			<input type="submit" name="btnStationEdit" value="Sửa" class="button" onclick="return acceptDelete('Bạn có muốn sửa không')"/>
+			<input type="submit" name="btnStationEdit" value="Sửa Ga Tàu" class="button" onclick="return acceptDelete('Bạn có muốn sửa không')"/>
 		</span>
 	</fieldset>
 </form>  

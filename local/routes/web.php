@@ -76,7 +76,7 @@ Route::group(['prefix'=>'admin'],function(){
    		$num_ticket_wait = DB::table('ticket_sold')->where('state','W')->count();
                // return $num_price;
 		return view('admin/dashboard/chart',['user' => $user, 'user1' => $user1,'user2' => $user2,'station'=>$station, 
-											'train'=>$train, 'trip'=> $trip,'car' => $car,'num_users' => $num_users]);
+											'train'=>$train, 'trip'=> $trip,'car' => $car,'num_users' => $num_users,'num_ticket_sold'=>$num_ticket_sold,'num_ticket_wait'=>$num_ticket_wait]);
 	});
 });
 
