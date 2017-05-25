@@ -205,7 +205,7 @@
 		function refund(billID, payType) {
 
 			if(payType == 2){
-				alert('Vé mua với hình thức trả sau, quý khác vui lòng đến đến các đại lý để trả vé!');
+				alert('Vé mua với hình thức trả sau, quý khách vui lòng sử dụng mà thanh toán '+billID+' đến đến các đại lý để trả vé!');
 				return;
 			}
 

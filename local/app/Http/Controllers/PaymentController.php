@@ -27,15 +27,18 @@ class PaymentController extends Controller
 
     	return redirect()->route('getBillList')->with(['flash_level'=> 'result_msg', 'flash_message'=> 'Thanh toán thành công']);
     }
-    public function getBillList(){
+    public function getBillList(Request $request){
         //$data = Car::select('car_id','name','num_seat','train_id','type_seat_id','ordinal')->get()->toArray();//join->tên tàu
         
-        $data = DB::table('bill AS b')
-            ->join('users', 'b.user_id', '=', 'users.user_id')
-            ->select('b.bill_id','users.name','b.transaction_id','b.sum_fare')
-            ->orderBy('b.bill_id', 'ASC')
-            ->get()->toArray();
-        return view('admin\Bill\bill-list',['data'=> $data]);
+        // $data = DB::table('bill AS b')
+        //     ->join('users', 'b.user_id', '=', 'users.user_id')
+        //     ->select('b.bill_id','users.name','b.transaction_id','b.sum_fare')
+        //     ->orderBy('b.bill_id', 'ASC')
+        //     ->get()->toArray();
+        // $billID = $request->billID;
+        // $data = DB::SELECT('SELECT * FROM bill WHERE billID = '.$billID);
+        // return view('admin\Bill\bill-list',['data'=> $data]);
+        return view('admin\Bill\bill-list');
     }
 
     public function getAdminRefund(){
@@ -80,7 +83,8 @@ class PaymentController extends Controller
         $query = "UPDATE bill SET state = 'C' WHERE bill_id = ".$billID;
         DB::select($query);
 
-        return redirect()->route('getAdminRefundSuccess')->with(['message' => 'Hủy đơn hàng thành công!']);
+        // return redirect()->route('getAdminRefundSuccess')->with(['message' => 'Hủy đơn hàng thành công!']);
+        return view('admin\Bill\admin-refund-success', ['message' => 'Hủy đơn hàng thành công!']);
     }
 
     public function getAdminRefundSuccess(){
