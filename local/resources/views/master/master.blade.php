@@ -61,7 +61,7 @@
 							var html = '<div class="user-info">'+
 											'<p>'+user.username+'</p>'+
 											'<p> | </p>'+
-											'<a href="logout">Sign out</a>'+
+											'<a href="logout">Đăng xuất</a>'+
 										'</div>';
 							document.getElementById("user-area").innerHTML = html;
 						}
